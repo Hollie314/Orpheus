@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: CCS TEST
+  m_Name: CCS TEST 1
   m_Shader: {fileID: -6465566751694194690, guid: d82cbe4151b818d4bb9360b13129a982, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -57,13 +57,16 @@ Material:
     m_Floats:
     - _Added_Contrast: 1.05
     - _Added_Saturation: 1.27
+    - _Highlight_amount: 0.95
+    - _Outline_thinness: 0.75
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _Shadow_Amount: 0.4
+    - _Shadow_Amount: 0.53
     - _Use_Uniform_Base_Color: 0
-    - _Use_Uniform_Outline_color: 0
+    - _Use_Uniform_Outline_color: 1
     m_Colors:
-    - _Outline_Color: {r: 0.23148258, g: 0.026477398, b: 0.3301887, a: 0}
+    - _Highlight_Color: {r: 1, g: 0.944682, b: 0.3726415, a: 0}
+    - _Outline_Color: {r: 0, g: 0, b: 0, a: 0}
     - _Shadow_Color: {r: 0.7822243, g: 0.3915094, b: 1, a: 0}
     - _Uniform_Base_Color: {r: 1, g: 0.5052356, b: 0.10849059, a: 0}
   m_BuildTextureStacks: []
