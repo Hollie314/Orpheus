@@ -24,9 +24,7 @@ namespace Core
         
         public void OnMove(InputAction.CallbackContext context)
         {
-            Debug.Log(context.ReadValue<Vector2>());
             movementInput = context.ReadValue<Vector2>();
-
             if (context.canceled)
             {
                 movementInput = Vector2.zero;
