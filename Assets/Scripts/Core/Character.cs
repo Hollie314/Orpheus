@@ -6,13 +6,13 @@ namespace Core
     [RequireComponent(typeof(Rigidbody))]
     public class Character : MonoBehaviour, IMovable
     {
-        [SerializeField]
-        public Transform center;         // Center of the ring
-        public float radius = 5f;        // Radius of the ring
-        public float speed = 1f;         // Angular speed (radians per second)
-
+        [field:SerializeField] public Transform center {get; private set; }   // Transform of the ring we're on so we get the center
+        [field:SerializeField] public float radius {get; private set; } = 5f ;   // Radius of the ring
+        [SerializeField] private float speed = 10f;       // linear speed (unit per second)
         private float angle = 0f;        // Current angle around the ring
-       [SerializeField]
+        private float direction = 0;
+       
+        [SerializeField]
         private Rigidbody rb;
 
         private Vector2 movementInput = new Vector2(1,1);
@@ -21,12 +21,19 @@ namespace Core
         {
             rb = GetComponent<Rigidbody>();
         }
-        
+
+        public void SetRing(Transform ring, float radius)
+        {
+            center = ring;
+            this.radius = radius;
+        }
         public void OnMove(InputAction.CallbackContext context)
         {
             movementInput = context.ReadValue<Vector2>();
+            direction = context.ReadValue<Vector2>().x;
             if (context.canceled)
             {
+                direction = 0;
                 movementInput = Vector2.zero;
             }
         }
@@ -35,11 +42,11 @@ namespace Core
         {
             
         }
-        void Update()
+        void FixedUpdate()
         {
-            if (movementInput.x != 0)
+            if (direction!= 0)
             {
-                MoveOnRing(movementInput.x);
+                MoveOnRing();
             }
         }
 
@@ -56,26 +63,33 @@ namespace Core
             }
         }
 
+        public void SetAngle(float angle)
+        {
+            this.angle = angle;
+        }
+
+        public void MoveOnRing()
+        {
+            angle = GetAngle(); //get actual angle
+            angle += GetAngularSpeed() * direction * Time.deltaTime; //calculate new angle based on speed
+            Vector3 newposition = OrbitalMath.GetPositionFromAngle(center.position, radius, angle); //calculate new position
+            rb.MovePosition(new Vector3(newposition.x, rb.position.y,newposition.z)); //move to position
+            newposition = OrbitalMath.ClampToRing(rb.position, center.position, radius); //calculate clamped position
+           // rb.MovePosition(new Vector3(newposition.x, rb.position.y, newposition.z)); //clamp to ring
+            
+            Vector3 tangentDir = OrbitalMath.GetTangent(rb.position, center.position, direction);
+            Vector3 lookTarget = rb.position + tangentDir;
+            transform.LookAt(lookTarget);
+        }
+
         public float GetAngle()
         {
             return OrbitalMath.GetAngleFromPosition(center.position, rb.position);
         }
-
-        public void SetAngle(float angle)
+        
+        public float GetAngularSpeed()
         {
-            angle = angle;
-        }
-
-        public void MoveOnRing(float direction)
-        {
-            angle = GetAngle();
-            angle += speed/radius * direction * Time.deltaTime;
-            Vector3 newposition = OrbitalMath.GetPositionOnRing(center.position, radius, angle);
-            rb.MovePosition(new Vector3(newposition.x, rb.position.y,newposition.z));
-            newposition = OrbitalMath.ClampToRing(rb.position, center.position, radius);
-            rb.position = new Vector3(newposition.x, rb.position.y, newposition.z);
-           // rb.rotation.SetLookRotation(OrbitalMath.GetTangent(rb.position, center.position, direction));
-            this.transform.LookAt(OrbitalMath.GetTangent(rb.position, center.position, direction));
+            return speed / radius;
         }
     }
 }

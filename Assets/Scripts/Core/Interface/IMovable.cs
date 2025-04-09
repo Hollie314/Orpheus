@@ -4,5 +4,5 @@ public interface IMovable
 {
     float GetAngle();
     void SetAngle(float angle);
-    void MoveOnRing(float direction);
+    void MoveOnRing();
 }
