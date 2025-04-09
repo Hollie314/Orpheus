@@ -8,33 +8,33 @@ namespace Core
     {
         [field:SerializeField] public Transform center {get; private set; }   // Transform of the ring we're on so we get the center
         [field:SerializeField] public float radius {get; private set; } = 5f ;   // Radius of the ring
-        [SerializeField] private float speed = 10f;       // linear speed (unit per second)
-        private float angle = 0f;        // Current angle around the ring
-        private float direction = 0;
-       
-        [SerializeField]
+        
+        public (Transform, float) ring {get; private set; }
+        private float angle = 0f;   // Current angle on the ring
+        private float direction = 0;    //current direction (left/right)
+        
+        [SerializeField] private float speed = 10f; // linear speed (unit per second)
         private Rigidbody rb;
-
-        private Vector2 movementInput = new Vector2(1,1);
 
         void Start()
         {
             rb = GetComponent<Rigidbody>();
+            
+            //changed how it's set later with the ring system
+            SetRing(center, radius);
         }
+        
 
         public void SetRing(Transform ring, float radius)
         {
-            center = ring;
-            this.radius = radius;
+            this.ring = (ring, radius);
         }
         public void OnMove(InputAction.CallbackContext context)
         {
-            movementInput = context.ReadValue<Vector2>();
             direction = context.ReadValue<Vector2>().x;
             if (context.canceled)
             {
                 direction = 0;
-                movementInput = Vector2.zero;
             }
         }
         
@@ -42,6 +42,7 @@ namespace Core
         {
             
         }
+        
         void FixedUpdate()
         {
             if (direction!= 0)
@@ -54,12 +55,8 @@ namespace Core
         {
             if (other.CompareTag("Enemy"))
             {
+                //todolater
                 Debug.Log("Hit an enemy!");
-            }
-
-            if (other.CompareTag("Hazard"))
-            {
-                Debug.Log("Touched a hazard!");
             }
         }
 
@@ -70,26 +67,32 @@ namespace Core
 
         public void MoveOnRing()
         {
+            //move on the ring
             angle = GetAngle(); //get actual angle
             angle += GetAngularSpeed() * direction * Time.deltaTime; //calculate new angle based on speed
-            Vector3 newposition = OrbitalMath.GetPositionFromAngle(center.position, radius, angle); //calculate new position
+            Vector3 newposition = OrbitalMath.GetPositionFromAngle(ring.Item1.position, ring.Item2, angle); //calculate new position
             rb.MovePosition(new Vector3(newposition.x, rb.position.y,newposition.z)); //move to position
-            newposition = OrbitalMath.ClampToRing(rb.position, center.position, radius); //calculate clamped position
-           // rb.MovePosition(new Vector3(newposition.x, rb.position.y, newposition.z)); //clamp to ring
             
-            Vector3 tangentDir = OrbitalMath.GetTangent(rb.position, center.position, direction);
+            //lookat direction
+            Vector3 tangentDir = OrbitalMath.GetTangent(rb.position, ring.Item1.position, direction);
             Vector3 lookTarget = rb.position + tangentDir;
             transform.LookAt(lookTarget);
         }
 
         public float GetAngle()
         {
-            return OrbitalMath.GetAngleFromPosition(center.position, rb.position);
+            return OrbitalMath.GetAngleFromPosition(ring.Item1.position, rb.position);
         }
         
         public float GetAngularSpeed()
         {
-            return speed / radius;
+            return speed / ring.Item2;
+        }
+
+        public void ClampToRing()
+        {
+            Vector3 newposition = OrbitalMath.ClampToRing(rb.position, ring.Item1.position, ring.Item2); //calculate clamped position
+            rb.MovePosition(new Vector3(newposition.x, rb.position.y, newposition.z)); //clamp to ring
         }
     }
 }

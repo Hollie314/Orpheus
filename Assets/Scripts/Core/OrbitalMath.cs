@@ -13,7 +13,6 @@ public static class OrbitalMath
         return Mathf.Atan2(dir.z, dir.x);
     }
     
-
     public static Vector3 ClampToRing(Vector3 position, Vector3 center, float radius)
     {
         return GetPositionFromAngle(center , radius,GetAngleFromPosition(center, position) );

@@ -4,25 +4,17 @@ using UnityEngine;
 
 public class OrbitalCamera : MonoBehaviour, IMovable
 {
-    public Transform target; // theplayer
     public Character mainCharacter; //the script
     [field : SerializeField] private float offset = 5f; //offset from the character
     private float radius; 
-    public float followSpeed = 10f; //it should
-
     private float angle;
-
-    private void Start()
-    {
-        UpdateRadius();
-        MoveOnRing();
-    }
+    private Transform center;
 
     void LateUpdate()
     {
-        UpdateRadius();
+        UpdateRing();
         MoveOnRing();
-        transform.LookAt(target.position);
+        transform.LookAt(mainCharacter.transform.position);
     }
 
     public float GetAngle()
@@ -38,12 +30,13 @@ public class OrbitalCamera : MonoBehaviour, IMovable
     public void MoveOnRing()
     {
         this.angle = GetAngle();
-        Vector3 newposition = OrbitalMath.GetPositionFromAngle(mainCharacter.center.position, radius, angle); //calculate new position
+        Vector3 newposition = OrbitalMath.GetPositionFromAngle(center.position, radius, angle); //calculate new position
         transform.position = new Vector3(newposition.x, transform.position.y, newposition.z);
     }
 
-    public void UpdateRadius()
+    public void UpdateRing()
     {
-        radius = mainCharacter.radius + offset;
+        radius = mainCharacter.ring.Item2 + offset;
+        center = mainCharacter.ring.Item1;
     }
 }
