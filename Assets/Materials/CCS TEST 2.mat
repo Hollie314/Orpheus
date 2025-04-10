@@ -1,0 +1,100 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: CCS TEST 2
+  m_Shader: {fileID: -6465566751694194690, guid: 5f184a10d4463f04c8f90fff466b8be6, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses:
+  - MOTIONVECTORS
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _Base_Color:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Emissive:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Shading_Gradient:
+        m_Texture: {fileID: 2800000, guid: c698f8c117c022a4683346847857dd59, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Texture2D:
+        m_Texture: {fileID: 2800000, guid: dbdb4e050e028a041b958ec9f326f446, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _Added_Contrast: 1
+    - _Added_Saturation: 1
+    - _Emission_Strentgh: 0
+    - _Fresnel_Angle: 1
+    - _Fresnel_Size: 9.7
+    - _Gloss_Size: 22
+    - _Highlight_amount: 0.7
+    - _Outline_thinness: 0.59
+    - _QueueControl: 0
+    - _QueueOffset: 0
+    - _Shadow_Amount: 0.5
+    - _Use_Uniform_Base_Color: 0
+    - _Use_Uniform_Emissive: 0
+    - _Use_Uniform_Outline_color: 0
+    m_Colors:
+    - _Color: {r: 1, g: 1, b: 1, a: 0}
+    - _Emission_Color: {r: 0, g: 0, b: 0, a: 0}
+    - _Fresnel_Intensity: {r: 6.964405, g: 6.964405, b: 6.964405, a: 0}
+    - _Gloss_Intensity: {r: 4, g: 4, b: 4, a: 0}
+    - _Highlight_Color: {r: 0.9254902, g: 0.8882546, b: 0.7940706, a: 0}
+    - _L1_color: {r: 0.8, g: 0.8, b: 0.8, a: 0.99}
+    - _L1_dir: {r: -0.1742663, g: 0.09302802, b: -0.98029435, a: 0}
+    - _L2_color: {r: 0.15329953, g: 1.2801328, b: 2.1666336, a: 0.112605035}
+    - _L2_dir: {r: 0.7445033, g: -0.48089936, b: -0.46308815, a: 0}
+    - _L3_color: {r: 2.1129346, g: 0.5880337, b: 0.5880337, a: 0.08499334}
+    - _L3_dir: {r: -0.39011312, g: 0.7314617, b: 0.5592634, a: 0}
+    - _Outline_Color: {r: 0.8509804, g: 0.6941177, b: 0.9254902, a: 0}
+    - _Shadow_Color: {r: 0.8518527, g: 0.6933962, b: 0.9245283, a: 0}
+    - _Uniform_Base_Color: {r: 0, g: 0, b: 0, a: 0}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
+--- !u!114 &1837101176415751876
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 9
