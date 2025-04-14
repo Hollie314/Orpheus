@@ -24,6 +24,19 @@ namespace Core
             SetRing(center, radius);
         }
         
+        void FixedUpdate()
+        {
+            if (direction!= 0)
+            {
+                MoveOnRing();
+            }
+            if (Input.GetKeyDown(KeyCode.C))
+            {
+                KnockBack(-10f);
+            }
+            // ClampToRing();
+        }
+        
 
         public void SetRing(Transform ring, float radius)
         {
@@ -43,14 +56,6 @@ namespace Core
             
         }
         
-        void FixedUpdate()
-        {
-            if (direction!= 0)
-            {
-                MoveOnRing();
-            }
-        }
-
         void OnTriggerEnter(Collider other)
         {
             if (other.CompareTag("Enemy"))
@@ -65,13 +70,33 @@ namespace Core
             this.angle = angle;
         }
 
+        public void KnockBack(float force)
+        {
+            //c'est de la merde
+            angle = GetAngle(); //get actual angle
+            angle += GetAngularSpeed(force) * Time.deltaTime; //calculate new angle based on speed
+            Vector3 newposition = OrbitalMath.GetPositionFromAngle(ring.Item1.position, ring.Item2, angle); //calculate new position
+            rb.MovePosition(new Vector3(newposition.x, rb.position.y,newposition.z)); //move to position
+            Lookforward();
+
+        }
+
+        public void Lookforward()
+        {
+            //lookat direction
+            Vector3 tangentDir = OrbitalMath.GetTangent(rb.position, ring.Item1.position, rb.transform.forward.x);
+            Vector3 lookTarget = rb.position + tangentDir;
+            transform.LookAt(lookTarget);
+        }
+        
         public void MoveOnRing()
         {
             //move on the ring
             angle = GetAngle(); //get actual angle
-            angle += GetAngularSpeed() * direction * Time.deltaTime; //calculate new angle based on speed
+            angle += GetAngularSpeed(speed) * direction * Time.deltaTime; //calculate new angle based on speed
             Vector3 newposition = OrbitalMath.GetPositionFromAngle(ring.Item1.position, ring.Item2, angle); //calculate new position
             rb.MovePosition(new Vector3(newposition.x, rb.position.y,newposition.z)); //move to position
+            
             
             //lookat direction
             Vector3 tangentDir = OrbitalMath.GetTangent(rb.position, ring.Item1.position, direction);
@@ -84,9 +109,9 @@ namespace Core
             return OrbitalMath.GetAngleFromPosition(ring.Item1.position, rb.position);
         }
         
-        public float GetAngularSpeed()
+        public float GetAngularSpeed(float force)
         {
-            return speed / ring.Item2;
+            return force / ring.Item2;
         }
 
         public void ClampToRing()
