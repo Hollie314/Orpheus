@@ -184,7 +184,7 @@ GameObject:
   - component: {fileID: 3418128531474202239}
   - component: {fileID: 5353941150568039324}
   m_Layer: 0
-  m_Name: Mur
+  m_Name: 'pilier '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -198,13 +198,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4915459503837928612}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.03177242, z: -0, w: 0.99949515}
-  m_LocalPosition: {x: 0.073, y: 0, z: 0.171}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: 0.04035902, z: -0, w: 0.99918526}
+  m_LocalPosition: {x: -0.30537343, y: 0.01413399, z: -0.35133862}
+  m_LocalScale: {x: 1.2383049, y: 1.0307013, z: 1.2383049}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 680968146947218561}
-  m_LocalEulerAnglesHint: {x: 0, y: 3.641, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 4.626, z: 0}
 --- !u!33 &3418128531474202239
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -570,7 +570,7 @@ GameObject:
   - component: {fileID: 8326989624332161615}
   - component: {fileID: 4898166912556211641}
   m_Layer: 0
-  m_Name: Pipe
+  m_Name: Anneau Large 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
