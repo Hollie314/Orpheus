@@ -5,7 +5,7 @@ using UnityEngine;
 public class OrbitalCamera : MonoBehaviour, IMovable
 {
     public Character mainCharacter; //the script
-    [field : SerializeField] private float offset = 5f; //offset from the character
+    [field : SerializeField] private float offset = 2f; //offset from the character
     private float radius; 
     private float angle;
     private Transform center;
