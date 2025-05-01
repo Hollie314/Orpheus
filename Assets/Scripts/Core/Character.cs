@@ -7,8 +7,18 @@ using UnityEngine.InputSystem;
 namespace Core
 {
     [RequireComponent(typeof(Rigidbody))]
-    public class Character : OrbitalActor, IMovable
+    public class Character : OrbitalActor
     {
+        protected override void Start()
+        {
+            base.Start();
+            JumpOnRing();
+        }
+        
+        protected void FixedUpdate()
+        {
+            base.FixedUpdate();
+        }
         
         public void OnMove(InputAction.CallbackContext context)
         {
@@ -44,6 +54,11 @@ namespace Core
                             break;
                     }
             }
+        }
+
+        public void OnJump()
+        {
+            
         }
         
         void OnTriggerEnter(Collider other)

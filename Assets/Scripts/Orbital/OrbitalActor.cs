@@ -18,7 +18,7 @@ namespace Core
         protected float angle = 0f;   // Current angle on the ring
         protected float direction = 0;  //current direction (left/right)
         protected bool isMoving;    
-        protected float radiusOffset = 0.2f;
+        protected float radiusOffset = 0f;
         
         [Header("Character Stats")]
         [SerializeField] private float speed = 10f; // linear speed (unit per second)
@@ -28,7 +28,7 @@ namespace Core
         protected Rigidbody rb;
         protected Tween jump;
 
-        void Start()
+        protected virtual void Start()
         {
             rb = GetComponent<Rigidbody>();
             canMove = true;
@@ -37,20 +37,25 @@ namespace Core
             ring_index = 0;
             SetRing(center[ring_index], radius[ring_index]);
         }
-        
-        void FixedUpdate()
+
+        protected void FixedUpdate()
         {
             if (isMoving)
             {
                 MoveOnRing();
             }
+            Lookforward(Time.fixedTime);
         }
 
-        public void SetRing(Transform ring, float radius)
+        protected void SetRing(Transform ring, float radius)
         {
             this.ring = (ring, radius);
+        }
+
+        protected void JumpOnRing()
+        {
             canMove = false;
-            Vector3 target = OrbitalMath.ClampToRing(rb.position, ring.position, radius); //calculate position on next ring
+            Vector3 target = OrbitalMath.ClampToRing(rb.position, ring.Item1.position, ring.Item2); //calculate position on next ring
             jump = rb.transform.DOJump(target, 0.3f, 1, 0.3f, false)
                 .OnComplete(() =>
                 {
@@ -67,13 +72,8 @@ namespace Core
                 //faire un raycast pour voir s'il n'y a pas d'obstacle
                 this.ring_index = ring_index;
                 SetRing(center[ring_index], radius[ring_index]);
+                JumpOnRing();
             }
-        }
-        
-        
-        void OnTriggerEnter(Collider other)
-        {
-            
         }
 
         public void SetAngle(float angle)
@@ -82,14 +82,14 @@ namespace Core
         }
         
 
-        public void MoveOnRing()
+        protected void MoveOnRing()
         {
             //move on the ring
             angle = GetAngle(); //get actual angle
             angle += GetAngularSpeed(speed) * direction * Time.deltaTime; //calculate new angle based on speed
             Vector3 newposition = OrbitalMath.GetPositionFromAngle(ring.Item1.position, ring.Item2, angle); //calculate new position
             rb.MovePosition(new Vector3(newposition.x, rb.position.y,newposition.z)); //move to position
-            Lookforward();
+            
         }
         
         public void KnockBack(Vector3 force)
@@ -102,16 +102,18 @@ namespace Core
             angle += GetAngularSpeed(forwardforce) * direction * Time.deltaTime; //calculate new angle based force and direction
             Vector3 newposition = OrbitalMath.GetPositionFromAngle(ring.Item1.position, ring.Item2, angle); //calculate new position
             rb.MovePosition(new Vector3(newposition.x, upforce,newposition.z)); //move to position
-           
-            Lookforward();
         }
 
-        public void Lookforward()
+        protected void Lookforward(float time)
         {
             //tangent of the ring
-            Vector3 tangentDir = OrbitalMath.GetTangent(rb.position, ring.Item1.position, direction);
-            Vector3 lookTarget = rb.position + tangentDir;
-            transform.LookAt(lookTarget);
+            Vector3 currentposition = rb.position;
+            Vector3 tangentDir = OrbitalMath.GetTangent(currentposition, ring.Item1.position, direction);
+            Vector3 lookTarget = currentposition + tangentDir;
+            //transform.LookAt(lookTarget);
+            
+            Quaternion targetRotation = Quaternion.LookRotation(lookTarget - currentposition);
+            rb.rotation = Quaternion.Slerp(rb.rotation, targetRotation, time);
         }
 
         public float GetAngle()
