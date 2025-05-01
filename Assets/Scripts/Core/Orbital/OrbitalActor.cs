@@ -38,7 +38,7 @@ namespace Core
             SetRing(center[ring_index], radius[ring_index]);
         }
 
-        protected void FixedUpdate()
+        protected virtual void FixedUpdate()
         {
             if (isMoving)
             {
@@ -89,7 +89,6 @@ namespace Core
             angle += GetAngularSpeed(speed) * direction * Time.deltaTime; //calculate new angle based on speed
             Vector3 newposition = OrbitalMath.GetPositionFromAngle(ring.Item1.position, ring.Item2, angle); //calculate new position
             rb.MovePosition(new Vector3(newposition.x, rb.position.y,newposition.z)); //move to position
-            
         }
         
         public void KnockBack(Vector3 force)
@@ -124,17 +123,6 @@ namespace Core
         public float GetAngularSpeed(float force)
         {
             return force / ring.Item2;
-        }
-
-        public void ClampToRing()
-        {
-            //check if too far from the center of the ring
-            if (Vector3.Distance(rb.position, ring.Item1.position) - ring.Item2 > radiusOffset)
-            {
-                Debug.Log("toofar");
-                Vector3 newposition = OrbitalMath.ClampToRing(rb.position, ring.Item1.position, ring.Item2); //calculate clamped position
-                rb.MovePosition(new Vector3(newposition.x, rb.position.y, newposition.z)); //clamp to ring
-            }
         }
     }
 }

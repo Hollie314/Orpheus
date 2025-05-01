@@ -15,7 +15,7 @@ namespace Core
             JumpOnRing();
         }
         
-        protected void FixedUpdate()
+        protected override void FixedUpdate()
         {
             base.FixedUpdate();
         }
