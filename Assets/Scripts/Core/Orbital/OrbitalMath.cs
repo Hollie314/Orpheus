@@ -15,7 +15,7 @@ public static class OrbitalMath
     
     public static Vector3 ClampToRing(Vector3 position, Vector3 center, float radius)
     {
-        return GetPositionFromAngle(center , radius,GetAngleFromPosition(center, position) );
+        return GetPositionFromAngle(center , radius,GetAngleFromPosition(new Vector3(center.x,position.y,center.z), position) );
     }
 
     public static Vector3 GetTangent(Vector3 position, Vector3 center, float direction)
