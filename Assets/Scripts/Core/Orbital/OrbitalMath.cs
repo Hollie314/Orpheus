@@ -27,5 +27,18 @@ public static class OrbitalMath
         }
         return new Vector3(radiusDir.z, 0, -radiusDir.x);
     }
+
+    public static Vector3 PositionAfterRotation(Vector3 ringCenter, Vector3 ActorPosition, float velocity, float radius)
+    {
+        float angle = GetAngleFromPosition(ActorPosition,ringCenter);
+        angle += GetAngularVelocity(velocity, radius);
+        return GetPositionFromAngle(ringCenter, radius, angle);
+
+    }
+    
+    public static float GetAngularVelocity(float velocity, float radius)
+    {
+        return (velocity / radius);
+    }
 }
 

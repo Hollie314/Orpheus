@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -19,9 +20,10 @@ namespace Core.Player
 
         public override Vector2 GetVelocity(PlayerOrbitalController orbitalController)
         {
-            if (moveAction != null)
+            float xVelocity = moveAction.ReadValue<Vector2>().x;
+            if (xVelocity != null)
             {
-                return moveAction.ReadValue<Vector2>().normalized * maxSpeed;
+                return new Vector2(Math.Sign(xVelocity) * maxSpeed,0) ;
             }
             return Vector2.zero;
         }

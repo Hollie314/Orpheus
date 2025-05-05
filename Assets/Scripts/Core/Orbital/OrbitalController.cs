@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Codice.CM.Common;
 using Core;
 using UnityEngine;
 
@@ -44,6 +45,7 @@ public abstract class OrbitalController<T> : MonoBehaviour where T : OrbitalCont
         ComputeVelocity();
         ApplyGravity();
         Move();
+        Lookforward();
     }
 
     private T GetController() => this as T;
@@ -119,14 +121,15 @@ public abstract class OrbitalController<T> : MonoBehaviour where T : OrbitalCont
     }
     private void Move()
     {
+        float deltaTime = Time.deltaTime;
         
-        Vector3 newPosition = CurrentRing.GetPositionOnRing(rb.position, CurrentVelocity);
+        Vector3 newPosition = rb.position + new Vector3(CurrentVelocity.x, CurrentVelocity.y, 0) * deltaTime;
         var lastPosition = rb.position;
         Vector3 finalVelocity = newPosition - lastPosition;
+        Vector2 angularVelocity = new Vector2(CurrentRing.GetAngularSpeed(finalVelocity.x),finalVelocity.y) ;
 
-     
-
-        float deltaTime = Time.deltaTime;
+        
+        
         Vector3 p1 = lastPosition + cc.center + transform.up * (-cc.height * 0.25f);
         Vector3 p2 = p1 + transform.up * cc.height;
 
@@ -136,6 +139,8 @@ public abstract class OrbitalController<T> : MonoBehaviour where T : OrbitalCont
         for (int i = 0; i < maxPenetrationCount; i++)
         {
             Vector3 nextPosition = rb.position + collisionOffset + finalVelocity * deltaTime;
+            nextPosition = CurrentRing.GetPositionOnRing(rb.position+collisionOffset, angularVelocity);
+            //nextPosition = CurrentRing.ClampToRing(nextPosition);
             Vector3 nextP1 = p1 + collisionOffset;
             Vector3 nextP2 = p2 + collisionOffset;
             int count = Physics.OverlapCapsuleNonAlloc(nextP1, nextP2, cc.radius - 0.01f, colliders);
@@ -174,8 +179,8 @@ public abstract class OrbitalController<T> : MonoBehaviour where T : OrbitalCont
         }
         Debug.Log(finalVelocity);
         Vector3 nonOrbitalNewPosition = rb.position  + finalVelocity * deltaTime;//+ collisionOffset
-        //Vector3 orbitalNewPosition = CurrentRing.ClampToRing(nonOrbitalNewPosition);
-        rb.MovePosition(nonOrbitalNewPosition);
+        Vector3 orbitalNewPosition =  CurrentRing.GetPositionOnRing(rb.position+collisionOffset, angularVelocity);
+        rb.MovePosition(orbitalNewPosition);
     }
 
     private void CheckGround()
@@ -205,6 +210,20 @@ public abstract class OrbitalController<T> : MonoBehaviour where T : OrbitalCont
         }
     }
     
-    
+    protected void Lookforward()
+    {
+        if (CurrentVelocity.x != 0)
+        {
+            //tangent of the ring
+            Vector3 currentposition = rb.position;
+            Vector3 tangentDir = OrbitalMath.GetTangent(currentposition, CurrentRing.transform.position, Math.Sign(CurrentVelocity.x));
+            Vector3 lookTarget = currentposition + tangentDir;
+        
+            transform.LookAt(lookTarget);
+        
+            Quaternion targetRotation = Quaternion.LookRotation(lookTarget - currentposition);
+            rb.rotation = Quaternion.Slerp(rb.rotation, targetRotation, Time.deltaTime);
+        }
+    }
     
 }
