@@ -1,42 +1,45 @@
-using System;
-using Core;
+using Orpheus.Core.Interface;
+using Orpheus.Core.Orbital;
 using UnityEngine;
 
-public class OrbitalCamera : MonoBehaviour, IMovable
+namespace Orpheus.Core
 {
-    public Character mainCharacter; //the script
-    [field : SerializeField] private float offset = 2f; //offset from the character
-    private float radius; 
-    private float angle;
-    private Transform center;
-
-    void LateUpdate()
+    public class OrbitalCamera : MonoBehaviour, IMovable
     {
-        UpdateRing();
-        MoveOnRing();
-        transform.LookAt(mainCharacter.transform.position);
-    }
+        public Character mainCharacter; //the script
+        [field : SerializeField] private float offset = 2f; //offset from the character
+        private float radius; 
+        private float angle;
+        private Transform center;
 
-    public float GetAngle()
-    {
-        return mainCharacter.GetAngle();
-    }
+        void LateUpdate()
+        {
+            UpdateRing();
+            MoveOnRing();
+            transform.LookAt(mainCharacter.transform.position);
+        }
 
-    public void SetAngle(float angle)
-    {
-        this.angle = angle;
-    }
+        public float GetAngle()
+        {
+            return mainCharacter.GetAngle();
+        }
 
-    public void MoveOnRing()
-    {
-        this.angle = GetAngle();
-        Vector3 newposition = OrbitalMath.GetPositionFromAngle(center.position, radius, angle); //calculate new position
-        transform.position = new Vector3(newposition.x, transform.position.y, newposition.z);
-    }
+        public void SetAngle(float angle)
+        {
+            this.angle = angle;
+        }
 
-    public void UpdateRing()
-    {
-        radius = mainCharacter.ring.Item2 + offset;
-        center = mainCharacter.ring.Item1;
+        public void MoveOnRing()
+        {
+            this.angle = GetAngle();
+            Vector3 newposition = OrbitalMath.GetPositionFromAngle(center.position, radius, angle); //calculate new position
+            transform.position = new Vector3(newposition.x, transform.position.y, newposition.z);
+        }
+
+        public void UpdateRing()
+        {
+            radius = mainCharacter.ring.Item2 + offset;
+            center = mainCharacter.ring.Item1;
+        }
     }
 }

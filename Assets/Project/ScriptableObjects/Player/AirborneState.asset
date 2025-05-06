@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 071c467f4cad4172af565eeb192e2eae, type: 3}
-  m_Name: walkState
+  m_Script: {fileID: 11500000, guid: a1fa9de847a34f61a16737bfc50e442d, type: 3}
+  m_Name: AirborneState
   m_EditorClassIdentifier: 
   maxSpeed: 7
-  acceleration: 8
-  deceleration: 3
-  stopForce: 30
+  acceleration: 15
+  deceleration: 4
+  stopForce: 20

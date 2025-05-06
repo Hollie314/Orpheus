@@ -1,9 +1,8 @@
 using System;
-using System.Collections;
 using DG.Tweening;
 using UnityEngine;
 
-namespace Core
+namespace Orpheus.Core.Orbital
 {
     [RequireComponent(typeof(Rigidbody))]
     public abstract class OrbitalActor : MonoBehaviour

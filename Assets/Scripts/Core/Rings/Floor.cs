@@ -1,10 +1,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Floor : MonoBehaviour
+namespace Orpheus.Core.Rings
 {
-    public int floorIndex;
-    public float minY;
-    public float maxY;
-    public List<Ring> rings;
+    public class Floor : MonoBehaviour
+    {
+        public int floorIndex;
+        public float minY;
+        public float maxY;
+        public List<Ring> rings;
+    }
 }

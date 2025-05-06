@@ -1,8 +1,9 @@
-using UnityEngine;
-
-public interface IMovable
+namespace Orpheus.Core.Interface
 {
-    float GetAngle();
-    void SetAngle(float angle);
-    void MoveOnRing();
+    public interface IMovable
+    {
+        float GetAngle();
+        void SetAngle(float angle);
+        void MoveOnRing();
+    }
 }

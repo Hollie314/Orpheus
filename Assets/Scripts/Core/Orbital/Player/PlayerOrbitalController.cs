@@ -1,14 +1,15 @@
-using System;
+using NaughtyAttributes;
+using Orpheus.Core.Rings;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace Core.Player
+namespace Orpheus.Core.Orbital.Player
 {
     public class PlayerOrbitalController : OrbitalController<PlayerOrbitalController>
     {
         public PlayerInput PlayerInput { get; private set; }
-        [SerializeField] private PlayerMovementState[] defaultStates;
-        [SerializeField] private Ring ring;
+        [SerializeField, BoxGroup("Player")] private PlayerMovementState[] defaultStates;
+        [SerializeField, BoxGroup("Player")] private Ring ring;
         protected override void Awake()
         {
             base.Awake();
