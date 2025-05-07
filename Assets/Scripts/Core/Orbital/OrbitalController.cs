@@ -240,6 +240,6 @@ namespace Orpheus.Core.Orbital
                 rb.rotation = Quaternion.Slerp(rb.rotation, targetRotation, Time.deltaTime);
             }
         }
-    
+        
     }
 }

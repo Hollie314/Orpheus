@@ -7,7 +7,6 @@ namespace Orpheus.Core.Orbital.Player
     public abstract class PlayerControlledMovementState : PlayerMovementState
     {
         [SerializeField, BoxGroup("Base")] private float maxSpeed;
-        
         [SerializeField, BoxGroup("Base")] protected float acceleration;
         [SerializeField, BoxGroup("Base")] protected float deceleration;
         [SerializeField, BoxGroup("Base")] protected float stopForce;

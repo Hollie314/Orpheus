@@ -5,23 +5,22 @@ namespace Orpheus.Core.Rings
 {
     public class Ring : MonoBehaviour
     {
-        private int floorIndex;
-
         [field :SerializeField] public RingData RingData { get; private set; }
-    
+        private Floor floor;
 
-        public RingSize GetNextLarger(RingSize size)
+        public void Initialize(Floor floor)
         {
-            if ((int)size < RingSize.GetValues(typeof(RingSize)).Length - 1)
-                return (RingSize)((int)size + 1);
-            return size;
+            this.floor = floor;
+        }
+        
+        public Ring GetNextLarger()
+        {
+            return floor.GetBiggerRing(this);
         }
 
-        public RingSize GetNextSmaller(RingSize size)
+        public Ring GetNextSmaller()
         {
-            if ((int)size > 0)
-                return (RingSize)((int)size - 1);
-            return size;
+            return floor.GetSmallerRing(this);
         }
 
         private float GetAngle(Vector3 position)
