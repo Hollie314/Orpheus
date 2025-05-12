@@ -28,6 +28,8 @@ namespace Orpheus.Core.Orbital
         [field: ShowNonSerializedField]
         public bool IsGrounded { get; private set;}
         [field: ShowNonSerializedField]
+        public bool IsBlocked { get; private set;}
+        [field: ShowNonSerializedField]
         public Vector3 GroundNormal { get; private set; }
         [field: ShowNonSerializedField]
         public Vector3 GroundPosition { get; private set; }
@@ -143,7 +145,6 @@ namespace Orpheus.Core.Orbital
             //Debug.Log("current velocity on x : "+ CurrentVelocity.x+" final velocity on x : "+ finalVelocity.x);
         
             Vector2 angularVelocity = new Vector2(CurrentRing.GetAngularSpeed(CurrentVelocity.x),CurrentVelocity.y) ;
-        
             Vector3 p1 = lastPosition + cc.center + transform.up * (-cc.height * 0.25f);
             Vector3 p2 = p1 + transform.up * cc.height;
 
@@ -158,7 +159,9 @@ namespace Orpheus.Core.Orbital
                 Vector3 nextP1 = p1 + collisionOffset;
                 Vector3 nextP2 = p2 + collisionOffset;
                 int count = Physics.OverlapCapsuleNonAlloc(nextP1, nextP2, cc.radius - 0.01f, colliders);
-            
+
+                int numberOfObstacle = 0;
+                
                 if (count > 0)
                 {
                     for (int j = 0; j < count; j++)
@@ -174,6 +177,7 @@ namespace Orpheus.Core.Orbital
                         if (Physics.GetIgnoreCollision(c, cc))
                             continue;
 
+                        numberOfObstacle++;
                         Vector3 otherPosition = c.transform.position;
                         Quaternion otherRotation = c.transform.rotation;
 
@@ -185,9 +189,19 @@ namespace Orpheus.Core.Orbital
                             collisionOffset += offset;
                         }
                     }
+
+                    if (numberOfObstacle > 0 && !IsGrounded)
+                    {
+                        IsBlocked = true;
+                    }
+                    else
+                    {
+                        IsBlocked = false;
+                    }
                 }
                 else
                 {
+                    IsBlocked = false;
                     break;
                 }
             }

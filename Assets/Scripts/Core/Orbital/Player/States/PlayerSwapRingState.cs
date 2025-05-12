@@ -1,3 +1,5 @@
+using DG.Tweening;
+using Orpheus.Core.Rings;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -5,27 +7,46 @@ namespace Orpheus.Core.Orbital.Player
 {
     [CreateAssetMenu(fileName = "swapRingState", menuName = "Orpheus/Player/SwapRing", order = 0)]
     
-    public class PlayerSwapRingState : PlayerControlledMovementState
+    public class PlayerSwapRingState : PlayerMovementState
     {
         private InputAction swapInput;
-        private float swipe;
+        private float swipeDirection;
+        private Ring nextRing;
+        
+        private bool isSwapingRing;
+        private bool isSwapComplet;
+        private Tween jump;
 
         public override void Initialize(PlayerOrbitalController orbitalController)
         {
-            base.Initialize(orbitalController);
-            swapInput = orbitalController.PlayerInput.actions.FindActionMap("Player").FindAction("Jump");
+            swapInput = orbitalController.PlayerInput.actions.FindActionMap("Player").FindAction("Move");
             swapInput.performed += OnSwapPerfomed;
         }
-        
-        
+
+        public override void Dispose(PlayerOrbitalController orbitalController)
+        {
+            swapInput = null;
+        }
+
+
         public override int GetStatePriority(PlayerOrbitalController orbitalController)
         {
-            return 20;
+            if (isSwapingRing)
+            {
+                return 20;
+            }
+            return -1;
         }
 
         public override void OnEnter(PlayerOrbitalController orbitalController)
         {
-           
+            nextRing = GetNewRing(orbitalController);
+            if (!nextRing)
+            {
+                isSwapingRing = false;
+                return;
+            }
+            
         }
 
         public override void OnExit(PlayerOrbitalController orbitalController)
@@ -35,19 +56,60 @@ namespace Orpheus.Core.Orbital.Player
 
         public override Vector2 GetVelocity(PlayerOrbitalController orbitalController, float deltaTime)
         {
+            if (isSwapingRing)
+            {
+                if (orbitalController.IsBlocked)
+                {
+                    nextRing = orbitalController.CurrentRing;
+                }
+                if (GetDistance(orbitalController)>0)
+                {
+                    //calculate position on next ring
+                    Vector3 target = OrbitalMath.ClampToRing(orbitalController.GroundPosition, nextRing.transform.position, nextRing.RingData.Radius); 
+                    jump = orbitalController.transform.DOJump(target, 0.3f, 1, 0.3f, false)
+                        .OnComplete(() =>
+                        {
+                            orbitalController.SetRing(nextRing);
+                            isSwapingRing = false;
+                        });
+                }
+                else
+                {
+                    orbitalController.SetRing(nextRing);
+                    isSwapingRing = false;
+                    return Vector2.zero;
+                }
+                float distanceToNextRing;
+            }
             return Vector2.zero;
         }
 
         private void OnSwapPerfomed(InputAction.CallbackContext obj)
         {
-            swipe = Mathf.Sign(swapInput.ReadValue<Vector2>().y);
+            if (!isSwapingRing)
+            {
+                swipeDirection = swapInput.ReadValue<Vector2>().y;
+                if (swipeDirection != 0)
+                {
+                    isSwapingRing = true;
+                    isSwapComplet = false;
+                }
+            }
         }
-        
-        protected void JumpOnRing(PlayerOrbitalController orbitalController)
+
+        private Ring GetNewRing(PlayerOrbitalController orbitalController)
         {
-           
+            if (swipeDirection > 0)
+            {
+                return orbitalController.CurrentRing.GetNextSmaller();
+            }
+            return orbitalController.CurrentRing.GetNextLarger();
         }
-        
-        
+
+        private float GetDistance(PlayerOrbitalController orbitalController)
+        {
+            return (orbitalController.GroundPosition - nextRing.ClampToRing(orbitalController.GroundPosition))
+                .magnitude;
+        }
     }
 }

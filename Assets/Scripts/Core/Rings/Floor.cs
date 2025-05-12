@@ -32,7 +32,7 @@ namespace Orpheus.Core.Rings
         {
             if (rings.IndexOf(currentRing) < rings.Count - 1)
             {
-                return rings[rings.IndexOf(currentRing) - 1];
+                return rings[rings.IndexOf(currentRing) + 1];
             }
             return default;
         }
