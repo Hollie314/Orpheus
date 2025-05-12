@@ -11,6 +11,7 @@ namespace Orpheus.Core.Orbital.Player
     {
         private InputAction swapInput;
         private float swipeDirection;
+        private Ring previousRing;
         private Ring nextRing;
         
         private bool isSwapingRing;
@@ -41,12 +42,13 @@ namespace Orpheus.Core.Orbital.Player
         public override void OnEnter(PlayerOrbitalController orbitalController)
         {
             nextRing = GetNewRing(orbitalController);
+            previousRing = orbitalController.CurrentRing;
             if (!nextRing)
             {
                 isSwapingRing = false;
                 return;
             }
-            
+            orbitalController.SetRing(nextRing);
         }
 
         public override void OnExit(PlayerOrbitalController orbitalController)
@@ -60,7 +62,8 @@ namespace Orpheus.Core.Orbital.Player
             {
                 if (orbitalController.IsBlocked)
                 {
-                    nextRing = orbitalController.CurrentRing;
+                    nextRing = previousRing;
+                    orbitalController.SetRing(nextRing);
                 }
                 if (GetDistance(orbitalController)>0)
                 {
@@ -69,18 +72,17 @@ namespace Orpheus.Core.Orbital.Player
                     jump = orbitalController.transform.DOJump(target, 0.3f, 1, 0.3f, false)
                         .OnComplete(() =>
                         {
-                            orbitalController.SetRing(nextRing);
                             isSwapingRing = false;
                         });
                 }
                 else
                 {
-                    orbitalController.SetRing(nextRing);
-                    isSwapingRing = false;
+                    //isSwapingRing = false;
                     return Vector2.zero;
                 }
                 float distanceToNextRing;
             }
+            Debug.Log(orbitalController.CurrentRing.RingData.Size.ToString());
             return Vector2.zero;
         }
 
