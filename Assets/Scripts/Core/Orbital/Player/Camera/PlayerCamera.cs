@@ -17,8 +17,9 @@ namespace Orpheus.Core
         
         [SerializeField] 
         private PlayerOrbitalController playerOrbitalController;
-
-        private Vector3 currentVel;
+        [SerializeField] 
+        private Transform followTarget;
+        
 
         private void LateUpdate()
         {
@@ -26,12 +27,12 @@ namespace Orpheus.Core
 
             if (ring != null)
             {
-                Vector3 playerPos = playerOrbitalController.GroundPosition;
+                Vector3 playerPos = playerOrbitalController.transform.position;
                 Vector3 dir = playerPos - ring.transform.position;
-
-
+                dir.y = 0;
+                
                 Vector3 newPos = playerPos + dir.normalized * distance + Vector3.up * yOffset;
-                transform.position = Vector3.SmoothDamp(transform.position, newPos, ref currentVel, damping * Time.deltaTime);
+                followTarget.position = Vector3.Lerp(followTarget.position, newPos, damping * Time.deltaTime);
             }
         }
     }

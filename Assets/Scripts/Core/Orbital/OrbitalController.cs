@@ -56,6 +56,10 @@ namespace Orpheus.Core.Orbital
             SelectNextState();
             ComputeVelocity();
             ApplyGravity();
+/*
+            Vector3 orbitalNewPosition =  CurrentRing.GetPositionOnRing(rb.position, transform.right * 10);
+            rb.MovePosition(orbitalNewPosition);
+*/
             Move();
             Lookforward();
         }
@@ -140,11 +144,11 @@ namespace Orpheus.Core.Orbital
             Vector3 newPosition = rb.position + new Vector3(CurrentVelocity.x, CurrentVelocity.y, 0);
             var lastPosition = rb.position;
             Vector3 finalVelocity = (newPosition - lastPosition);
-        
             //Debug.Log("current velocity on y : "+ CurrentVelocity.y+" final velocity on y : "+ finalVelocity.y);
             //Debug.Log("current velocity on x : "+ CurrentVelocity.x+" final velocity on x : "+ finalVelocity.x);
         
             Vector2 angularVelocity = new Vector2(CurrentRing.GetAngularSpeed(CurrentVelocity.x),CurrentVelocity.y) ;
+            
             Vector3 p1 = lastPosition + cc.center + transform.up * (-cc.height * 0.25f);
             Vector3 p2 = p1 + transform.up * cc.height;
 
@@ -206,7 +210,8 @@ namespace Orpheus.Core.Orbital
                 }
             }
             //Debug.Log(" final vel : "+angularVelocity);
-            Vector3 orbitalNewPosition =  CurrentRing.GetPositionOnRing(rb.position+collisionOffset, angularVelocity);
+            
+            Vector3 orbitalNewPosition =  CurrentRing.GetPositionOnRing(rb.position + collisionOffset, angularVelocity);
             rb.MovePosition(orbitalNewPosition);
         }
 
@@ -251,7 +256,7 @@ namespace Orpheus.Core.Orbital
                 transform.LookAt(lookTarget);
         
                 Quaternion targetRotation = Quaternion.LookRotation(lookTarget - currentposition);
-                rb.rotation = Quaternion.Slerp(rb.rotation, targetRotation, Time.deltaTime);
+                rb.MoveRotation(Quaternion.Slerp(rb.rotation, targetRotation, Time.deltaTime));
             }
         }
         

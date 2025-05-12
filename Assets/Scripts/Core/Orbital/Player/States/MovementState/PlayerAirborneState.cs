@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Orpheus.Core.Orbital.Player
+namespace Orpheus.Core.Orbital.Player.States.MovementState
 {
     [CreateAssetMenu(fileName = "AirborneState", menuName = "Orpheus/Player/Airborne", order = 0)]
     public class PlayerAirborneState : PlayerControlledMovementState
