@@ -7,5 +7,33 @@ namespace Orpheus.Core
         large = 2, 
         extraLarge = 3 
     }
+
+    public enum FloatStats
+    {
+        PhysicalDamages,
+        MagicalDamages,
+        AttackSpeed,
+        CritPercentage,
+        CritDamages,
+        ArmorPenetration,
+        MagicPenetration,
+        DebuffRes,
+        CritRes,
+        HpRegen,
+        HpMax,
+        Hp,
+        MagicalResistance,
+        PhysicalResistance,
+        Tenacity, 
+        SlowResistance, 
+        BuffAugmentation,
+        SustainAugmentation
+    }
+
+    public enum BoolStats
+    {
+        isTargetable,
+        isDamageable
+    }
 }
 
