@@ -7,13 +7,13 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Shader Graphs_ShaderRabbitAttack
-  m_Shader: {fileID: -6465566751694194690, guid: 8b54917d195a8584aa72746a7c2fc503, type: 3}
+  m_Name: ShaderGuitareAttackOne 1
+  m_Shader: {fileID: -6465566751694194690, guid: 541713a12040bcf4d95fdc01adc6df91, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
   m_InvalidKeywords: []
-  m_LightmapFlags: 4
+  m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
@@ -24,6 +24,10 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: e2ff8710adf63c842951eb3083a13a27, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -38,20 +42,17 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Dissolve: 0.841
-    - _NoisePower: 1
-    - _NoiseScale: 20
+    - _DissolveScale: 100
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _TwirlAmount: 8
     m_Colors:
-    - _Color: {r: 15.104754, g: 47.937252, b: 28.00721, a: 1}
-    - _NoiseSpeed: {r: 0, g: 1, b: 0, a: 0}
-    - _TwirlCenter: {r: 0.5, g: -0.5, b: 0, a: 0}
-    - _TwirlSpeed: {r: 0, g: 0.5, b: 0, a: 0}
+    - _Color1: {r: 0.8233183, g: 0.47023845, b: 0.97735846, a: 1}
+    - _Color2: {r: 4.887606, g: 1.148856, b: 0, a: 0}
+    - _DissolveSpeed: {r: -0.5, g: 0, b: 0, a: 0}
+    - _MainTexSpeed: {r: -2, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
---- !u!114 &665967785569483816
+--- !u!114 &1804891519604630851
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
