@@ -42,5 +42,16 @@ namespace Orpheus.Core
         canUseAbilities,
         canMove,
     }
+
+    public enum AfflictionType
+    {
+        burn,
+        poison,
+        bleed,
+        heal,
+        crowdControl,
+        debuff,
+        buff
+    }
 }
 

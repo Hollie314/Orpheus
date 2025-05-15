@@ -46,7 +46,7 @@ namespace Orpheus.Core.Orbital
         
         [BoxGroup("Stats")]
         [SerializeField] private OrbitalStatsData orbitalStatsData;
-        private OrbitalStats stats;
+        private OrbitalStats stats = new();
 
         protected virtual void Awake()
         {
@@ -77,6 +77,7 @@ namespace Orpheus.Core.Orbital
             CurrentRing = ring;
         }
 
+        //might need to instantiate SO here to avoid issue with shared datas
         public void AddState(IOrbitalMovementState<T> orbitalMovementState)
         {
             if (_movementStates.Contains(orbitalMovementState))
