@@ -13,27 +13,34 @@ namespace Orpheus.Core
         PhysicalDamages,
         MagicalDamages,
         AttackSpeed,
-        CritPercentage,
+        CritChance,
         CritDamages,
         ArmorPenetration,
         MagicPenetration,
-        DebuffRes,
         CritRes,
         HpRegen,
         HpMax,
         Hp,
         MagicalResistance,
         PhysicalResistance,
+        DebuffResistance,
         Tenacity, 
-        SlowResistance, 
+        Mana,
+        ManaMax,
+        ManaRegen,
+        CooldownReduction,
         BuffAugmentation,
-        SustainAugmentation
+        BuffMalus,
+        SustainAugmentation,
+        
     }
 
     public enum BoolStats
     {
         isTargetable,
-        isDamageable
+        isDamageable,
+        canUseAbilities,
+        canMove,
     }
 }
 

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using DG.Tweening;
 using NaughtyAttributes;
+using Orpheus.Core.FightSystem;
 using Orpheus.Core.Rings;
 using UnityEngine;
 
@@ -42,13 +43,17 @@ namespace Orpheus.Core.Orbital
         private CapsuleCollider cc;
         private static readonly Collider[] colliders = new Collider[16];
         private static readonly RaycastHit[] raycastHits = new RaycastHit[16];
-    
+        
+        [BoxGroup("Stats")]
+        [SerializeField] private OrbitalStatsData orbitalStatsData;
+        private OrbitalStats stats;
 
         protected virtual void Awake()
         {
             this.rb = GetComponent<Rigidbody>();
             this.cc = GetComponent<CapsuleCollider>();
             _movementStates = new List<IOrbitalMovementState<T>>();
+            stats.Initialize(orbitalStatsData);
         }
 
         private void FixedUpdate()
