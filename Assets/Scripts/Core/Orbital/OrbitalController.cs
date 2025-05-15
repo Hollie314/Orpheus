@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using DG.Tweening;
 using NaughtyAttributes;
 using Orpheus.Core.Rings;
 using UnityEngine;
@@ -253,10 +254,11 @@ namespace Orpheus.Core.Orbital
                 Vector3 tangentDir = OrbitalMath.GetTangent(currentposition, CurrentRing.transform.position, Math.Sign(CurrentVelocity.x));
                 Vector3 lookTarget = currentposition + tangentDir;
         
-                transform.LookAt(lookTarget);
-        
-                Quaternion targetRotation = Quaternion.LookRotation(lookTarget - currentposition);
-                rb.MoveRotation(Quaternion.Slerp(rb.rotation, targetRotation, Time.deltaTime));
+               // transform.LookAt(lookTarget);
+                transform.DOLookAt(lookTarget,0.2f);
+
+                //Quaternion targetRotation = Quaternion.LookRotation(lookTarget - currentposition);
+                //rb.MoveRotation(Quaternion.Slerp(rb.rotation, targetRotation, Time.deltaTime));
             }
         }
         
