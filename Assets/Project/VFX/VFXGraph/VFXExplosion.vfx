@@ -152,12 +152,6 @@ MonoBehaviour:
     - model: {fileID: 8926484042661615060}
       id: 0
       isStickyNote: 0
-    - model: {fileID: 8926484042661614922}
-      id: 0
-      isStickyNote: 0
-    - model: {fileID: 8926484042661615051}
-      id: 0
-      isStickyNote: 0
   stickyNoteInfos: []
   categories: []
   uiBounds:
@@ -6654,7 +6648,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 3
+      m_SerializableObject: 2
     m_Space: -1
   m_Property:
     name: _Lifetime
@@ -7911,7 +7905,7 @@ MonoBehaviour:
   - {fileID: 8926484042661615057}
   m_ExposedName: Explosion Scale X
   m_Exposed: 1
-  m_Order: 3
+  m_Order: 2
   m_Category: 
   m_Min:
     m_Type:
@@ -7992,7 +7986,7 @@ MonoBehaviour:
   - {fileID: 8926484042661615059}
   m_ExposedName: Explosion Scale Y
   m_Exposed: 1
-  m_Order: 4
+  m_Order: 3
   m_Category: 
   m_Min:
     m_Type:
@@ -8073,7 +8067,7 @@ MonoBehaviour:
   - {fileID: 8926484042661615061}
   m_ExposedName: Explosion Scale Z 1
   m_Exposed: 1
-  m_Order: 5
+  m_Order: 4
   m_Category: 
   m_Min:
     m_Type:
@@ -8388,7 +8382,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: True
+      m_SerializableObject: False
     m_Space: -1
   m_Property:
     name: _vfx_enabled
