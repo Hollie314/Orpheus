@@ -18,7 +18,7 @@ Material:
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
+  m_CustomRenderQueue: 3000
   stringTagMap:
     RenderType: Transparent
   disabledShaderPasses:
@@ -48,12 +48,12 @@ Material:
     - _CastShadows: 1
     - _Cull: 0
     - _DstBlend: 10
-    - _Metallic: 0.4
-    - _NormalsStrength: 0.12
+    - _Metallic: 0.5
+    - _NormalsStrength: 1
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
-    - _Smoothness: 1.4
+    - _Smoothness: 0.4
     - _SrcBlend: 1
     - _Surface: 1
     - _Transparency: 0
@@ -66,9 +66,9 @@ Material:
     - _ZWrite: 1
     - _ZWriteControl: 1
     m_Colors:
-    - _Color: {r: 0.26789936, g: 0.7490196, b: 0.13482353, a: 1}
+    - _Color: {r: 0.16443741, g: 0.7660377, b: 0, a: 1}
     - _NormalsSpeed: {r: 0, g: 0, b: 0, a: 0}
-    - _VoronolColor: {r: 1.066222, g: 2.0906312, b: 0.33450103, a: 1}
+    - _VoronolColor: {r: 0.38223022, g: 0.91257465, b: 0, a: 1}
     - _VoronolSpeed: {r: 0, g: 0, b: 0, a: 0}
     - _VoronolTilling: {r: 1.2, g: 0.6, b: 0, a: 0}
   m_BuildTextureStacks: []

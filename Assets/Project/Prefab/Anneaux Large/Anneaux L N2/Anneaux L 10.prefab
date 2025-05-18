@@ -6,7 +6,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 355791861224206582}
+    m_TransformParent: {fileID: 1342095337095824469}
     m_Modifications:
     - target: {fileID: 285399163539277374, guid: ab61f44be80a552489a8c405c9b5b82e, type: 3}
       propertyPath: m_Name
@@ -72,7 +72,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4248028287453535155, guid: fc1266d6c3381774ea2e48b21e95dfd3, type: 3}
       propertyPath: m_Name
-      value: Anneaux L 9
+      value: Anneaux L 10
       objectReference: {fileID: 0}
     - target: {fileID: 6599260467699334157, guid: fc1266d6c3381774ea2e48b21e95dfd3, type: 3}
       propertyPath: m_LocalPosition.x
@@ -117,17 +117,17 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 6599260467699334157, guid: fc1266d6c3381774ea2e48b21e95dfd3, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 5603984436846610606, guid: fc1266d6c3381774ea2e48b21e95dfd3, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4614502477246764895}
-    - targetCorrespondingSourceObject: {fileID: 6599260467699334157, guid: fc1266d6c3381774ea2e48b21e95dfd3, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 5603984436846610606, guid: fc1266d6c3381774ea2e48b21e95dfd3, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2309753103420666208}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fc1266d6c3381774ea2e48b21e95dfd3, type: 3}
---- !u!4 &355791861224206582 stripped
+--- !u!4 &1342095337095824469 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 6599260467699334157, guid: fc1266d6c3381774ea2e48b21e95dfd3, type: 3}
+  m_CorrespondingSourceObject: {fileID: 5603984436846610606, guid: fc1266d6c3381774ea2e48b21e95dfd3, type: 3}
   m_PrefabInstance: {fileID: 6873986985732689147}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8785343081727894689
@@ -136,7 +136,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 355791861224206582}
+    m_TransformParent: {fileID: 1342095337095824469}
     m_Modifications:
     - target: {fileID: 347036159829649624, guid: a80ebe502c1f16947b489a8463c6a557, type: 3}
       propertyPath: m_Enabled
@@ -148,11 +148,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4170842816763114494, guid: a80ebe502c1f16947b489a8463c6a557, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.99999994
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4170842816763114494, guid: a80ebe502c1f16947b489a8463c6a557, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.99999994
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4170842816763114494, guid: a80ebe502c1f16947b489a8463c6a557, type: 3}
       propertyPath: m_LocalPosition.x

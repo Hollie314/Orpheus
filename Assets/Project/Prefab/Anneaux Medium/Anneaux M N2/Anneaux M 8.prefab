@@ -6,7 +6,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 5833480691156212869}
+    m_TransformParent: {fileID: 2836356620572117738}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 28f50fb6eb7545a4f9f743be8b2636ce, type: 3}
       propertyPath: m_LocalPosition.x
@@ -18,7 +18,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 28f50fb6eb7545a4f9f743be8b2636ce, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.2
+      value: -1.7
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 28f50fb6eb7545a4f9f743be8b2636ce, type: 3}
       propertyPath: m_LocalRotation.w
@@ -117,17 +117,17 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 8888461384563950039, guid: 6039183b620c6d445a03fd234b9dbe55, type: 3}
-      insertIndex: 0
+    - targetCorrespondingSourceObject: {fileID: 932882911739647928, guid: 6039183b620c6d445a03fd234b9dbe55, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 7012936966214426342}
-    - targetCorrespondingSourceObject: {fileID: 8888461384563950039, guid: 6039183b620c6d445a03fd234b9dbe55, type: 3}
-      insertIndex: 1
+    - targetCorrespondingSourceObject: {fileID: 932882911739647928, guid: 6039183b620c6d445a03fd234b9dbe55, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 2024329324646313629}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6039183b620c6d445a03fd234b9dbe55, type: 3}
---- !u!4 &5833480691156212869 stripped
+--- !u!4 &2836356620572117738 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 8888461384563950039, guid: 6039183b620c6d445a03fd234b9dbe55, type: 3}
+  m_CorrespondingSourceObject: {fileID: 932882911739647928, guid: 6039183b620c6d445a03fd234b9dbe55, type: 3}
   m_PrefabInstance: {fileID: 3147601904209583442}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7410757294139898125
@@ -136,7 +136,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 5833480691156212869}
+    m_TransformParent: {fileID: 2836356620572117738}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 28f50fb6eb7545a4f9f743be8b2636ce, type: 3}
       propertyPath: m_LocalPosition.x
@@ -148,7 +148,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 28f50fb6eb7545a4f9f743be8b2636ce, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.507
+      value: -2.007
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 28f50fb6eb7545a4f9f743be8b2636ce, type: 3}
       propertyPath: m_LocalRotation.w

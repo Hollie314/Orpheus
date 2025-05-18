@@ -6,11 +6,15 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 355791861224206582}
+    m_TransformParent: {fileID: 1342095337095824469}
     m_Modifications:
     - target: {fileID: 67206981086950714, guid: 5e7809fee18fe1443b1cf4eba4d7b50c, type: 3}
       propertyPath: m_Name
       value: piege a tentacule
+      objectReference: {fileID: 0}
+    - target: {fileID: 4757357725379437032, guid: 5e7809fee18fe1443b1cf4eba4d7b50c, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.6499999
       objectReference: {fileID: 0}
     - target: {fileID: 4757357725379437032, guid: 5e7809fee18fe1443b1cf4eba4d7b50c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -68,7 +72,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 355791861224206582}
+    m_TransformParent: {fileID: 1342095337095824469}
     m_Modifications:
     - target: {fileID: 285399163539277374, guid: ab61f44be80a552489a8c405c9b5b82e, type: 3}
       propertyPath: m_Name
@@ -130,7 +134,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 355791861224206582}
+    m_TransformParent: {fileID: 1342095337095824469}
     m_Modifications:
     - target: {fileID: 285399163539277374, guid: ab61f44be80a552489a8c405c9b5b82e, type: 3}
       propertyPath: m_Name
@@ -196,7 +200,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4248028287453535155, guid: fc1266d6c3381774ea2e48b21e95dfd3, type: 3}
       propertyPath: m_Name
-      value: Anneaux L 10
+      value: Anneaux L 15
       objectReference: {fileID: 0}
     - target: {fileID: 6599260467699334157, guid: fc1266d6c3381774ea2e48b21e95dfd3, type: 3}
       propertyPath: m_LocalPosition.x
@@ -241,29 +245,29 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 6599260467699334157, guid: fc1266d6c3381774ea2e48b21e95dfd3, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 5603984436846610606, guid: fc1266d6c3381774ea2e48b21e95dfd3, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4614502477246764895}
-    - targetCorrespondingSourceObject: {fileID: 6599260467699334157, guid: fc1266d6c3381774ea2e48b21e95dfd3, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 5603984436846610606, guid: fc1266d6c3381774ea2e48b21e95dfd3, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2309753103420666208}
-    - targetCorrespondingSourceObject: {fileID: 6599260467699334157, guid: fc1266d6c3381774ea2e48b21e95dfd3, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 5603984436846610606, guid: fc1266d6c3381774ea2e48b21e95dfd3, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3441707190663247753}
-    - targetCorrespondingSourceObject: {fileID: 6599260467699334157, guid: fc1266d6c3381774ea2e48b21e95dfd3, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 5603984436846610606, guid: fc1266d6c3381774ea2e48b21e95dfd3, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8676536679909777167}
-    - targetCorrespondingSourceObject: {fileID: 6599260467699334157, guid: fc1266d6c3381774ea2e48b21e95dfd3, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 5603984436846610606, guid: fc1266d6c3381774ea2e48b21e95dfd3, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1255634126157958011}
-    - targetCorrespondingSourceObject: {fileID: 6599260467699334157, guid: fc1266d6c3381774ea2e48b21e95dfd3, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 5603984436846610606, guid: fc1266d6c3381774ea2e48b21e95dfd3, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7202539544104430718}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fc1266d6c3381774ea2e48b21e95dfd3, type: 3}
---- !u!4 &355791861224206582 stripped
+--- !u!4 &1342095337095824469 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 6599260467699334157, guid: fc1266d6c3381774ea2e48b21e95dfd3, type: 3}
+  m_CorrespondingSourceObject: {fileID: 5603984436846610606, guid: fc1266d6c3381774ea2e48b21e95dfd3, type: 3}
   m_PrefabInstance: {fileID: 6873986985732689147}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8018698351717406029
@@ -272,11 +276,15 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 355791861224206582}
+    m_TransformParent: {fileID: 1342095337095824469}
     m_Modifications:
     - target: {fileID: 7265801157402586614, guid: 363b241f9ba789849bb80c032717c955, type: 3}
       propertyPath: m_Name
       value: 'Tentacule '
+      objectReference: {fileID: 0}
+    - target: {fileID: 9089613422447861302, guid: 363b241f9ba789849bb80c032717c955, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.6499999
       objectReference: {fileID: 0}
     - target: {fileID: 9089613422447861302, guid: 363b241f9ba789849bb80c032717c955, type: 3}
       propertyPath: m_LocalPosition.x
@@ -334,7 +342,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 355791861224206582}
+    m_TransformParent: {fileID: 1342095337095824469}
     m_Modifications:
     - target: {fileID: 1084379596791323796, guid: 880e35e292a138448a0410b27a4d05ab, type: 3}
       propertyPath: m_LocalPosition.x
@@ -396,7 +404,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 355791861224206582}
+    m_TransformParent: {fileID: 1342095337095824469}
     m_Modifications:
     - target: {fileID: 347036159829649624, guid: a80ebe502c1f16947b489a8463c6a557, type: 3}
       propertyPath: m_Enabled
@@ -408,11 +416,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4170842816763114494, guid: a80ebe502c1f16947b489a8463c6a557, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.99999994
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4170842816763114494, guid: a80ebe502c1f16947b489a8463c6a557, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.99999994
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4170842816763114494, guid: a80ebe502c1f16947b489a8463c6a557, type: 3}
       propertyPath: m_LocalPosition.x

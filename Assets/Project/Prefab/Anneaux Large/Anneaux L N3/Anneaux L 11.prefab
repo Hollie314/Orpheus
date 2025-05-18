@@ -6,7 +6,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 8692283803896424565}
+    m_TransformParent: {fileID: 2498062471265953268}
     m_Modifications:
     - target: {fileID: 4170842816763114494, guid: a80ebe502c1f16947b489a8463c6a557, type: 3}
       propertyPath: m_LocalPosition.x
@@ -72,11 +72,15 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 8692283803896424565}
+    m_TransformParent: {fileID: 2498062471265953268}
     m_Modifications:
     - target: {fileID: 7265801157402586614, guid: 363b241f9ba789849bb80c032717c955, type: 3}
       propertyPath: m_Name
       value: 'Tentacule '
+      objectReference: {fileID: 0}
+    - target: {fileID: 9089613422447861302, guid: 363b241f9ba789849bb80c032717c955, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.65000004
       objectReference: {fileID: 0}
     - target: {fileID: 9089613422447861302, guid: 363b241f9ba789849bb80c032717c955, type: 3}
       propertyPath: m_LocalPosition.x
@@ -134,7 +138,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 8692283803896424565}
+    m_TransformParent: {fileID: 2498062471265953268}
     m_Modifications:
     - target: {fileID: 1084379596791323796, guid: 880e35e292a138448a0410b27a4d05ab, type: 3}
       propertyPath: m_LocalPosition.x
@@ -196,7 +200,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 8692283803896424565}
+    m_TransformParent: {fileID: 2498062471265953268}
     m_Modifications:
     - target: {fileID: 4170842816763114494, guid: a80ebe502c1f16947b489a8463c6a557, type: 3}
       propertyPath: m_LocalPosition.x
@@ -302,31 +306,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7623969887844545219, guid: 2a99464e9887bf64cb6c62c8f1f586aa, type: 3}
       propertyPath: m_Name
-      value: Anneaux L 8
+      value: Anneaux L 11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 680968146947218561, guid: 2a99464e9887bf64cb6c62c8f1f586aa, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 6014729298723672320, guid: 2a99464e9887bf64cb6c62c8f1f586aa, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6572915943178100485}
-    - targetCorrespondingSourceObject: {fileID: 680968146947218561, guid: 2a99464e9887bf64cb6c62c8f1f586aa, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 6014729298723672320, guid: 2a99464e9887bf64cb6c62c8f1f586aa, type: 3}
       insertIndex: -1
       addedObject: {fileID: 864851443431288498}
-    - targetCorrespondingSourceObject: {fileID: 680968146947218561, guid: 2a99464e9887bf64cb6c62c8f1f586aa, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 6014729298723672320, guid: 2a99464e9887bf64cb6c62c8f1f586aa, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4755413010589277663}
-    - targetCorrespondingSourceObject: {fileID: 680968146947218561, guid: 2a99464e9887bf64cb6c62c8f1f586aa, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 6014729298723672320, guid: 2a99464e9887bf64cb6c62c8f1f586aa, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4405078161550204356}
-    - targetCorrespondingSourceObject: {fileID: 680968146947218561, guid: 2a99464e9887bf64cb6c62c8f1f586aa, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 6014729298723672320, guid: 2a99464e9887bf64cb6c62c8f1f586aa, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4051861138214273991}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2a99464e9887bf64cb6c62c8f1f586aa, type: 3}
---- !u!4 &8692283803896424565 stripped
+--- !u!4 &2498062471265953268 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 680968146947218561, guid: 2a99464e9887bf64cb6c62c8f1f586aa, type: 3}
+  m_CorrespondingSourceObject: {fileID: 6014729298723672320, guid: 2a99464e9887bf64cb6c62c8f1f586aa, type: 3}
   m_PrefabInstance: {fileID: 8201753090186392820}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &9161584547034594348
@@ -335,11 +339,15 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 8692283803896424565}
+    m_TransformParent: {fileID: 2498062471265953268}
     m_Modifications:
     - target: {fileID: 67206981086950714, guid: 5e7809fee18fe1443b1cf4eba4d7b50c, type: 3}
       propertyPath: m_Name
       value: piege a tentacule
+      objectReference: {fileID: 0}
+    - target: {fileID: 4757357725379437032, guid: 5e7809fee18fe1443b1cf4eba4d7b50c, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.65000004
       objectReference: {fileID: 0}
     - target: {fileID: 4757357725379437032, guid: 5e7809fee18fe1443b1cf4eba4d7b50c, type: 3}
       propertyPath: m_LocalPosition.x
