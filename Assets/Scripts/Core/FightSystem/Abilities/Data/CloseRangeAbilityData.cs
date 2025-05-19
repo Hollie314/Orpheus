@@ -1,0 +1,16 @@
+using Orpheus.Core.FightSystem.Runtime;
+using UnityEngine;
+
+namespace Orpheus.Core.FightSystem
+{
+    public class CloseRangeAbilityData : AbilityData
+    {
+        [field: Header("Metrics")]
+        [field: SerializeField]
+        public float HitBoxRadius { get; private set; }
+        [field: SerializeField]
+        public float HitBoxHeight{ get; private set; }
+        
+        public override IAbility GenerateAbility(IAbilityCaster caster) => new CloseRangeAbility(caster, this);
+    }
+}

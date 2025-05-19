@@ -267,6 +267,15 @@ namespace Orpheus.Core.Orbital
                 //rb.MoveRotation(Quaternion.Slerp(rb.rotation, targetRotation, Time.deltaTime));
             }
         }
-        
+
+        public void TakeDamages(float damages)
+        {
+            float Hp = stats.getStat(FloatStats.Hp) - damages;
+            if (Hp<= 0)
+            {
+                
+            }
+
+        }
     }
 }

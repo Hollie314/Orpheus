@@ -30,7 +30,7 @@ namespace Orpheus.Core.FightSystem
         public void setStat(BoolStats stat, bool value) => boolStats[stat] = value;
         public void addtoStat(FloatStats stat, float value) => setStat(stat, getStat(stat) + value);
 
-        public float getResistanceValue(FloatStats stat, float value)
+        public float getResistanceValue(FloatStats stat)
         {
             float mitigatedStat = 0f;
             switch (stat)

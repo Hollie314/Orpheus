@@ -23,6 +23,11 @@ namespace Orpheus.Core.FightSystem
         {
             this.duration = duration;
         }
+
+        public void SetCaster(OrbitalController<T> casterRef)
+        {
+            this.casterRef = casterRef;
+        }
         
     }
 }

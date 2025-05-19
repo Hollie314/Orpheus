@@ -1,0 +1,57 @@
+using Orpheus.Core.FightSystem.Runtime;
+using UnityEngine;
+
+namespace Orpheus.Core.FightSystem
+{
+    public abstract class AbilityData : ScriptableObject
+    {
+        [field: Header("Durations")] 
+        
+        [field: Space]
+        [field: SerializeField] 
+        public float CastDuration { get; private set; }
+        
+        [field: Space]
+        [field: SerializeField] 
+        public float FireCount { get; private set; }
+        [field: SerializeField] 
+        public float FireDuration { get; private set; }
+        
+        [field: Space]
+        [field: SerializeField] 
+        public float HitInterval { get; private set; }
+        
+        [field: Space]
+        [field: SerializeField] 
+        public float RecoilDuration { get; private set; }
+        
+        [field: Space]
+        [field: SerializeField] 
+        public float Cooldown { get; private set; }
+
+
+        [field: Header("Damage")]
+        [field: SerializeField]
+        public bool DamageOtherTeam { get; private set; } = true;
+        [field: SerializeField]
+        public bool DamageSameTeam { get; private set; } = false;
+        [field: SerializeField]
+        public bool HealOtherTeam { get; private set; } = false;
+        [field: SerializeField]
+        public bool HealSameTeam { get; private set; } = true;
+        
+        
+        [field: SerializeField, Min(0)] 
+        public int Damage { get; private set; }
+        [field: SerializeField, Min(0)] 
+        public int Heal { get; private set; }
+        
+        public float CastTiming => CastDuration;
+        public float FireTiming => CastDuration + FireDuration;
+        public float RecoilTiming => CastDuration + FireDuration + RecoilDuration;
+        
+        public float TotalLifetime => RecoilTiming;
+        
+        public abstract IAbility GenerateAbility(IAbilityCaster caster);
+    }
+}
