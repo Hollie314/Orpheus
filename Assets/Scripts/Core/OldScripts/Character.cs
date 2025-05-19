@@ -1,10 +1,8 @@
-using System;
-using System.Collections;
-using DG.Tweening;
+using Orpheus.Core.Orbital;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace Core
+namespace Orpheus.Core
 {
     [RequireComponent(typeof(Rigidbody))]
     public class Character : OrbitalActor
@@ -15,7 +13,7 @@ namespace Core
             JumpOnRing();
         }
         
-        protected void FixedUpdate()
+        protected override void FixedUpdate()
         {
             base.FixedUpdate();
         }

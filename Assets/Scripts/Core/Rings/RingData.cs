@@ -1,9 +1,12 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "RingData", menuName = "Scriptable Objects/RingData")]
-public class RingData : ScriptableObject
+namespace Orpheus.Core.Rings
 {
-    public RingSize Size { get; private set; }
-    public float Radius { get; private set; }
-    public GameObject avatar { get; private set; }
+    [CreateAssetMenu(fileName = "RingData", menuName = "Scriptable Objects/RingData")]
+    public class RingData : ScriptableObject
+    {
+        [field : SerializeField] public RingSize Size { get; private set; }
+        [field : SerializeField]public float Radius { get; private set; }
+        [field : SerializeField]public GameObject Avatar { get; private set; }
+    }
 }

@@ -1,10 +1,40 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Floor : MonoBehaviour
+namespace Orpheus.Core.Rings
 {
-    public int floorIndex;
-    public float minY;
-    public float maxY;
-    public List<Ring> rings;
+    public class Floor : MonoBehaviour
+    {
+        public int floorIndex;
+        public float minY;
+        public float maxY;
+        [SerializeField]public List<Ring> rings;
+
+        public void Awake()
+        {
+            foreach (var ring in rings)
+            { 
+                ring.Initialize(this);
+            }
+        }
+
+        public Ring GetSmallerRing(Ring currentRing)
+        {
+            if (rings.IndexOf(currentRing) > 0)
+            {
+                return rings[rings.IndexOf(currentRing) - 1];
+            }
+            return default;
+        }
+
+        public Ring GetBiggerRing(Ring currentRing)
+        {
+            if (rings.IndexOf(currentRing) < rings.Count - 1)
+            {
+                return rings[rings.IndexOf(currentRing) + 1];
+            }
+            return default;
+        }
+    }
 }
