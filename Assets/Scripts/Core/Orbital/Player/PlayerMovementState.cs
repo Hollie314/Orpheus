@@ -5,6 +5,7 @@ namespace Orpheus.Core.Orbital.Player
     
     public abstract class PlayerMovementState : ScriptableObject, IOrbitalMovementState<PlayerOrbitalController>
     {
+        public int StatePriority { get; private set; }
         public abstract void Initialize(PlayerOrbitalController orbitalController);
         public abstract void Dispose(PlayerOrbitalController orbitalController);
         public abstract void OnEnter(PlayerOrbitalController orbitalController);

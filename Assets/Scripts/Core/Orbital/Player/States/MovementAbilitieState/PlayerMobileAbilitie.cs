@@ -1,17 +1,16 @@
-
-
 using System;
+using Orpheus.Core.FightSystem;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace Orpheus.Core.Orbital.Player.States
 {
     [CreateAssetMenu(menuName = "Create PlayerMobileAbility", fileName = "PlayerMobileAbility", order = 0)]
-    public abstract class PlayerMobileAbility : PlayerMovementState
+    public abstract class PlayerMobileAbility<T> : PlayerMovementState where T : AbilityData
     {
-        
         [SerializeField] public PlayerMovementState PlayerMovementState { get; private set; }
         [SerializeField] public String AbilityInputName { get; private set; }
+        [SerializeField] public T Data { get; private set; }
         
         private InputAction abilityInput;
         
@@ -50,7 +49,5 @@ namespace Orpheus.Core.Orbital.Player.States
         {
             
         }
-
-       
     }
 }
