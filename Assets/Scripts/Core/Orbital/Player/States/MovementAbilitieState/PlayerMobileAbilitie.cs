@@ -22,6 +22,12 @@ namespace Orpheus.Core.Orbital.Player.States
         {
             PlayerMovementState.OnExit(orbitalController);
         }
+        
+        public override void PreUpdate(PlayerOrbitalController orbitalController)
+        {
+            base.PreUpdate(orbitalController);
+            PlayerMovementState = (PlayerMovementState)orbitalController.currentMovementState;
+        }
 
         public override int GetStatePriority(PlayerOrbitalController orbitalController)
         {
@@ -43,6 +49,7 @@ namespace Orpheus.Core.Orbital.Player.States
         public override void Dispose(PlayerOrbitalController orbitalController)
         {
             PlayerMovementState.Dispose(orbitalController);
+            abilityInput = null;
         }
 
         private void OnAbilityPerformed(InputAction.CallbackContext obj)

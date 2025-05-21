@@ -36,7 +36,7 @@ namespace Orpheus.Core.FightSystem
         }
         public void RemoveAbility(IAbility ability)
         {
-            runningAbilities.Add(ability);
+            runningAbilities.Remove(ability);
         }
 
 

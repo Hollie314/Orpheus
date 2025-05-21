@@ -44,6 +44,7 @@ namespace Orpheus.Core.FightSystem
                 default: mitigatedStat = getStat(FloatStats.DebuffResistance);
                     break;
             }
+            
 
             return mitigatedStat;
         }

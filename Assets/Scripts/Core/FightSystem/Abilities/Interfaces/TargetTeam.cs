@@ -4,5 +4,6 @@ namespace Orpheus.Core.FightSystem
     {
         Player,
         Enemy,
+        Trap,
     }
 }

@@ -38,7 +38,7 @@ namespace Orpheus.Core.Orbital
     
 
         private List<IOrbitalMovementState<T>> _movementStates;
-        private IOrbitalMovementState<T> currentMovementState;
+        public IOrbitalMovementState<T> currentMovementState { get; private set; }
         private Rigidbody rb;
         private CapsuleCollider cc;
         private static readonly Collider[] colliders = new Collider[16];
