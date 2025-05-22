@@ -8,6 +8,7 @@ namespace Orpheus.Core.FightSystem
         private OrbitalStatsData orbitalStatsData;
         private Dictionary<FloatStats, float> floatStats = new();
         private Dictionary<BoolStats, bool> boolStats = new();
+        private Dictionary<TargetTeam, float> teamStats = new();
 
         public void Initialize(OrbitalStatsData orbitalStatsData)
         {
@@ -21,14 +22,22 @@ namespace Orpheus.Core.FightSystem
             {
                 boolStats.Add(boolStat.boolStatName, boolStat.value);
             }
+
+            foreach (var teamEntry in orbitalStatsData.TeamEntries)
+            {
+                teamStats.Add(teamEntry.targetTeamName, teamEntry.targetTeamValue);
+            }
         }
 
         public float getStat(FloatStats stat) => floatStats.TryGetValue(stat, out var val) ? val : 0f;
         public bool getStat(BoolStats stat) => boolStats.TryGetValue(stat, out var val) && val;
+        public float getStat(TargetTeam stat) => teamStats.TryGetValue(stat, out var val) ? val : 0f;
 
         public void setStat(FloatStats stat, float value) => floatStats[stat] = value;
         public void setStat(BoolStats stat, bool value) => boolStats[stat] = value;
+        public void setStat(TargetTeam stat, float value) => teamStats[stat] = value;
         public void addtoStat(FloatStats stat, float value) => setStat(stat, getStat(stat) + value);
+        public void addtoStat(TargetTeam stat, float value) => setStat(stat, getStat(stat) + value);
 
         public float getResistanceValue(FloatStats stat)
         {
@@ -44,8 +53,6 @@ namespace Orpheus.Core.FightSystem
                 default: mitigatedStat = getStat(FloatStats.DebuffResistance);
                     break;
             }
-            
-
             return mitigatedStat;
         }
 
@@ -81,6 +88,4 @@ namespace Orpheus.Core.FightSystem
             return scaled;
         }
     }
-    
-    
 }

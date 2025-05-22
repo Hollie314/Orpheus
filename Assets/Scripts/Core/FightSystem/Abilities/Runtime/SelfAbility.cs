@@ -2,9 +2,9 @@ using System.Collections.Generic;
 
 namespace Orpheus.Core.FightSystem.Runtime
 {
-    public class SelfAbility : Ability<LaserAbilityData>
+    public class SelfAbility : Ability<SelfAbilityData>
     {
-        public SelfAbility(IAbilityCaster caster, LaserAbilityData data) : base(caster, data)
+        public SelfAbility(IAbilityCaster caster, SelfAbilityData data) : base(caster, data)
         {
         }
 

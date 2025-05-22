@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Orpheus.Core.FightSystem;
 using UnityEngine;
 
 namespace Orpheus.Core
@@ -20,8 +21,16 @@ namespace Orpheus.Core
             public bool value;
         }
 
+        [System.Serializable]
+        public class TargetTeamEntry
+        {
+            public TargetTeam targetTeamName;
+            public float targetTeamValue;
+        }
+
         [field: SerializeField] public FloatStatEntry[] FloatStats { get; private set; }
         [field: SerializeField] public BoolStatEntry[] BoolStats { get; private set; }
+        [field: SerializeField] public TargetTeamEntry[] TeamEntries { get; private set; }
         
     }
 }

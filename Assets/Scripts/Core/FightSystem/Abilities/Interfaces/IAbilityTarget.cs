@@ -9,7 +9,6 @@ namespace Orpheus.Core.FightSystem
         public OrbitalStats Stats { get; }
         public Ring Ring { get; }
         void ApplyDamage(int amount);
-        
 
         void Heal(OrbitalStats casterstats, int amount,  int percentage, FloatStats stat)
         {

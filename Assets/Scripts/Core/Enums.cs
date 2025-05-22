@@ -2,10 +2,10 @@ namespace Orpheus.Core
 {
     public enum RingSize
     {
-        small = 0, 
-        medium = 1, 
-        large = 2, 
-        extraLarge = 3 
+        small, 
+        medium, 
+        large, 
+        extraLarge
     }
 
     public enum FloatStats
@@ -45,13 +45,29 @@ namespace Orpheus.Core
 
     public enum AfflictionType
     {
-        burn,
-        poison,
-        bleed,
-        heal,
-        crowdControl,
-        debuff,
-        buff
+        Burn,
+        Poison,
+        Bleed,
+        Heal,
+        CrowdControl,
+        Debuff,
+        Buff
+    }
+
+    public enum DamageType
+    {
+        Physic,
+        Fire,
+        Wind,
+        True,
+        Crush,
+    }
+    
+    public enum TargetTeam
+    {
+        Player,
+        Enemy,
+        Trap,
     }
 }
 

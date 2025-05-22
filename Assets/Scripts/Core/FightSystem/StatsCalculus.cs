@@ -10,7 +10,7 @@ namespace Orpheus.Core.FightSystem
         }
         
         
-        private static float getResistanceValue(FloatStats stat, OrbitalStats stats)
+        private static float GetResistanceValue(FloatStats stat, OrbitalStats stats)
         {
             float mitigatedStat = 0f;
             switch (stat)
@@ -26,5 +26,18 @@ namespace Orpheus.Core.FightSystem
             }
             return mitigatedStat;
         }
+
+        private static float GetResistanceValue(TargetTeam team, OrbitalStats stats)
+        {
+            float mitigatedStat = stats.getStat(team);
+            return mitigatedStat;
+        }
+
+        public static float CalculateStatValue(OrbitalStats target, float flatValue, float percentValue, FloatStats statType)
+        {
+            float finalValue = flatValue + percentValue * target.getStat(statType);
+            return finalValue;
+        }
+        
     }
 }
