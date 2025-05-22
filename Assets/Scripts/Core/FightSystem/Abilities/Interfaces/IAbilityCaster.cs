@@ -9,5 +9,6 @@ namespace Orpheus.Core.FightSystem
         public Vector3 CastDirection { get; }
         public TargetTeam Team { get; }
         public Ring Ring { get; }
+        public OrbitalStats Stats { get; }
     }
 }

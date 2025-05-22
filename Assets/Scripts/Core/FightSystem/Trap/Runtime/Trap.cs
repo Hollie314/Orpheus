@@ -10,11 +10,12 @@ namespace Orpheus.Core.FightSystem.Trap
     [RequireComponent(typeof(CapsuleCollider))]
     public abstract class Trap : MonoBehaviour, IAbilityCaster
     {
-        public Vector3 CastPoint { get;private set;  }
+        public Vector3 CastPoint { get;private set; }
         public virtual Vector3 CastDirection { get; private set; }
         public TargetTeam Team { get; private set; } = TargetTeam.Trap;
         public Ring Ring { get; private set; }
-        
+        public OrbitalStats Stats { get; }
+
         public AbilityData AbilityData { get; private set; }
         
         public bool IsActive { get; set; }
@@ -30,6 +31,7 @@ namespace Orpheus.Core.FightSystem.Trap
 
         public void Update()
         {
+            //apply 
             if (IsActive)
             {
                 if (currentTime >= ActivationRate || currentTime == 0)
@@ -47,8 +49,11 @@ namespace Orpheus.Core.FightSystem.Trap
 
         public IEnumerator ActivateAbility(float duration)
         {
-            AbilityManager.Instance.AddAbility(this.AbilityData.GenerateAbility(this));
+            IAbility ability = this.AbilityData.GenerateAbility(this);
+            AbilityManager.Instance.AddAbility(ability);
             yield return duration;
+            AbilityManager.Instance.RemoveAbility(ability);
+            
         }
     }
 }

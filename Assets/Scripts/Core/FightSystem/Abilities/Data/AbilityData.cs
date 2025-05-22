@@ -42,9 +42,17 @@ namespace Orpheus.Core.FightSystem
         
         
         [field: SerializeField, Min(0)] 
-        public int Damage { get; private set; }
+        public int FlatDamage { get; private set; }
         [field: SerializeField, Min(0)] 
-        public int Heal { get; private set; }
+        public int PercentDamage { get; private set; }
+        [field: SerializeField]
+        public FloatStats DamageStat { get; private set; }
+        [field: SerializeField, Min(0)] 
+        public int FlatHeal { get; private set; }
+        [field: SerializeField, Min(0)] 
+        public int PercentHeal { get; private set; }
+        [field: SerializeField]
+        public FloatStats HealStat { get; private set; }
         
         public float CastTiming => CastDuration;
         public float FireTiming => CastDuration + FireDuration;

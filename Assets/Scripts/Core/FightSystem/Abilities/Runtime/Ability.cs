@@ -40,7 +40,7 @@ namespace Orpheus.Core.FightSystem.Runtime
             return CurrentLifetime <= Data.TotalLifetime;
         }
 
-
+        //Delay before fire, serve for animation as well
         protected virtual void ProcessCastPhase(float deltaTime)
         {
             
@@ -48,17 +48,17 @@ namespace Orpheus.Core.FightSystem.Runtime
 
         protected virtual void ProcessFirePhase(float deltaTime)
         {
-            //Cmb de temps entre chaque tirs
+            //Time between fire
             float interval = Data.FireDuration / Data.FireCount;
             //Cmb de temps dans la phase de tir
             float currentFireDuration = CurrentLifetime - Data.CastDuration;
 
-            //Cmb de fois on aurait du tirer
+            //How many time it should have fire
             int targetFireCount = Mathf.FloorToInt(currentFireDuration / interval);
-            //Quel retard on a
+            //Delay fire has
             int missingFires = targetFireCount - CurrentFireCount;
 
-            //Tire le nombre de fois qu'il faut pour rattraper le retard
+            //Fire as many time needed to catch up 
             for (int i = 0; i < missingFires; i++)
                 Fire();
 
@@ -78,10 +78,10 @@ namespace Orpheus.Core.FightSystem.Runtime
                 foreach (var target in targets)
                 {
                     if(CanDamageTarget(target))
-                        target.ApplyDamage(Data.Damage);
+                        target.ApplyDamage(Data.FlatDamage);
                     
                     if(CanHealTarget(target))
-                        target.Heal(Data.Heal);
+                        target.Heal(Caster.Stats, Data.FlatHeal, Data.PercentHeal, Data.HealStat);
                     
                     //Apply status
                 }
@@ -117,6 +117,16 @@ namespace Orpheus.Core.FightSystem.Runtime
             for (int i = 0; i < count; i++)
             {
                 Collider col =  colliders[i];
+                if (col.TryGetComponent(out IAbilityTarget target) && !targets.Contains(target))
+                    targets.Add(target);
+            }
+        }
+        
+        protected void TryAddHitTargets(RaycastHit[] hits, int count, List<IAbilityTarget> targets)
+        {
+            for (int i = 0; i < count; i++)
+            {
+                Collider col =  hits[i].collider;
                 if (col.TryGetComponent(out IAbilityTarget target) && !targets.Contains(target))
                     targets.Add(target);
             }
