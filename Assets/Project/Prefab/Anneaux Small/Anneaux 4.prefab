@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1947504061107761293}
   m_Layer: 0
   m_Name: Anneaux 4
-  m_TagString: Untagged
+  m_TagString: ISGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -83,6 +83,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 56282ea98263b2c48934f5fa441e404e, type: 3}
       propertyPath: m_Name
       value: PropsAnneauSmall (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 56282ea98263b2c48934f5fa441e404e, type: 3}
+      propertyPath: m_TagString
+      value: ISGround
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
