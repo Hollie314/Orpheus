@@ -53,7 +53,7 @@ namespace Orpheus.Core.Orbital
             this.rb = GetComponent<Rigidbody>();
             this.cc = GetComponent<CapsuleCollider>();
             _movementStates = new List<IOrbitalMovementState<T>>();
-            stats.Initialize(orbitalStatsData);
+            stats.Initialize(orbitalStatsData,1);
         }
 
         private void FixedUpdate()

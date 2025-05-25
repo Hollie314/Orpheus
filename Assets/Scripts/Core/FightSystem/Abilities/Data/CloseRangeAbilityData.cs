@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Orpheus.Core.FightSystem
 {
-    [CreateAssetMenu(fileName = "CloseRangeAbilityData", menuName = "Orpheus/AbilityData/CloseRange", order = 0)]
+    [CreateAssetMenu(fileName = "CloseRangeAbilityData", menuName = "Orpheus/FightSystem/AbilityData/CloseRange", order = 0)]
     public class CloseRangeAbilityData : AbilityData
     {
         [field: Header("Metrics")]

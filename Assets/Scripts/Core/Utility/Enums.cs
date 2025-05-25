@@ -10,13 +10,11 @@ namespace Orpheus.Core
 
     public enum FloatStats
     {
-        PhysicalDamages,
-        MagicalDamages,
+        Power,
         AttackSpeed,
         CritChance,
         CritDamages,
-        ArmorPenetration,
-        MagicPenetration,
+        ResistancePenetration,
         CritRes,
         HpRegen,
         HpMax,
@@ -25,14 +23,10 @@ namespace Orpheus.Core
         PhysicalResistance,
         DebuffResistance,
         Tenacity, 
-        Mana,
-        ManaMax,
-        ManaRegen,
         CooldownReduction,
         BuffAugmentation,
         BuffMalus,
         SustainAugmentation,
-        
     }
 
     public enum BoolStats
@@ -45,9 +39,7 @@ namespace Orpheus.Core
 
     public enum AfflictionType
     {
-        Burn,
-        Poison,
-        Bleed,
+        Damage,
         Heal,
         CrowdControl,
         Debuff,
@@ -58,7 +50,8 @@ namespace Orpheus.Core
     {
         Physic,
         Fire,
-        Wind,
+        Poison,
+        Bleed,
         True,
         Crush,
     }

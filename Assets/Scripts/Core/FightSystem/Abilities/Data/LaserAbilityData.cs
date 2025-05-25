@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Orpheus.Core.FightSystem
 {
-    [CreateAssetMenu(fileName = "LaserAbilityData", menuName = "Orpheus/AbilityData/LaserAbility", order = 1)]
+    [CreateAssetMenu(fileName = "LaserAbilityData", menuName = "Orpheus/FightSystem/AbilityData/LaserAbility", order = 1)]
     public class LaserAbilityData : AbilityData
     {
         

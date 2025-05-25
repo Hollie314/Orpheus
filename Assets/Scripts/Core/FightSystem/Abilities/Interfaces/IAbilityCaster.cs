@@ -10,5 +10,10 @@ namespace Orpheus.Core.FightSystem
         public TargetTeam Team { get; }
         public Ring Ring { get; }
         public OrbitalStats Stats { get; }
+
+        public void AddSkill()
+        {
+            
+        }
     }
 }

@@ -22,15 +22,25 @@ namespace Orpheus.Core
         }
 
         [System.Serializable]
-        public class TargetTeamEntry
+        public class TeamResistanceEntry
         {
-            public TargetTeam targetTeamName;
-            public float targetTeamValue;
+            public TargetTeam teamName;
+            public float resistanceValue;
+        }
+
+        [System.Serializable]
+        public class DamageResistanceEntry
+        {
+            public DamageType damageTypeName;
+            public float resistanceValue;
         }
 
         [field: SerializeField] public FloatStatEntry[] FloatStats { get; private set; }
         [field: SerializeField] public BoolStatEntry[] BoolStats { get; private set; }
-        [field: SerializeField] public TargetTeamEntry[] TeamEntries { get; private set; }
+        
+        [field: Header("Resistance")]
+        [field: SerializeField] public TeamResistanceEntry[] TeamResistances { get; private set; }
+        [field: SerializeField] public DamageResistanceEntry[] DamageResistances { get; private set; }
         
     }
 }

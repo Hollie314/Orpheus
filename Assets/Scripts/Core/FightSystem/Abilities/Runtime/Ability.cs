@@ -37,7 +37,7 @@ namespace Orpheus.Core.FightSystem.Runtime
                 ProcessRecoilPhase(deltaTime);
 
             CurrentLifetime += deltaTime;
-            return CurrentLifetime <= Data.TotalLifetime;
+            return CurrentLifetime >= Data.TotalLifetime;
         }
 
         //Delay before fire, serve for animation as well
@@ -81,7 +81,7 @@ namespace Orpheus.Core.FightSystem.Runtime
                         target.ApplyDamage(Data.FlatDamage);
                     
                     if(CanHealTarget(target))
-                        target.Heal(Caster.Stats, Data.FlatHeal, Data.PercentHeal, Data.HealStat);
+                        target.Heal(Caster.Stats, Data.FlatHeal, Data.PercentHeal, 0, 0);
                     
                     //Apply status
                 }
@@ -135,9 +135,16 @@ namespace Orpheus.Core.FightSystem.Runtime
         public bool IsInCastPhase() => CurrentLifetime < Data.CastTiming;
         public bool IsInFirePhase() => CurrentLifetime >= Data.CastTiming && CurrentLifetime < Data.FireTiming;
         public bool IsInRecoilPhase() => CurrentLifetime >= Data.FireTiming && CurrentLifetime < Data.RecoilTiming;
+
+        public virtual void Init()
+        {
+            CurrentFireCount = 0;
+            CurrentLifetime = 0;
+        }
+
+        public virtual void Dispose()
+        {
         
-        public virtual void Init() { }
-        
-        public virtual void Dispose() { }
+        }
     }
 }
