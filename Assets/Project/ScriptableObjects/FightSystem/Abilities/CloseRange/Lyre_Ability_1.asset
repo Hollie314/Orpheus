@@ -10,19 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3cdb9ee3b1d04818ba30ef1205b6d2e4, type: 3}
-  m_Name: CloseRangeAbilityData
+  m_Name: Lyre_Ability_1
   m_EditorClassIdentifier: 
   <CastDuration>k__BackingField: 0
   <FireCount>k__BackingField: 0
-  <FireDuration>k__BackingField: 0
-  <HitInterval>k__BackingField: 0
+  <FireDuration>k__BackingField: 5
+  <HitInterval>k__BackingField: 0.2
   <RecoilDuration>k__BackingField: 0
   <Cooldown>k__BackingField: 0
   <DamageOtherTeam>k__BackingField: 1
   <DamageSameTeam>k__BackingField: 0
   <HealOtherTeam>k__BackingField: 0
   <HealSameTeam>k__BackingField: 1
-  <Damage>k__BackingField: 0
-  <Heal>k__BackingField: 0
+  <FlatDamage>k__BackingField: 50
+  <PercentDamage>k__BackingField: 10
+  <DamageStat>k__BackingField: 0
+  <FlatHeal>k__BackingField: 0
+  <PercentHeal>k__BackingField: 0
+  <HealStat>k__BackingField: 0
   <HitBoxRadius>k__BackingField: 5
   <HitBoxHeight>k__BackingField: 5

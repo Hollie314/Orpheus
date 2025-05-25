@@ -31,7 +31,7 @@ namespace Orpheus.Core.FightSystem.Conditions
         
         public void ResetCondition()
         {
-           
+            IsReached = false;
         }
 
         public void OnConditionTriggered(InputAction.CallbackContext obj)
@@ -42,7 +42,7 @@ namespace Orpheus.Core.FightSystem.Conditions
                 Skill.OnConditionReached();
             }
 
-            if (obj.phase == InputActionPhase.Canceled || obj.phase == InputActionPhase.Performed)
+            if (obj.phase == InputActionPhase.Canceled || obj.action.WasReleasedThisFrame())
             {
                 IsReached = false;
             }

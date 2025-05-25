@@ -15,5 +15,10 @@ namespace Orpheus.Core.FightSystem
             StatsCalculus.Heal(casterstats, Stats, flatValue, percentageOffMissingHp, percentageOfMaxHp);
         }
         void ApplyStatus();
+
+        void ApplyMovement()
+        {
+            
+        }
     }
 }

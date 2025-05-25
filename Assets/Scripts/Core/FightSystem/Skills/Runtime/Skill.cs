@@ -21,15 +21,29 @@ namespace Orpheus.Core.FightSystem.Skills.Runtime
             Data = data;
             ability = data.AbilityData.GenerateAbility(caster);
             conditions = new List<ICondition<ConditionData>>();
-            foreach (var conditionData in data.ConditionDatas)
+            cooldown = (TimerCondition)data.CoolDown.GenerateCondition(this);
+            Initialize();
+        }
+
+        public void Initialize()
+        {
+            foreach (var conditionData in Data.ConditionDatas)
             {
                 ICondition<ConditionData> condition = conditionData.GenerateCondition(this);
                 conditions.Add(condition);
                 condition.Initialize();
             }
-            cooldown = (TimerCondition)data.CoolDown.GenerateCondition(this);
             cooldown.Initialize();
             CurrentCoolDownReduction(cooldown.CurrentTime); //set cd to 0 
+        }
+
+        public void Dispose()
+        {
+            foreach (var conditionData in conditions)
+            {
+                conditionData.Dispose();
+            }
+            cooldown.Dispose();
         }
 
         public void UpdateSkill()

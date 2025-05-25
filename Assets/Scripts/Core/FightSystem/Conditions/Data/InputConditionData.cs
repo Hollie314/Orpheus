@@ -9,7 +9,7 @@ namespace Orpheus.Core.FightSystem.Conditions.Data
     public class InputConditionData : ConditionData
     {
 
-        [SerializeField]
+        [field: SerializeField]
         public InputAction InputAction { get; private set; }
         public override ICondition<ConditionData> GenerateCondition(Skill skill)=> (ICondition<ConditionData>)new InputCondition(skill, this);
     }

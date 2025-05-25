@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Pool;
@@ -15,6 +16,9 @@ namespace Orpheus.Core.FightSystem.Runtime
 
         public float CurrentLifetime { get; private set; }
         public int CurrentFireCount { get; private set; }
+        
+        //event
+        public event Action<float> OnEnd;
         
         
         public Ability(IAbilityCaster caster, T data)

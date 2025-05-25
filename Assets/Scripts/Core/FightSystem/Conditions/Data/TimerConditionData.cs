@@ -8,7 +8,7 @@ namespace Orpheus.Core.FightSystem.Conditions.Data
     [CreateAssetMenu(fileName = "TimerConditionData", menuName = "Orpheus/FightSystem/Conditions/TimerCondition", order = 0)]
     public class TimerConditionData : ConditionData
     {
-        [SerializeField]
+        [field: SerializeField]
         public float Duration { get; private set; }
         public override ICondition<ConditionData> GenerateCondition(Skill skill) => (ICondition<ConditionData>)new TimerCondition(skill, this);
     }
