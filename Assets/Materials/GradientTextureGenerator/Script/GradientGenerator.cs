@@ -124,9 +124,9 @@ namespace LKHGames
 			}
 			#endregion
 
-            var randomIndex = Random.Range(0, 999999).ToString();
-            File.WriteAllBytes(Application.dataPath + savingPath + "GradientTexture_" + randomIndex + saveFormat, _bytes);
-            Debug.Log("<color=#00FF00><b> GradientTexture_" + randomIndex + saveFormat + " baked sucessfully. Saved in the following path: " + "Assets" + savingPath + "</b></color>");
+            /*var randomIndex = Random.Range(0, 999999).ToString();*/
+            File.WriteAllBytes(Application.dataPath + savingPath + "GradientTexture_" /*+ randomIndex*/ + saveFormat, _bytes);
+            Debug.Log("<color=#00FF00><b> GradientTexture_" /*+ randomIndex*/ + saveFormat + " baked sucessfully. Saved in the following path: " + "Assets" + savingPath + "</b></color>");
         }
     }
 }
