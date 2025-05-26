@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Runtime.CompilerServices;
+using Orpheus.Core.FightSystem.Skills.Runtime;
 using Orpheus.Core.Rings;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -15,6 +16,7 @@ namespace Orpheus.Core.FightSystem.Trap
         public TargetTeam Team { get; private set; } = TargetTeam.Trap;
         public Ring Ring { get; private set; }
         public OrbitalStats Stats { get; }
+        
 
         public AbilityData AbilityData { get; private set; }
         
@@ -54,6 +56,21 @@ namespace Orpheus.Core.FightSystem.Trap
             yield return duration;
             AbilityManager.Instance.RemoveAbility(ability);
             
+        }
+        
+        public void AddSkill(Skill skill)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RemoveSkill(Skill skill)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Vector3 GetAim()
+        {
+            throw new NotImplementedException();
         }
     }
 }

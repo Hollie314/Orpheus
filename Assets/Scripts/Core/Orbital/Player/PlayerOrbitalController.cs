@@ -1,6 +1,7 @@
 using System;
 using NaughtyAttributes;
 using Orpheus.Core.FightSystem;
+using Orpheus.Core.FightSystem.Skills.Runtime;
 using Orpheus.Core.Rings;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -35,21 +36,40 @@ namespace Orpheus.Core.Orbital.Player
         public Vector3 CastDirection { get; }
         public TargetTeam Team { get; }
         public OrbitalStats Stats { get; }
+        
+
         public Ring Ring { get; }
         
         public void ApplyStatus()
         {
-            throw new System.NotImplementedException();
+           
         }
 
         public void ApplyMovement()
         {
-            throw new System.NotImplementedException();
+            
         }
 
         public void OnDeath()
         {
             
+        }
+        
+        public void AddSkill(Skill skill)
+        {
+            
+        }
+
+        public void RemoveSkill(Skill skill)
+        {
+           
+        }
+
+        public Vector3 GetAim()
+        {
+            Vector3 mousePos = Input.mousePosition;
+            mousePos.z = PlayerCamera.distance;
+            return Camera.main.ScreenToWorldPoint(mousePos);
         }
     }
 }

@@ -12,9 +12,8 @@ namespace Orpheus.Core.FightSystem
         public Ring Ring { get; }
         public OrbitalStats Stats { get; }
 
-        public void AddSkill(Skill skill)
-        {
-            
-        }
+        public void AddSkill(Skill skill);
+        public void RemoveSkill(Skill skill);
+        public Vector3 GetAim();
     }
 }

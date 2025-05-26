@@ -9,7 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 397563b99e7e4c439308bfd76ccbdd9b, type: 3}
-  m_Name: Lyre_Ability_1_CD
+  m_Script: {fileID: 11500000, guid: d5fa206e31d247a38b9560014235b8e7, type: 3}
+  m_Name: Weapon_Lyre
   m_EditorClassIdentifier: 
-  <Duration>k__BackingField: 2
+  <Name>k__BackingField: Lyre
+  <skills>k__BackingField:
+  - {fileID: 11400000, guid: 0a210f67501197842868164ea1ac21aa, type: 2}
