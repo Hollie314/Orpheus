@@ -1,5 +1,6 @@
 using Orpheus.Core.Rings;
 using UnityEditor.UIElements;
+using UnityEngine;
 
 namespace Orpheus.Core.FightSystem
 {
@@ -8,17 +9,35 @@ namespace Orpheus.Core.FightSystem
         TargetTeam Team { get; }
         public OrbitalStats Stats { get; }
         public Ring Ring { get; }
-        void ApplyDamage(int amount);
 
-        void Heal(OrbitalStats casterstats, int flatValue,  int percentageOffMissingHp, int percentageOfMaxHp, FloatStats stat)
+        void ApplyDamage(IAbilityCaster caster, float flatValue, float percentageOfStat, FloatStats stat, DamageType damageType)
         {
-            StatsCalculus.Heal(casterstats, Stats, flatValue, percentageOffMissingHp, percentageOfMaxHp);
+            //Calculate damages
+            float damages = StatsCalculus.Damage(caster.Stats, flatValue, percentageOfStat, stat);
+            
+            //Calculate mitigated damages
+            damages = StatsCalculus.MitigatedDamages(damages, caster.Team, damageType, Stats);
+            
+            //Apply damages, it does not implement shield for now.
+            Stats.setStat(FloatStats.Hp, Mathf.Clamp(Stats.getStat(FloatStats.Hp)- damages,0,Stats.getStat(FloatStats.HpMax)));
+            
+            //Check for death
+            if (Stats.getStat(FloatStats.Hp) <= 0)
+            {
+                OnDeath();
+            }
+        }
+
+        void Heal(IAbilityCaster caster, float flatValue,  float percentageOffMissingHp, float percentageOfMaxHp)
+        {
+            //Calculate heal
+            float heal = StatsCalculus.Heal(caster.Stats, flatValue, percentageOffMissingHp, percentageOfMaxHp);
+            //Apply Heal clamped at max HP
+            Stats.setStat(FloatStats.Hp,Mathf.Clamp(Stats.getStat(FloatStats.Hp) +heal, 0, Stats.getStat(FloatStats.HpMax)));
         }
         void ApplyStatus();
 
-        void ApplyMovement()
-        {
-            
-        }
+        void ApplyMovement();
+        void OnDeath();
     }
 }

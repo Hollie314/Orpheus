@@ -11,7 +11,7 @@ namespace Orpheus.Core.FightSystem.Skills.Runtime
     {
         public IAbilityCaster Caster { get; private set; }
         public readonly SkillData Data;
-        public readonly IAbility ability;
+        public readonly List<IAbility> abilities;
         public readonly List<ICondition<ConditionData>> conditions;
         public readonly TimerCondition cooldown;
         
@@ -19,7 +19,7 @@ namespace Orpheus.Core.FightSystem.Skills.Runtime
         {
             Caster = caster;
             Data = data;
-            ability = data.AbilityData.GenerateAbility(caster);
+            abilities = new List<IAbility>();
             conditions = new List<ICondition<ConditionData>>();
             cooldown = (TimerCondition)data.CoolDown.GenerateCondition(this);
             Initialize();
@@ -27,6 +27,12 @@ namespace Orpheus.Core.FightSystem.Skills.Runtime
 
         public void Initialize()
         {
+            foreach (var abilityData in Data.AbilityDatas)
+            {
+                IAbility ability = abilityData.GenerateAbility(Caster);
+                abilities.Add(ability);
+                //abilities.Init();
+            }
             foreach (var conditionData in Data.ConditionDatas)
             {
                 ICondition<ConditionData> condition = conditionData.GenerateCondition(this);
@@ -34,7 +40,7 @@ namespace Orpheus.Core.FightSystem.Skills.Runtime
                 condition.Initialize();
             }
             cooldown.Initialize();
-            CurrentCoolDownReduction(cooldown.CurrentTime); //set cd to 0 
+            cooldown.LowerCurrentTime(cooldown.CurrentTime); //set cd to 0 
         }
 
         public void Dispose()
@@ -46,20 +52,15 @@ namespace Orpheus.Core.FightSystem.Skills.Runtime
             cooldown.Dispose();
         }
 
-        public void UpdateSkill()
+        public void OnConditionReached()
         {
             //Use Ability if all Condition are met
             if (Caster != null && AllConditionMeet())
             {
-                AbilityManager.Instance.AddAbility(ability);
-            }
-        }
-
-        public void OnConditionReached()
-        {
-            if (Caster != null && AllConditionMeet())
-            {
-                AbilityManager.Instance.AddAbility(ability);
+                foreach (var ability in abilities)
+                {
+                    AbilityManager.Instance.AddAbility(ability);
+                }
             }
         }
 
@@ -83,11 +84,6 @@ namespace Orpheus.Core.FightSystem.Skills.Runtime
             {
                 condition.ResetCondition();
             }
-        }
-
-        public void CurrentCoolDownReduction(float reduction)
-        {
-            cooldown.LowerCurrentTime(reduction);
         }
         
         public void CoolDownReduction(float reduction)

@@ -19,8 +19,7 @@ namespace Orpheus.Core
         HpRegen,
         HpMax,
         Hp,
-        MagicalResistance,
-        PhysicalResistance,
+        Resistance,
         DebuffResistance,
         Tenacity, 
         CooldownReduction,
@@ -61,6 +60,11 @@ namespace Orpheus.Core
         Player,
         Enemy,
         Trap,
+    }
+
+    public enum Movement
+    {
+        
     }
 }
 

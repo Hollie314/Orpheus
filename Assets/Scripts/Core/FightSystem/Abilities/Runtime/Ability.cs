@@ -82,12 +82,13 @@ namespace Orpheus.Core.FightSystem.Runtime
                 foreach (var target in targets)
                 {
                     if(CanDamageTarget(target))
-                        target.ApplyDamage(Data.FlatDamage);
+                        target.ApplyDamage(Caster, Data.FlatDamage, Data.PercentDamage, Data.DamageStat, Data.DamageType);
                     
                     if(CanHealTarget(target))
-                        target.Heal(Caster.Stats, Data.FlatHeal, Data.PercentHeal, 0, 0);
+                        target.Heal(Caster, Data.FlatHeal, Data.PercentHealCurrentHp, Data.PercentHealMaxHp);
                     
                     //Apply status
+                    //apply movement
                 }
             }
         }

@@ -37,9 +37,9 @@ namespace Orpheus.Core.Rings
         {
             //move on the ring
             float angle = GetAngle(position); //get actual angle
-            angle += GetAngularSpeed(speed.x) * Time.deltaTime; //calculate new angle based on speed
+            angle += speed.x; //calculate new angle based on speed
             Vector3 positionFromAngle = OrbitalMath.GetPositionFromAngle(this.transform.position, RingData.Radius, angle);
-            Vector3 verticalPosition = new Vector3(0,position.y + speed.y * Time.deltaTime,0); // Vertical position
+            Vector3 verticalPosition = new Vector3(0,position.y + speed.y,0); // Vertical position
             return positionFromAngle+verticalPosition; //calculate new position
         }
 

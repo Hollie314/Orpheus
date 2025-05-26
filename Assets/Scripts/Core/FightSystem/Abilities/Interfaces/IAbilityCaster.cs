@@ -1,3 +1,4 @@
+using Orpheus.Core.FightSystem.Skills.Runtime;
 using Orpheus.Core.Rings;
 using UnityEngine;
 
@@ -11,7 +12,7 @@ namespace Orpheus.Core.FightSystem
         public Ring Ring { get; }
         public OrbitalStats Stats { get; }
 
-        public void AddSkill()
+        public void AddSkill(Skill skill)
         {
             
         }

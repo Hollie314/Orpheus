@@ -1,4 +1,7 @@
+using NaughtyAttributes;
+using NUnit.Framework;
 using Orpheus.Core.FightSystem.Runtime;
+using Orpheus.Core.Orbital;
 using UnityEngine;
 
 namespace Orpheus.Core.FightSystem
@@ -35,24 +38,30 @@ namespace Orpheus.Core.FightSystem
         public bool DamageOtherTeam { get; private set; } = true;
         [field: SerializeField]
         public bool DamageSameTeam { get; private set; } = false;
+        
+        [field: SerializeField, Min(0)] 
+        public float FlatDamage { get; private set; }
+        [field: SerializeField, Min(0)] 
+        public float PercentDamage { get; private set; }
+        [field: SerializeField]
+        public FloatStats DamageStat { get; private set; }
+        [field: SerializeField]
+        public DamageType DamageType { get; private set; }
+        
+        [field: Header("Heal")]
         [field: SerializeField]
         public bool HealOtherTeam { get; private set; } = false;
         [field: SerializeField]
         public bool HealSameTeam { get; private set; } = true;
+        [field: SerializeField, Min(0)] 
+        public float FlatHeal { get; private set; }
+        [field: SerializeField, MinMaxSlider(0,1)] 
+        public float PercentHealCurrentHp { get; private set; }
+        [field: SerializeField, MinMaxSlider(0,1)]
+        public float PercentHealMaxHp { get; private set; }
         
-        
-        [field: SerializeField, Min(0)] 
-        public int FlatDamage { get; private set; }
-        [field: SerializeField, Min(0)] 
-        public int PercentDamage { get; private set; }
-        [field: SerializeField]
-        public FloatStats DamageStat { get; private set; }
-        [field: SerializeField, Min(0)] 
-        public int FlatHeal { get; private set; }
-        [field: SerializeField, Min(0)] 
-        public int PercentHeal { get; private set; }
-        [field: SerializeField]
-        public FloatStats HealStat { get; private set; }
+        [field: Header("Movement")]
+        //public IOrbitalMovementState<T> MovementState { get; private set; }
         
         public float CastTiming => CastDuration;
         public float FireTiming => CastDuration + FireDuration;
