@@ -11,6 +11,6 @@ namespace Orpheus.Core.FightSystem.Conditions.Data
 
         [field: SerializeField]
         public InputAction InputAction { get; private set; }
-        public override ICondition<ConditionData> GenerateCondition(Skill skill)=> (ICondition<ConditionData>)new InputCondition(skill, this);
+        public override ICondition GenerateCondition(Skill skill)=> new InputCondition(skill, this);
     }
 }

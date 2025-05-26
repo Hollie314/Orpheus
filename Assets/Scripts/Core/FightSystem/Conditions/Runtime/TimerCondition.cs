@@ -7,19 +7,14 @@ using UnityEngine;
 
 namespace Orpheus.Core.FightSystem.Conditions
 {
-    public class TimerCondition : ICondition<TimerConditionData>
+    public class TimerCondition : Condition<TimerConditionData>
     {
         public float CurrentTime{ get; private set; }
         public float Duration { get; private set; }
-        public TimerConditionData ConditionData { get;private set; }
-        public Skill Skill { get; private set;}
-        public bool IsReached { get; private set; }
         
         
-        public TimerCondition(Skill skill, TimerConditionData data)
+        public TimerCondition(Skill skill, TimerConditionData data) : base(skill, data)
         {
-            ConditionData = data;
-            Skill = skill;
         }
         
         public void Initialize()
@@ -33,7 +28,12 @@ namespace Orpheus.Core.FightSystem.Conditions
         {
             GlobalTimer.OnTick -= OnConditionTriggered;
         }
-        
+
+        protected override void InitializeCondition()
+        {
+            
+        }
+
         public void ResetCondition()
         {
             CurrentTime = Duration;

@@ -3,13 +3,9 @@ using Orpheus.Core.FightSystem.Skills.Runtime;
 
 namespace Orpheus.Core.FightSystem.Conditions.Interface
 {
-    public interface ICondition<T> where T : ConditionData
+    public interface ICondition
     {
         public bool IsReached { get; }
-        
-        public  T ConditionData{ get; }
-        public Skill Skill { get; }
-
         public void Initialize();
         public void Dispose();
         public void ResetCondition();

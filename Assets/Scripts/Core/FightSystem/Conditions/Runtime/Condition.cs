@@ -7,19 +7,16 @@ using PlasticPipe.PlasticProtocol.Messages.Serialization;
 
 namespace Orpheus.Core.FightSystem.Conditions
 {
-    public abstract class Condition<T> : ICondition<T> where T : ConditionData
+    public abstract class Condition<T> : ICondition where T : ConditionData
     {
-        public readonly IAbilityCaster Caster;
         public T ConditionData { get; protected set;}
-        public Skill Skill { get; }
-        
-
+        public Skill Skill { get;protected set; }
         public bool IsReached { get; protected set; }
         
 
-        public Condition(IAbilityCaster caster, T data)
+        public Condition(Skill skill, T data)
         {
-            Caster = caster;
+            Skill = skill;
             ConditionData = data;
         }
 
@@ -29,12 +26,12 @@ namespace Orpheus.Core.FightSystem.Conditions
         }
         public void Initialize()
         {
-            throw new NotImplementedException();
+           
         }
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            
         }
         
 

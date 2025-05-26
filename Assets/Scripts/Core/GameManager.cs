@@ -51,11 +51,13 @@ namespace Orpheus.Core
             foreach (var weaponData in GameController.GameDatabase.WeaponDatas)
             {
                 weapons.Add(weaponData.GenerateWeapon());
-                Debug.Log(weaponData.Name);
             }
-            
-            //currentWeapon = weapons[0];
-            //currentWeapon.EquipItem(player);
+
+            if (weapons.Count > 0)
+            {
+                currentWeapon = weapons[0];
+                currentWeapon.EquipItem(player);
+            }
         }
 
         public void SwapWeapon(int index)

@@ -6,6 +6,6 @@ namespace Orpheus.Core.FightSystem.Conditions.Data
 {
     public abstract class ConditionData : ScriptableObject
     {
-        public abstract ICondition<ConditionData> GenerateCondition(Skill skill);
+        public abstract ICondition GenerateCondition(Skill skill);
     }
 }

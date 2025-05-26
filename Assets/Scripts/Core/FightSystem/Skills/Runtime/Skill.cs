@@ -4,6 +4,7 @@ using Orpheus.Core.FightSystem.Conditions;
 using Orpheus.Core.FightSystem.Conditions.Data;
 using Orpheus.Core.FightSystem.Conditions.Interface;
 using Orpheus.Core.FightSystem.Skills.Data;
+using UnityEngine;
 
 namespace Orpheus.Core.FightSystem.Skills.Runtime
 {
@@ -12,7 +13,7 @@ namespace Orpheus.Core.FightSystem.Skills.Runtime
         public IAbilityCaster Caster { get; private set; }
         public readonly SkillData Data;
         public readonly List<IAbility> abilities;
-        public readonly List<ICondition<ConditionData>> conditions;
+        public readonly List<ICondition> conditions;
         public readonly TimerCondition cooldown;
         
         public Skill(IAbilityCaster caster, SkillData data)
@@ -20,8 +21,8 @@ namespace Orpheus.Core.FightSystem.Skills.Runtime
             Caster = caster;
             Data = data;
             abilities = new List<IAbility>();
-            conditions = new List<ICondition<ConditionData>>();
-            cooldown = (TimerCondition)data.CoolDown.GenerateCondition(this);
+            conditions = new List<ICondition>();
+            cooldown = (TimerCondition)Data.CoolDown.GenerateCondition(this);
             Initialize();
         }
 
@@ -35,10 +36,12 @@ namespace Orpheus.Core.FightSystem.Skills.Runtime
             }
             foreach (var conditionData in Data.ConditionDatas)
             {
-                ICondition<ConditionData> condition = conditionData.GenerateCondition(this);
+                Debug.Log(conditionData.name);
+                ICondition condition = conditionData.GenerateCondition(this);
                 conditions.Add(condition);
                 condition.Initialize();
             }
+            
             cooldown.Initialize();
             cooldown.LowerCurrentTime(cooldown.CurrentTime); //set cd to 0 
         }
@@ -66,6 +69,7 @@ namespace Orpheus.Core.FightSystem.Skills.Runtime
 
         public bool AllConditionMeet()
         {
+            Debug.Log("we are checking all conditions");
             foreach (var condition in conditions)
             {
                 if (!condition.IsReached)

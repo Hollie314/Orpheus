@@ -13,6 +13,7 @@ namespace Orpheus.Core.FightSystem.AbilityHolders.Items
         public Weapon(WeaponData data)
         {
             weaponData = data;
+            skills = new List<Skill>();
         }
         
         public void EquipItem(IAbilityCaster caster)

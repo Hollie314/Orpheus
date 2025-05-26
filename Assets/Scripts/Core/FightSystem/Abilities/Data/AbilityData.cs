@@ -55,9 +55,9 @@ namespace Orpheus.Core.FightSystem
         public bool HealSameTeam { get; private set; } = true;
         [field: SerializeField, Min(0)] 
         public float FlatHeal { get; private set; }
-        [field: SerializeField, MinMaxSlider(0,1)] 
+        [field: SerializeField, Min(0),MaxValue(1)] 
         public float PercentHealCurrentHp { get; private set; }
-        [field: SerializeField, MinMaxSlider(0,1)]
+        [field: SerializeField, Min(0),MaxValue(1)]
         public float PercentHealMaxHp { get; private set; }
         
         [field: Header("Movement")]
