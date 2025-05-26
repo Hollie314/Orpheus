@@ -36,8 +36,12 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Emissive_Texture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _Grayscale_Texture:
-        m_Texture: {fileID: 2800000, guid: 430f3acdd17f0c74d964294e3a383785, type: 3}
+        m_Texture: {fileID: 2800000, guid: 4386f01439bcf244cb0ace095d0bf9c7, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Shading_Gradient:
@@ -65,6 +69,7 @@ Material:
     - _Added_Contrast: 1
     - _Added_Saturation: 1
     - _Emission_Strentgh: 0
+    - _Emissive_Texture_to_Color_Switch: 1
     - _Fresnel_Angle: 1
     - _Fresnel_Size: 19
     - _Gloss_Size: 9
@@ -80,7 +85,7 @@ Material:
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 0}
     - _Emission_Color: {r: 0, g: 0, b: 0, a: 0}
-    - _Emissive_Intensity: {r: 9.08241, g: 9.08241, b: 9.08241, a: 0}
+    - _Emissive_Intensity: {r: 256, g: 256, b: 256, a: 0}
     - _Emissive_Tint: {r: 1, g: 1, b: 1, a: 0}
     - _Fresnel_Intensity: {r: 1.7411009, g: 1.7411009, b: 1.7411009, a: 0}
     - _Gloss_Intensity: {r: 2, g: 2, b: 2, a: 0}
