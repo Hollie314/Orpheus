@@ -30,6 +30,7 @@ namespace Orpheus.Core.Orbital.Player
             base.Awake();
             PlayerInput = GetComponent<PlayerInput>();
             SetRing(ring);
+            Team = TargetTeam.Player;
         }
 
         private void Start()
