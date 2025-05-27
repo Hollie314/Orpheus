@@ -35,10 +35,13 @@ namespace Orpheus.Core.Orbital
         public Vector3 GroundNormal { get; private set; }
         [field: ShowNonSerializedField]
         public Vector3 GroundPosition { get; private set; }
+        
+        [field: ShowNonSerializedField]
+        public int Direction { get; private set; }
     
 
         private List<IOrbitalMovementState<T>> _movementStates;
-        private IOrbitalMovementState<T> currentMovementState;
+        public IOrbitalMovementState<T> currentMovementState { get; private set; }
         private Rigidbody rb;
         private CapsuleCollider cc;
         private static readonly Collider[] colliders = new Collider[16];
@@ -46,17 +49,18 @@ namespace Orpheus.Core.Orbital
         
         [BoxGroup("Stats")]
         [SerializeField] private OrbitalStatsData orbitalStatsData;
-        private OrbitalStats stats = new();
+        public OrbitalStats Stats { get; private set;}
 
         protected virtual void Awake()
         {
             this.rb = GetComponent<Rigidbody>();
             this.cc = GetComponent<CapsuleCollider>();
             _movementStates = new List<IOrbitalMovementState<T>>();
-            stats.Initialize(orbitalStatsData);
+            Stats = new OrbitalStats();
+            Stats.Initialize(orbitalStatsData,1);
         }
 
-        private void FixedUpdate()
+        protected virtual void FixedUpdate()
         {
             CheckGround();
             SelectNextState();
@@ -154,7 +158,7 @@ namespace Orpheus.Core.Orbital
             //Debug.Log("current velocity on y : "+ CurrentVelocity.y+" final velocity on y : "+ finalVelocity.y);
             //Debug.Log("current velocity on x : "+ CurrentVelocity.x+" final velocity on x : "+ finalVelocity.x);
         
-            Vector2 angularVelocity = new Vector2(CurrentRing.GetAngularSpeed(CurrentVelocity.x),CurrentVelocity.y) ;
+            Vector2 angularVelocity = new Vector2(CurrentRing.GetAngularSpeed(CurrentVelocity.x),CurrentVelocity.y) * Time.deltaTime;
             
             Vector3 p1 = lastPosition + cc.center + transform.up * (-cc.height * 0.25f);
             Vector3 p2 = p1 + transform.up * cc.height;
@@ -257,7 +261,7 @@ namespace Orpheus.Core.Orbital
             {
                 //tangent of the ring
                 Vector3 currentposition = rb.position;
-                Vector3 tangentDir = OrbitalMath.GetTangent(currentposition, CurrentRing.transform.position, Math.Sign(CurrentVelocity.x));
+                Vector3 tangentDir = OrbitalMath.GetTangent(currentposition, CurrentRing.transform.position, Math.Sign(Direction));
                 Vector3 lookTarget = currentposition + tangentDir;
         
                // transform.LookAt(lookTarget);
@@ -268,14 +272,10 @@ namespace Orpheus.Core.Orbital
             }
         }
 
-        public void TakeDamages(float damages)
+        public void SetDirection(int dir)
         {
-            float Hp = stats.getStat(FloatStats.Hp) - damages;
-            if (Hp<= 0)
-            {
-                
-            }
-
+            Direction = dir;
         }
+        
     }
 }

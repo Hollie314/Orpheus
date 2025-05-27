@@ -13,10 +13,10 @@ namespace Orpheus.Core.FightSystem.Runtime
         {
             int count = OrbitalPhysics.BoxCastNonAlloc(Caster.CastPoint, Caster.CastDirection, 
                 new Vector3(1, Data.BoxHeight, 1), Quaternion.identity, Data.RayDistance,
-                Caster.Ring.RingData.Radius, Caster.Ring.transform.position,
+                Caster.CurrentRing.RingData.Radius, Caster.CurrentRing.transform.position,
                 HitsBuffer);
-            
-            TryAddTargets(ColliderBuffer, count, targets);
+            TryAddHitTargets(HitsBuffer, count, targets); 
+            //TryAddTargets(ColliderBuffer, count, targets);
         }
     }
 }

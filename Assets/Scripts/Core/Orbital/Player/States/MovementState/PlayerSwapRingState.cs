@@ -80,9 +80,14 @@ namespace Orpheus.Core.Orbital.Player
                     //isSwapingRing = false;
                     return Vector2.zero;
                 }
+
                 float distanceToNextRing;
             }
-            Debug.Log(orbitalController.CurrentRing.RingData.Size.ToString());
+            if (orbitalController.IsGrounded)
+            {
+                return Vector2.zero;
+            }
+            
             return Vector2.zero;
         }
 

@@ -8,7 +8,7 @@ namespace Orpheus.Core
     public class PlayerCamera : MonoBehaviour
     {
         [SerializeField] 
-        private float distance;
+        public static float distance = 1.36f;
         [SerializeField] 
         private float yOffset;
 

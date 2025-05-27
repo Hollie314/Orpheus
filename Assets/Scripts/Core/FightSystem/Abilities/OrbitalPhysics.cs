@@ -63,7 +63,6 @@ namespace Orpheus.Core.FightSystem
             Vector3 ringCenter,
             RaycastHit[] results,
             Func<Vector3, Vector3, int> castMethod,
-
             float stepDistance)
         {
             int currentCount = 0;
