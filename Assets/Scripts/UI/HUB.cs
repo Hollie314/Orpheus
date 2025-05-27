@@ -5,7 +5,7 @@ public class HUB : MonoBehaviour
 {
     public void StartGame()
     {
-        SceneManager.LoadSceneAsync(0); 
+        SceneManager.LoadSceneAsync(2); 
     }
 
     public void QuitGame()
