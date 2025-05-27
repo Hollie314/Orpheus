@@ -21,7 +21,6 @@ namespace Orpheus.Core.FightSystem.AbilityHolders.Items
             {
                 skills.Add(skill.GenerateAbility(caster));
             }
-            
             foreach (var skill in skills)
             {
                 caster.AddSkill(skill);
@@ -35,6 +34,7 @@ namespace Orpheus.Core.FightSystem.AbilityHolders.Items
                 caster.RemoveSkill(skill);
                 skill.Dispose();
             }
+            skills.Clear();
         }
     }
 }

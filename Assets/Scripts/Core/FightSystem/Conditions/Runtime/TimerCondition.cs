@@ -44,7 +44,6 @@ namespace Orpheus.Core.FightSystem.Conditions
                IsReached = true;
                if (lastTime > 0)
                {
-                   Debug.Log("time up");
                    Skill.OnConditionReached();
                }
             }

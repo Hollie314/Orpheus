@@ -21,8 +21,8 @@ namespace Orpheus.Core.FightSystem
         public static float MitigatedDamages(float baseDamages,TargetTeam team, DamageType damageType, OrbitalStats target)
         {
             float damage = baseDamages - baseDamages * target.getStat(damageType);
-            damage = damage - damage * target.getStat(team);
-            damage = damage - damage * target.getStat(FloatStats.Resistance);
+            damage =- damage * target.getStat(team);
+            damage =- damage * target.getStat(FloatStats.Resistance);
             return damage;
         }
         

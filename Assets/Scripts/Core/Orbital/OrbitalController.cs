@@ -60,7 +60,7 @@ namespace Orpheus.Core.Orbital
             Stats.Initialize(orbitalStatsData,1);
         }
 
-        private void FixedUpdate()
+        protected virtual void FixedUpdate()
         {
             CheckGround();
             SelectNextState();

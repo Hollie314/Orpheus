@@ -40,7 +40,13 @@ namespace Orpheus.Core.Orbital.Player
             }
         }
 
-        
+        protected override void FixedUpdate()
+        {
+          base.FixedUpdate();
+          CastPoint = this.transform.position;
+        }
+
+
         public void ApplyStatus()
         {
            

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace Orpheus.Core.FightSystem.Runtime
 {
@@ -16,6 +17,7 @@ namespace Orpheus.Core.FightSystem.Runtime
 
             int count = Physics.OverlapCapsuleNonAlloc(p1, p2, Data.HitBoxRadius, ColliderBuffer);
             TryAddTargets(ColliderBuffer, count, targets);
+            DebugExtension.DebugCapsule(p1, p2, Data.HitBoxRadius, 2);
         }
     }
 }

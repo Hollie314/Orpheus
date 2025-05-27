@@ -4,6 +4,7 @@ using Orpheus.Core.FightSystem.Conditions;
 using Orpheus.Core.FightSystem.Conditions.Data;
 using Orpheus.Core.FightSystem.Conditions.Interface;
 using Orpheus.Core.FightSystem.Skills.Data;
+using UnityEditor;
 using UnityEngine;
 
 namespace Orpheus.Core.FightSystem.Skills.Runtime
@@ -14,7 +15,8 @@ namespace Orpheus.Core.FightSystem.Skills.Runtime
         public readonly SkillData Data;
         public readonly List<IAbility> abilities;
         public readonly List<ICondition> conditions;
-        public readonly TimerCondition cooldown;
+        private bool AbilitiesRunning;
+        public TimerCondition Cooldown { get; private set; }
         
         public Skill(IAbilityCaster caster, SkillData data)
         {
@@ -22,7 +24,6 @@ namespace Orpheus.Core.FightSystem.Skills.Runtime
             Data = data;
             abilities = new List<IAbility>();
             conditions = new List<ICondition>();
-            cooldown = (TimerCondition)Data.CoolDown.GenerateCondition(this);
             Initialize();
         }
 
@@ -41,19 +42,22 @@ namespace Orpheus.Core.FightSystem.Skills.Runtime
                 conditions.Add(condition);
                 condition.Initialize();
             }
-            cooldown.Initialize();
-            cooldown.LowerCurrentTime(cooldown.CurrentTime); //set cd to 0 
+            Cooldown = (TimerCondition)Data.CoolDown.GenerateCondition(this);
+            Cooldown.Initialize();
+            Cooldown.LowerCurrentTime(Cooldown.CurrentTime); //set cd to 0 
             GetLongestAbility().OnEnd += OnAbilityEnd;
         }
 
         public void Dispose()
         {
-            foreach (var conditionData in conditions)
-            {
-                conditionData.Dispose();
-            }
-            cooldown.Dispose();
             GetLongestAbility().OnEnd -= OnAbilityEnd;
+            foreach (var condition in conditions)
+            {
+                condition.Dispose();
+            }
+            Cooldown.Dispose();
+            abilities.Clear();
+            conditions.Clear();
         }
 
         public IAbility GetLongestAbility()
@@ -79,18 +83,18 @@ namespace Orpheus.Core.FightSystem.Skills.Runtime
         public void OnConditionReached()
         {
             //Use Ability if all Condition are met
-            if (Caster != null && AllConditionMeet())
+            if (Caster != null && AllConditionMeet()&& !AbilitiesRunning)
             {
                 foreach (var ability in abilities)
                 {
                     AbilityManager.Instance.AddAbility(ability);
                 }
+                AbilitiesRunning = true;
             }
         }
 
         public bool AllConditionMeet()
         {
-            Debug.Log("we are checking all conditions");
             foreach (var condition in conditions)
             {
                 if (!condition.IsReached)
@@ -98,7 +102,7 @@ namespace Orpheus.Core.FightSystem.Skills.Runtime
                     return false;
                 }
             }
-            if (!cooldown.IsReached)
+            if (!Cooldown.IsReached)
             {
                 return false;
             }
@@ -122,8 +126,8 @@ namespace Orpheus.Core.FightSystem.Skills.Runtime
 
         public void OnAbilityEnd()
         {
-            Debug.Log("Start cooldown");
-            cooldown.ResetCondition();
+            Cooldown.ResetCondition();
+            AbilitiesRunning = false;
         }
     }
 }
