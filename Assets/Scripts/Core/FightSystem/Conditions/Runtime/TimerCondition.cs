@@ -17,24 +17,19 @@ namespace Orpheus.Core.FightSystem.Conditions
         {
         }
         
-        public void Initialize()
+        public override void Initialize()
         {
             GlobalTimer.OnTick += OnConditionTriggered;
             Duration = ConditionData.Duration;
             ResetCondition();
         }
 
-        public void Dispose()
+        public override void Dispose()
         {
             GlobalTimer.OnTick -= OnConditionTriggered;
         }
 
-        protected override void InitializeCondition()
-        {
-            
-        }
-
-        public void ResetCondition()
+        public override void ResetCondition()
         {
             CurrentTime = Duration;
             IsReached = false;
@@ -42,11 +37,16 @@ namespace Orpheus.Core.FightSystem.Conditions
         
         public void OnConditionTriggered(float deltaTime)
         {
+            float lastTime = CurrentTime;
             LowerCurrentTime(deltaTime);
-            if (CurrentTime == 0)
+            if (CurrentTime <= 0)
             {
                IsReached = true;
-               Skill.OnConditionReached();
+               if (lastTime > 0)
+               {
+                   Debug.Log("time up");
+                   Skill.OnConditionReached();
+               }
             }
         }
 

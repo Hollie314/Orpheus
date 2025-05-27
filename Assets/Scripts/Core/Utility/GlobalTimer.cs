@@ -5,18 +5,21 @@ namespace Orpheus.Core
 {
     public class GlobalTimer : MonoBehaviour
     {
-        public static GlobalTimer Instance { get; private set; }
+        public static GlobalTimer _instance;
         public static event Action<float> OnTick;
 
-        private void Awake()
+        public static GlobalTimer Instance
         {
-            if (Instance != null && Instance != this)
+            get
             {
-                Destroy(this);
-                return;
-            }
+                if (_instance == null)
+                {
+                    _instance = new GameObject(nameof(GlobalTimer)).AddComponent<GlobalTimer>();
+                    DontDestroyOnLoad(_instance);
+                }
 
-            Instance = this;
+                return _instance;
+            }
         }
 
         private void Update()

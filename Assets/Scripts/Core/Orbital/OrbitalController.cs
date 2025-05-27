@@ -49,14 +49,15 @@ namespace Orpheus.Core.Orbital
         
         [BoxGroup("Stats")]
         [SerializeField] private OrbitalStatsData orbitalStatsData;
-        private OrbitalStats stats = new();
+        public OrbitalStats Stats { get; private set;}
 
         protected virtual void Awake()
         {
             this.rb = GetComponent<Rigidbody>();
             this.cc = GetComponent<CapsuleCollider>();
             _movementStates = new List<IOrbitalMovementState<T>>();
-            stats.Initialize(orbitalStatsData,1);
+            Stats = new OrbitalStats();
+            Stats.Initialize(orbitalStatsData,1);
         }
 
         private void FixedUpdate()

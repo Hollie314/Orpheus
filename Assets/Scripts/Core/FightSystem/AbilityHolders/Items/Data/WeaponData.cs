@@ -9,6 +9,7 @@ namespace Orpheus.Core.FightSystem.AbilityHolders.Items.Data
     public class WeaponData : ScriptableObject
     {
         [field: SerializeField] public string Name { get; private set; }
+        [field: SerializeField] public int Index { get; private set; }
         [field: SerializeField] public SkillData[] skills { get; private set; }
 
         public Weapon GenerateWeapon()

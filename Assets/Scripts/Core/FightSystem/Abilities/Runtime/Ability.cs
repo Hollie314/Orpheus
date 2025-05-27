@@ -18,9 +18,9 @@ namespace Orpheus.Core.FightSystem.Runtime
         public int CurrentFireCount { get; private set; }
         
         //event
-        public event Action<float> OnEnd;
-        
-        
+        public event Action OnEnd;
+
+
         public Ability(IAbilityCaster caster, T data)
         {
             Data = data;
@@ -150,6 +150,18 @@ namespace Orpheus.Core.FightSystem.Runtime
         public virtual void Dispose()
         {
         
+        }
+
+        public void Reset()
+        {
+            CurrentFireCount = 0;
+            CurrentLifetime = 0;
+            OnEnd?.Invoke();
+        }
+        
+        public float GetLifeTime()
+        {
+            return Data.TotalLifetime;
         }
     }
 }

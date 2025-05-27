@@ -8,7 +8,7 @@ namespace Orpheus.Core.FightSystem
     {
         TargetTeam Team { get; }
         public OrbitalStats Stats { get; }
-        public Ring Ring { get; }
+        public Ring CurrentRing { get; }
 
         void ApplyDamage(IAbilityCaster caster, float flatValue, float percentageOfStat, FloatStats stat, DamageType damageType)
         {

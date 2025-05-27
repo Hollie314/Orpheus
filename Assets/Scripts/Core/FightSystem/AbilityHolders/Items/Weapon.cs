@@ -7,7 +7,6 @@ namespace Orpheus.Core.FightSystem.AbilityHolders.Items
     public class Weapon
     {
         public List<Skill> skills;
-        private IAbilityCaster caster;
         public WeaponData weaponData { get; private set; }
 
         public Weapon(WeaponData data)
@@ -18,7 +17,6 @@ namespace Orpheus.Core.FightSystem.AbilityHolders.Items
         
         public void EquipItem(IAbilityCaster caster)
         {
-            this.caster = caster;
             foreach (var skill in weaponData.skills)
             {
                 skills.Add(skill.GenerateAbility(caster));
@@ -35,6 +33,7 @@ namespace Orpheus.Core.FightSystem.AbilityHolders.Items
             foreach (var skill in skills)
             {
                 caster.RemoveSkill(skill);
+                skill.Dispose();
             }
         }
     }

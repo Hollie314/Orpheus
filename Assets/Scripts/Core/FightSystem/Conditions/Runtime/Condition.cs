@@ -20,22 +20,15 @@ namespace Orpheus.Core.FightSystem.Conditions
             ConditionData = data;
         }
 
-        public void ResetCondition()
+        public virtual void ResetCondition()
         {
-            InitializeCondition();
         }
-        public void Initialize()
+        public virtual void Initialize()
         {
-           
         }
 
-        public void Dispose()
+        public virtual void Dispose()
         {
-            
         }
-        
-
-        protected abstract void InitializeCondition();
-
     }
 }

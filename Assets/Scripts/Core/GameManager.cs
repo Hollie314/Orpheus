@@ -62,9 +62,12 @@ namespace Orpheus.Core
 
         public void SwapWeapon(int index)
         {
-            currentWeapon.UnequipItem(player);
-            currentWeapon = weapons[index];
-            currentWeapon.EquipItem(player);
+            if (0 <= index && index < weapons.Count)
+            {
+                currentWeapon.UnequipItem(player);
+                currentWeapon = weapons[index];
+                currentWeapon.EquipItem(player);
+            }
         }
     }
     

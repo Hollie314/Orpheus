@@ -14,9 +14,11 @@ namespace Orpheus.Core.FightSystem.Trap
         public Vector3 CastPoint { get;private set; }
         public virtual Vector3 CastDirection { get; private set; }
         public TargetTeam Team { get; private set; } = TargetTeam.Trap;
-        public Ring Ring { get; private set; }
+        public Ring CurrentRing { get; private set; }
         public OrbitalStats Stats { get; }
-        
+        public event Action<bool> Skill1;
+        public event Action<bool> Skill2;
+
 
         public AbilityData AbilityData { get; private set; }
         
@@ -26,7 +28,7 @@ namespace Orpheus.Core.FightSystem.Trap
 
         public void Initialize(Ring ring)
         {
-            this.Ring = ring;
+            this.CurrentRing = ring;
             currentTime = 0;
             IsActive = false;
         }
@@ -69,6 +71,11 @@ namespace Orpheus.Core.FightSystem.Trap
         }
 
         public Vector3 GetAim()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IAbilityTarget GetTarget()
         {
             throw new NotImplementedException();
         }
