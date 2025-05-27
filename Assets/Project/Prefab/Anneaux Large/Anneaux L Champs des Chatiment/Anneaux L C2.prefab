@@ -1116,7 +1116,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: ac9a274ee5ec43e49924ae7ea7ac905f, type: 3}
       propertyPath: m_Name
-      value: PropsAnneauLarge2 (1)
+      value: 'AnneauLarge2 '
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: ac9a274ee5ec43e49924ae7ea7ac905f, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: ac9a274ee5ec43e49924ae7ea7ac905f, type: 3}
       propertyPath: m_TagString
@@ -1282,8 +1286,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.7317747, y: 0.43946806, z: 1.5895596}
-  m_Center: {x: -2.2602105, y: 0, z: -2.642959}
+  m_Size: {x: 0.9620007, y: 0.43946806, z: 1.7852259}
+  m_Center: {x: -2.1450977, y: 0, z: -2.545126}
 --- !u!65 &5740642592284667918
 BoxCollider:
   m_ObjectHideFlags: 0
