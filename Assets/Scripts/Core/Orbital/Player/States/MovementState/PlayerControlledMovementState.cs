@@ -27,7 +27,10 @@ namespace Orpheus.Core.Orbital.Player
         public override Vector2 GetVelocity(PlayerOrbitalController orbitalController, float deltaTime)
         {
             Vector2 direction = GetTargetDirection(orbitalController);
-            orbitalController.SetDirection((int)Mathf.Sign(direction.x));
+            if (direction.x != 0)
+            {
+                orbitalController.SetDirection((int)Mathf.Sign(direction.x));
+            }
             Vector2 targetVelocity = direction * maxSpeed;
             Vector2 currentVelocity = orbitalController.CurrentVelocity;
             

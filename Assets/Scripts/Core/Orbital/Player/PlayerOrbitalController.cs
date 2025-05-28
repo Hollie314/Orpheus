@@ -58,7 +58,7 @@ namespace Orpheus.Core.Orbital.Player
             
         }
 
-        public void OnDeath()
+        public void OnDeath(IAbilityCaster caster, DamageType damageType)
         {
             
         }

@@ -54,9 +54,14 @@ namespace Orpheus.Core.Orbital.Entities
             
         }
 
-        public void OnDeath()
+        private void Dispose()
         {
-            
+        }
+
+        public void OnDeath(IAbilityCaster caster, DamageType damageType)
+        {
+            Dispose();
+            GameManager.Instance.OnEnemyKilled(this);
         }
     }
 }

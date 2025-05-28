@@ -26,7 +26,7 @@ namespace Orpheus.Core.FightSystem
             //Check for death
             if (Stats.getStat(FloatStats.Hp) <= 0)
             {
-                OnDeath();
+                OnDeath(caster, damageType);
             }
         }
 
@@ -40,6 +40,6 @@ namespace Orpheus.Core.FightSystem
         void ApplyStatus();
 
         void ApplyMovement();
-        void OnDeath();
+        void OnDeath(IAbilityCaster caster, DamageType damageType);
     }
 }
