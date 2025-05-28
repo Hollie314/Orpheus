@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: orpheus_body
+  m_Name: Harpy
   m_Shader: {fileID: -6465566751694194690, guid: 5f184a10d4463f04c8f90fff466b8be6, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -66,7 +66,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Emissive_Texture:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 6ac9a0eea5ab07e43ba66d10b12fe972, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Grayscale_Texture:
@@ -98,7 +98,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Texture2D:
-        m_Texture: {fileID: 2800000, guid: 82f13b801599f564ca374bbf840ae117, type: 3}
+        m_Texture: {fileID: 2800000, guid: a3846773a7ee6a8449b335da24b5bf2f, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -129,10 +129,10 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _DstBlendAlpha: 0
-    - _Emissive_Texture_to_Color_Switch: 0
+    - _Emissive_Texture_to_Color_Switch: 1
     - _EnvironmentReflections: 1
     - _Fresnel_Angle: 1
-    - _Fresnel_Size: 7.4
+    - _Fresnel_Size: 4.9
     - _GlossMapScale: 0
     - _Gloss_Size: 9
     - _Glossiness: 0
@@ -156,9 +156,9 @@ Material:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _Emissive_Intensity: {r: 1, g: 1, b: 1, a: 0}
-    - _Emissive_Tint: {r: 0, g: 0, b: 0, a: 0}
-    - _Fresnel_Intensity: {r: 1.6245048, g: 1.6245048, b: 1.6245048, a: 0}
+    - _Emissive_Intensity: {r: 10.432952, g: 10.432952, b: 10.432952, a: 0}
+    - _Emissive_Tint: {r: 1, g: 1, b: 1, a: 0}
+    - _Fresnel_Intensity: {r: 18.16482, g: 18.16482, b: 18.16482, a: 0}
     - _Gloss_Intensity: {r: 1.4980392, g: 1.4980392, b: 1.4980392, a: 0}
     - _L1_color: {r: 0.8, g: 0.8, b: 0.8, a: 0.99}
     - _L1_dir: {r: -0.1742663, g: 0.09302802, b: -0.98029435, a: 0}
