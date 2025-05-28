@@ -24,6 +24,7 @@ namespace LKHGames
         [Header("Material Properties")]
         public OnPlayMode onPlayMode;
         public string propertiesName;
+        public string fileName;
         public Renderer materialRenderer;
 
         public enum TextureFormat {Png, Jpg};
@@ -125,7 +126,7 @@ namespace LKHGames
 			#endregion
 
             /*var randomIndex = Random.Range(0, 999999).ToString();*/
-            File.WriteAllBytes(Application.dataPath + savingPath + "GradientTexture_" /*+ randomIndex*/ + saveFormat, _bytes);
+            File.WriteAllBytes(Application.dataPath + savingPath + fileName /*+ randomIndex*/ + saveFormat, _bytes);
             Debug.Log("<color=#00FF00><b> GradientTexture_" /*+ randomIndex*/ + saveFormat + " baked sucessfully. Saved in the following path: " + "Assets" + savingPath + "</b></color>");
         }
     }
