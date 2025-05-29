@@ -14,25 +14,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <FloatStats>k__BackingField:
   - floatStatName: 0
-    value: 0
+    value: 50
   - floatStatName: 1
-    value: 0
+    value: 10
   - floatStatName: 2
     value: 0
   - floatStatName: 3
     value: 0
   - floatStatName: 4
-    value: 0
+    value: 10
   - floatStatName: 5
     value: 0
   - floatStatName: 6
     value: 0
   - floatStatName: 7
-    value: 0
+    value: 50
   - floatStatName: 8
-    value: 0
+    value: 50
   - floatStatName: 9
-    value: 0
+    value: 10
   - floatStatName: 10
     value: 0
   - floatStatName: 11
@@ -45,8 +45,6 @@ MonoBehaviour:
     value: 0
   - floatStatName: 15
     value: 0
-  - floatStatName: 16
-    value: 0
   <BoolStats>k__BackingField:
   - boolStatName: 0
     value: 1
@@ -56,5 +54,23 @@ MonoBehaviour:
     value: 1
   - boolStatName: 3
     value: 1
-  <TeamResistances>k__BackingField: []
-  <DamageResistances>k__BackingField: []
+  <TeamResistances>k__BackingField:
+  - teamName: 0
+    resistanceValue: 0
+  - teamName: 1
+    resistanceValue: 0
+  - teamName: 2
+    resistanceValue: 0
+  <DamageResistances>k__BackingField:
+  - damageTypeName: 0
+    resistanceValue: 0
+  - damageTypeName: 1
+    resistanceValue: 0
+  - damageTypeName: 2
+    resistanceValue: 0
+  - damageTypeName: 3
+    resistanceValue: 0
+  - damageTypeName: 4
+    resistanceValue: 0
+  - damageTypeName: 5
+    resistanceValue: 0

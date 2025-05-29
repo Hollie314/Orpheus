@@ -6,23 +6,23 @@ namespace Orpheus.Core.FightSystem
     {
         public static float Heal(OrbitalStats caster, float flatHeal, float percentageOfMissingHp, float percentageOfMaxHp)
         {
-            float missingHPHeal = (caster.getStat(FloatStats.HpMax) - caster.getStat(FloatStats.Hp)) * percentageOfMissingHp;
-            float maxHpHeal = caster.getStat(FloatStats.HpMax) * percentageOfMaxHp;
+            float missingHPHeal = (caster.getStat(FloatStats.HpMax) - caster.getStat(FloatStats.Hp)) * percentageOfMissingHp * 0.01f;
+            float maxHpHeal = caster.getStat(FloatStats.HpMax) * percentageOfMaxHp * 0.01f;
             float heal = flatHeal + missingHPHeal + maxHpHeal;
             return heal;
         }
         
         public static float Damage(OrbitalStats caster, float flatDamages, float percentage, FloatStats stat)
         {
-            float damage = flatDamages + caster.getStat(stat) * percentage;
+            float damage = flatDamages + caster.getStat(stat) * percentage * 0.01f;
             return damage;
         }
 
         public static float MitigatedDamages(float baseDamages,TargetTeam team, DamageType damageType, OrbitalStats target)
         {
-            float damage = baseDamages - baseDamages * target.getStat(damageType);
-            damage =- damage * target.getStat(team);
-            damage =- damage * target.getStat(FloatStats.Resistance);
+            float damage = baseDamages - baseDamages * target.getStat(damageType)* 0.01f;
+            damage -= damage * target.getStat(team)* 0.01f;
+            damage -= damage * target.getStat(FloatStats.Resistance)* 0.01f;
             return damage;
         }
         

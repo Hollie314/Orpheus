@@ -14,17 +14,19 @@ namespace Orpheus.Core.FightSystem
         {
             //Calculate damages
             float damages = StatsCalculus.Damage(caster.Stats, flatValue, percentageOfStat, stat);
-            
+            Debug.Log("Current damages : "+ damages);
             //Calculate mitigated damages
             damages = StatsCalculus.MitigatedDamages(damages, caster.Team, damageType, Stats);
             
             //Apply damages, it does not implement shield for now.
             Stats.setStat(FloatStats.Hp, Mathf.Clamp(Stats.getStat(FloatStats.Hp)- damages,0,Stats.getStat(FloatStats.HpMax)));
+            Debug.Log("Current Hp : "+ Stats.getStat(FloatStats.Hp));
+            Debug.Log("Current damages : "+ damages);
             
             //Check for death
             if (Stats.getStat(FloatStats.Hp) <= 0)
             {
-                OnDeath();
+                OnDeath(caster, damageType);
             }
         }
 
@@ -38,6 +40,6 @@ namespace Orpheus.Core.FightSystem
         void ApplyStatus();
 
         void ApplyMovement();
-        void OnDeath();
+        void OnDeath(IAbilityCaster caster, DamageType damageType);
     }
 }

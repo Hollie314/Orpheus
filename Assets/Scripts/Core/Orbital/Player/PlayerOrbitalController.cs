@@ -30,6 +30,7 @@ namespace Orpheus.Core.Orbital.Player
             base.Awake();
             PlayerInput = GetComponent<PlayerInput>();
             SetRing(ring);
+            Team = TargetTeam.Player;
         }
 
         private void Start()
@@ -57,7 +58,7 @@ namespace Orpheus.Core.Orbital.Player
             
         }
 
-        public void OnDeath()
+        public void OnDeath(IAbilityCaster caster, DamageType damageType)
         {
             
         }
