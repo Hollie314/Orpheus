@@ -76,6 +76,10 @@ namespace Orpheus.Core
             SpawnEnemies();
         }
 
+        private void GenerateRoom()
+        {
+            
+        }
         private void SpawnEnemies()
         {
             GameObject enemyObject = Instantiate(floorData.EnemiesToSpawn[0], enemiesSpawn[0].transform);
@@ -99,6 +103,4 @@ namespace Orpheus.Core
             }
         }
     }
-    
-    
 }
