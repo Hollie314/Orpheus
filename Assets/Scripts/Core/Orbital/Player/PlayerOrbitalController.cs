@@ -52,6 +52,8 @@ namespace Orpheus.Core.Orbital.Player
           Transform transform1 = this.transform;
           CastPoint = transform1.position;
           CastDirection = transform1.forward;
+          
+          //apply movement from abilities (dunk, knock back... those are tween and can affect all orbital entities)
           if (CurrentMovement != null)
           {
               CurrentMovement.ApplyMovement(this.transform,Time.deltaTime, this);
@@ -84,12 +86,12 @@ namespace Orpheus.Core.Orbital.Player
         
         public void AddSkill(Skill skill)
         {
-            
+            skills.Add(skill);
         }
 
         public void RemoveSkill(Skill skill)
         {
-           
+            skills.Remove(skill);
         }
 
         public Vector3 GetAim()

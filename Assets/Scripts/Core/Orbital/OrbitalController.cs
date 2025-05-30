@@ -193,6 +193,10 @@ namespace Orpheus.Core.Orbital
 
                         if (Physics.GetIgnoreCollision(c, cc))
                             continue;
+                        if(c.gameObject.layer==7)
+                            continue;
+                        if (c.isTrigger)
+                            continue;
 
                         numberOfObstacle++;
                         Vector3 otherPosition = c.transform.position;
