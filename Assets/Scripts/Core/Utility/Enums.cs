@@ -61,10 +61,5 @@ namespace Orpheus.Core
         Enemy,
         Trap,
     }
-
-    public enum Movement
-    {
-        
-    }
 }
 

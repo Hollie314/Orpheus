@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Orpheus.Core.Orbital.Player.States.MovementState;
 using UnityEngine;
 using UnityEngine.Pool;
 
@@ -47,7 +48,17 @@ namespace Orpheus.Core.FightSystem.Runtime
         //Delay before fire, serve for animation as well
         protected virtual void ProcessCastPhase(float deltaTime)
         {
-            
+            if (Data.Castmovement)
+            {
+                IAbilityTarget target = (IAbilityTarget)Caster;
+                if (target != null)
+                {
+                    if (target.CurrentMovement == null)
+                    {
+                        target.ApplyMovement(Data.Castmovement,Data.CastDuration);
+                    }
+                }
+            }
         }
 
         protected virtual void ProcessFirePhase(float deltaTime)
@@ -86,9 +97,12 @@ namespace Orpheus.Core.FightSystem.Runtime
                     
                     if(CanHealTarget(target))
                         target.Heal(Caster, Data.FlatHeal, Data.PercentHealCurrentHp, Data.PercentHealMaxHp);
-                    
                     //Apply status
                     //apply movement
+                    if (Data.Firemovement && target != Caster)
+                    {
+                        target.ApplyMovement(Data.Firemovement, Data.FiremovementDuration);
+                    }
                 }
             }
         }

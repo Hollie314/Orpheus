@@ -9,10 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 978722cbbdf84f82b49cbfcf8551bb9f, type: 3}
-  m_Name: Floor1
+  m_Script: {fileID: 11500000, guid: 8ff4e616cb834a31910b3b893806961e, type: 3}
+  m_Name: Dunk
   m_EditorClassIdentifier: 
-  <FloorIndex>k__BackingField: 0
-  <EnemiesToSpawn>k__BackingField:
-  - {fileID: 8704197672453010116, guid: a8ad1efea3f255245bf97a24b54a451c, type: 3}
-  <TrapToSpawn>k__BackingField: []
+  distance: 5
+  jumpPower: 1

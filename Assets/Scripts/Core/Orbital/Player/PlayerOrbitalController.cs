@@ -1,7 +1,9 @@
 using System;
+using System.Collections.Generic;
 using NaughtyAttributes;
 using Orpheus.Core.FightSystem;
 using Orpheus.Core.FightSystem.Skills.Runtime;
+using Orpheus.Core.Orbital.Player.States.MovementState;
 using Orpheus.Core.Rings;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -24,6 +26,7 @@ namespace Orpheus.Core.Orbital.Player
         public TargetTeam Team { get; private set;}
         public event Action<bool> Skill1;
         public event Action<bool> Skill2;
+        public IMovement CurrentMovement { get; private set;}
         
         protected override void Awake()
         {
@@ -44,18 +47,32 @@ namespace Orpheus.Core.Orbital.Player
         protected override void FixedUpdate()
         {
           base.FixedUpdate();
-          CastPoint = this.transform.position;
+          Transform transform1 = this.transform;
+          CastPoint = transform1.position;
+          CastDirection = transform1.forward;
+          if (CurrentMovement != null)
+          {
+              CurrentMovement.ApplyMovement(this.transform,Time.deltaTime, this);
+              if (CurrentMovement.IsFinished)
+              {
+                  CurrentMovement = null;
+              }
+          }
         }
-
+        
 
         public void ApplyStatus()
         {
            
         }
 
-        public void ApplyMovement()
+        public void ApplyMovement(IMovement movement, float duration)
         {
-            
+            if (CurrentMovement == null)
+            {
+                movement.Initialize(this.transform, this, Direction, duration);
+                CurrentMovement = movement;
+            }
         }
 
         public void OnDeath(IAbilityCaster caster, DamageType damageType)

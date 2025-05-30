@@ -22,6 +22,8 @@ namespace Orpheus.Core.Orbital
         [SerializeField, Range(0,1)] private float groundDetectionRange;
         [BoxGroup("Ground Collision")]
         [SerializeField, Range(0,90)] private float groundMaxAngle;
+        [BoxGroup("State")] 
+        [SerializeField] private bool IsFlying;
 
         [field: ShowNonSerializedField]
         public Vector2 CurrentVelocity { get; private set; }
@@ -35,6 +37,7 @@ namespace Orpheus.Core.Orbital
         public Vector3 GroundNormal { get; private set; }
         [field: ShowNonSerializedField]
         public Vector3 GroundPosition { get; private set; }
+        
         
         [field: ShowNonSerializedField]
         public int Direction { get; private set; }
@@ -65,11 +68,10 @@ namespace Orpheus.Core.Orbital
             CheckGround();
             SelectNextState();
             ComputeVelocity();
-            ApplyGravity();
-/*
-            Vector3 orbitalNewPosition =  CurrentRing.GetPositionOnRing(rb.position, transform.right * 10);
-            rb.MovePosition(orbitalNewPosition);
-*/
+            if (!IsFlying)
+            {
+                ApplyGravity();
+            }
             Move();
             Lookforward();
         }
@@ -257,19 +259,12 @@ namespace Orpheus.Core.Orbital
     
         protected void Lookforward()
         {
-            if (CurrentVelocity.x != 0)
-            {
-                //tangent of the ring
-                Vector3 currentposition = rb.position;
-                Vector3 tangentDir = OrbitalMath.GetTangent(currentposition, CurrentRing.transform.position, Math.Sign(Direction));
-                Vector3 lookTarget = currentposition + tangentDir;
+            //tangent of the ring
+            Vector3 currentposition = rb.position;
+            Vector3 tangentDir = OrbitalMath.GetTangent(currentposition, CurrentRing.transform.position, Math.Sign(Direction));
+            Vector3 lookTarget = currentposition + tangentDir;
         
-               // transform.LookAt(lookTarget);
-                transform.DOLookAt(lookTarget,0.2f);
-
-                //Quaternion targetRotation = Quaternion.LookRotation(lookTarget - currentposition);
-                //rb.MoveRotation(Quaternion.Slerp(rb.rotation, targetRotation, Time.deltaTime));
-            }
+            transform.DOLookAt(lookTarget,0.2f);
         }
 
         public void SetDirection(int dir)

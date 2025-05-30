@@ -5,8 +5,9 @@ namespace Orpheus.Core.Orbital.Player.States.MovementState
 {
     public interface IMovement
     {
-        public void Initialize(Transform transform, IAbilityTarget target, Vector3 direction);
-        public void ApplyMovement(Transform transform, float deltaTime);
+        public bool IsFinished { get; }
+        public void Initialize(Transform transform, IAbilityTarget target, float direction, float duration);
+        public void ApplyMovement(Transform transform, float deltaTime, IAbilityTarget target);
         public void Dispose();
 
     }
