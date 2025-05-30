@@ -25,16 +25,20 @@ namespace Orpheus.Core
         private Weapon currentWeapon;
         private List<DamageType> deathType;
         
-        //related to the generation
+        //related to the room generation
         [SerializeField] private Floor currentFloor;
         [field :SerializeField] private FloorData floorData;
         [field :SerializeField] private BiomeName currentBiomeName;
         private List<GameObject> enemiesSpawn;
         private List<GameObject> listOfChildren;
         
-        //related to the level
+        //related to the room
         private List<AI_Entities> enemiesToKill;
         public int roomNumber { get; private set; } 
+        
+        //related to the run
+        public event Action PlayerDeath; 
+        public int Money { get; private set;} 
         
         
         protected void Awake()
@@ -71,23 +75,27 @@ namespace Orpheus.Core
             {
                 weapons.Add(weaponData.GenerateWeapon());
             }
-
-            Debug.Log("do we have any weapons ? ");
             if (weapons.Count > 0)
             {
                 currentWeapon = weapons[0];
                 currentWeapon.EquipItem(player);
-                Debug.Log(currentWeapon);
             }
             
-            //enemies
+            //list init
             enemiesToKill = new List<AI_Entities>();
             enemiesSpawn = new List<GameObject>();
             deathType = new List<DamageType>();
             listOfChildren = new List<GameObject>();
+            
+            //room
             roomNumber = 1;
             currentBiomeName = BiomeName.Elysee;
             HidePlayer();
+        }
+
+        private void StartRun()
+        {
+            player.Stats.setStat(FloatStats.Hp, player.Stats.getStat(FloatStats.HpMax));
             GenerateRoom();
         }
 
@@ -128,10 +136,12 @@ namespace Orpheus.Core
                         enemiesSpawn.Remove(spawn);
                     }
                 }
-                SetPlayerOnRing(currentFloor.rings[0]);
+                ringIndex++;
             }
+            SetPlayerOnRing(currentFloor.rings[0]);
         }
 
+        // a way to get all child because Salim put spawn transform in weird far away place so...
         private void GetChildRecursive(GameObject obj)
         {
             if (null == obj)
@@ -141,12 +151,11 @@ namespace Orpheus.Core
             {
                 if (null == child)
                     continue;
-                //child.gameobject contains the current child you can do whatever you want like add it to an array
                 listOfChildren.Add(child.gameObject);
                 GetChildRecursive(child.gameObject);
             }
         }
-
+        
         private void DestroyRingChild(Ring ring)
         {
             foreach (Transform child in ring.gameObject.transform)
@@ -219,8 +228,8 @@ namespace Orpheus.Core
         {
             player.SetRing(ring);
             Vector3 ringPosition = ring.transform.position;
-            player.transform.position =
-                new Vector3(ringPosition.x + ring.RingData.Radius, ringPosition.y+1, ringPosition.z);
+            //player.transform.Translate(new Vector3(ringPosition.x + ring.RingData.Radius, ringPosition.y+1, ringPosition.z));
+            //player.transform.position = new Vector3(ringPosition.x + ring.RingData.Radius, ringPosition.y+1, ringPosition.z);
         }
 
         public void OnNewRoom()
@@ -245,6 +254,21 @@ namespace Orpheus.Core
                 Debug.Log("new death");
                 deathType.Add(damage);
             }
+            PlayerDeath?.Invoke();
+        }
+
+        private void GetRoomReward()
+        {
+            
+        }
+
+        private void GetRunReward()
+        {
+            
+        }
+
+        private void EndRun()
+        {
             
         }
     }

@@ -81,7 +81,7 @@ namespace Orpheus.Core.Orbital.Player
 
         public void OnDeath(IAbilityCaster caster, DamageType damageType)
         {
-            
+            GameManager.Instance.OnPlayerDeath(damageType,caster.Team);
         }
         
         public void AddSkill(Skill skill)
