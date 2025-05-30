@@ -2,7 +2,9 @@ using NaughtyAttributes;
 using NUnit.Framework;
 using Orpheus.Core.FightSystem.Runtime;
 using Orpheus.Core.Orbital;
+using Orpheus.Core.Orbital.Player.States.MovementState;
 using UnityEngine;
+using UnityEngine.VFX;
 
 namespace Orpheus.Core.FightSystem
 {
@@ -59,9 +61,35 @@ namespace Orpheus.Core.FightSystem
         public float PercentHealCurrentHp { get; private set; }
         [field: SerializeField, Min(0)]
         public float PercentHealMaxHp { get; private set; }
-        
+
         [field: Header("Movement")]
         //public IOrbitalMovementState<T> MovementState { get; private set; }
+
+        [field: Header("Vfx")]
+        [field: SerializeField]
+        public VisualEffect[] Cast_VFX;
+        [field: SerializeField]
+        public VisualEffect[] Fire_VFX;
+        [field: SerializeField]
+        public VisualEffect[] Recoil_VFX;
+
+        [field: Header("Movement")] 
+        [field: SerializeField]
+        public Movement Castmovement;
+        [field: SerializeField]
+        public Movement Firemovement;
+        [field: SerializeField]
+        public float FiremovementDuration;
+        
+        [field: Header("Projectile")]
+        [field: SerializeField]
+        public float xoffset;
+        [field: SerializeField]
+        public float yoffset;
+        [field: SerializeField]
+        public float zoffset;
+        [field: SerializeField]
+        public GameObject projectile;
         
         public float CastTiming => CastDuration;
         public float FireTiming => CastDuration + FireDuration;

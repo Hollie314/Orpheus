@@ -1,7 +1,11 @@
 using System;
+using System.Collections.Generic;
 using NaughtyAttributes;
 using Orpheus.Core.FightSystem;
+using Orpheus.Core.FightSystem.Conditions;
+using Orpheus.Core.FightSystem.Conditions.Data;
 using Orpheus.Core.FightSystem.Skills.Runtime;
+using Orpheus.Core.Orbital.Player.States.MovementState;
 using Orpheus.Core.Rings;
 using UnityEngine;
 
@@ -9,19 +13,48 @@ namespace Orpheus.Core.Orbital.Entities
 {
     public class AI_Entities : OrbitalController<AI_Entities>, IAbilityTarget, IAbilityCaster
     {
-        [SerializeField, BoxGroup("Entity")] private Ring ring;
+
+        [SerializeField, BoxGroup("Enemy")] private float rangePlayerDetection;
+        private RangeTrigger rangeTrigger;
+        
+        
         public Vector3 CastPoint { get;private set; }
         public Vector3 CastDirection { get;private set; }
         public TargetTeam Team { get; private set; }
         public event Action<bool> Skill1;
         public event Action<bool> Skill2;
-        
-        
+        public IMovement CurrentMovement { get; private set;}
+        public List<Skill> skills { get;private set; }
+
+
+        private void Start()
+        {
+          
+        }
+
         protected override void Awake()
         {
             base.Awake();
-            SetRing(ring);
             Team = TargetTeam.Enemy;
+            Direction = 1;
+            skills = new List<Skill>();
+        }
+        
+        protected override void FixedUpdate()
+        {
+            base.FixedUpdate();
+            Transform transform1 = this.transform;
+            CastPoint = transform1.position;
+            CastDirection = transform1.forward;
+            
+            if (CurrentMovement != null)
+            {
+                CurrentMovement.ApplyMovement(this.transform,Time.deltaTime, this);
+                if (CurrentMovement.IsFinished)
+                {
+                    CurrentMovement = null;
+                }
+            }
         }
         
         public void AddSkill(Skill skill)
@@ -49,13 +82,22 @@ namespace Orpheus.Core.Orbital.Entities
            
         }
 
-        public void ApplyMovement()
+        public void ApplyMovement(IMovement movement, float duration)
         {
-            
+            if (CurrentMovement == null)
+            {
+                movement.Initialize(this.transform, this, Direction*-1, duration);
+                CurrentMovement = movement;
+            }
         }
 
         private void Dispose()
         {
+            foreach (var skill in skills)
+            {
+                skill.Dispose();
+            }
+            skills.Clear();
         }
 
         public void OnDeath(IAbilityCaster caster, DamageType damageType)

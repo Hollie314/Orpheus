@@ -1,11 +1,14 @@
 using System;
 using System.Collections.Generic;
+using Orpheus.Core.FightSystem.AbilityHolders.Projectile;
+using Orpheus.Core.Orbital.Player.States.MovementState;
 using UnityEngine;
 using UnityEngine.Pool;
+using UnityEngine.UI;
 
 namespace Orpheus.Core.FightSystem.Runtime
 {
-    public abstract class Ability<T> : IAbility where T : AbilityData
+    public abstract class Ability<T> :MonoBehaviour, IAbility  where T : AbilityData
     {
         protected static Collider[] ColliderBuffer = new Collider[64];
         protected static RaycastHit[] HitsBuffer = new RaycastHit[64];
@@ -29,7 +32,7 @@ namespace Orpheus.Core.FightSystem.Runtime
             CurrentLifetime = 0;
         }
         
-        public bool Update(float deltaTime)
+        public bool AbilityUpdate(float deltaTime)
         {
             if (IsInCastPhase())
                 ProcessCastPhase(deltaTime);
@@ -47,7 +50,17 @@ namespace Orpheus.Core.FightSystem.Runtime
         //Delay before fire, serve for animation as well
         protected virtual void ProcessCastPhase(float deltaTime)
         {
-            
+            if (Data.Castmovement)
+            {
+                IAbilityTarget target = (IAbilityTarget)Caster;
+                if (target != null)
+                {
+                    if (target.CurrentMovement == null)
+                    {
+                        target.ApplyMovement(Data.Castmovement,Data.CastDuration);
+                    }
+                }
+            }
         }
 
         protected virtual void ProcessFirePhase(float deltaTime)
@@ -86,10 +99,22 @@ namespace Orpheus.Core.FightSystem.Runtime
                     
                     if(CanHealTarget(target))
                         target.Heal(Caster, Data.FlatHeal, Data.PercentHealCurrentHp, Data.PercentHealMaxHp);
-                    
                     //Apply status
                     //apply movement
+                    if (Data.Firemovement && target != Caster)
+                    {
+                        target.ApplyMovement(Data.Firemovement, Data.FiremovementDuration);
+                    }
                 }
+            }
+            if (Data.projectile != null)
+            {
+                Vector3 position = new Vector3(Caster.CastPoint.x+ (Caster.CastDirection.x*Data.xoffset), Caster.CastPoint.y+ Data.yoffset,
+                    Caster.CastPoint.z + (Caster.CastDirection.z*Data.zoffset));
+                Quaternion quaternion = Quaternion.LookRotation(Caster.CastDirection);
+                GameObject projectile = Instantiate(Data.projectile, position,quaternion);
+                Projectile projectileScript = projectile.GetComponent<Projectile>();
+                projectileScript.Initialize(Caster, Data.DamageType, Data.DamageStat, Data.FlatDamage, Data.PercentDamage);
             }
         }
 
@@ -149,7 +174,7 @@ namespace Orpheus.Core.FightSystem.Runtime
 
         public virtual void Dispose()
         {
-        
+            AbilityManager.Instance.RemoveAbility(this);
         }
 
         public void Reset()

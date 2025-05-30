@@ -26,6 +26,7 @@ namespace Orpheus.Core
         BuffAugmentation,
         BuffMalus,
         SustainAugmentation,
+        Speed
     }
 
     public enum BoolStats
@@ -60,11 +61,6 @@ namespace Orpheus.Core
         Player,
         Enemy,
         Trap,
-    }
-
-    public enum Movement
-    {
-        
     }
 }
 

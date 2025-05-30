@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using Orpheus.Core.Orbital.Player.States.MovementState;
 using Orpheus.Core.Rings;
 using UnityEditor.UIElements;
 using UnityEngine;
@@ -9,20 +11,19 @@ namespace Orpheus.Core.FightSystem
         TargetTeam Team { get; }
         public OrbitalStats Stats { get; }
         public Ring CurrentRing { get; }
+        public IMovement CurrentMovement { get; }
 
         void ApplyDamage(IAbilityCaster caster, float flatValue, float percentageOfStat, FloatStats stat, DamageType damageType)
         {
+            
             //Calculate damages
             float damages = StatsCalculus.Damage(caster.Stats, flatValue, percentageOfStat, stat);
-            Debug.Log("Current damages : "+ damages);
             //Calculate mitigated damages
             damages = StatsCalculus.MitigatedDamages(damages, caster.Team, damageType, Stats);
             
             //Apply damages, it does not implement shield for now.
             Stats.setStat(FloatStats.Hp, Mathf.Clamp(Stats.getStat(FloatStats.Hp)- damages,0,Stats.getStat(FloatStats.HpMax)));
-            Debug.Log("Current Hp : "+ Stats.getStat(FloatStats.Hp));
-            Debug.Log("Current damages : "+ damages);
-            
+            Debug.Log(damages);
             //Check for death
             if (Stats.getStat(FloatStats.Hp) <= 0)
             {
@@ -38,8 +39,7 @@ namespace Orpheus.Core.FightSystem
             Stats.setStat(FloatStats.Hp,Mathf.Clamp(Stats.getStat(FloatStats.Hp) +heal, 0, Stats.getStat(FloatStats.HpMax)));
         }
         void ApplyStatus();
-
-        void ApplyMovement();
+        void ApplyMovement(IMovement movement, float duration);
         void OnDeath(IAbilityCaster caster, DamageType damageType);
     }
 }
