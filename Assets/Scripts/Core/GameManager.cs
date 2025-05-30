@@ -86,6 +86,7 @@ namespace Orpheus.Core
             deathType = new List<DamageType>();
             listOfChildren = new List<GameObject>();
             roomNumber = 1;
+            currentBiomeName = BiomeName.Elysee;
             HidePlayer();
             GenerateRoom();
         }
@@ -191,9 +192,10 @@ namespace Orpheus.Core
         public void OnEnemyKilled(AI_Entities enemy)
         {
             enemiesToKill.Remove(enemy);
-            Destroy(enemy.gameObject);
+            enemy.gameObject.SetActive(false);
             if (enemiesToKill.Count == 0)
             {
+                AbilityManager.Instance.OnDisable();
                 OnNewRoom();
             }
         }
@@ -224,6 +226,14 @@ namespace Orpheus.Core
         public void OnNewRoom()
         {
             roomNumber++;
+            if (roomNumber > 4)
+            {
+                currentBiomeName = BiomeName.ChampsDesChatiments;
+            }
+            if (roomNumber > 8)
+            {
+                currentBiomeName = BiomeName.Tartare;
+            }
             GenerateRoom();
         }
 

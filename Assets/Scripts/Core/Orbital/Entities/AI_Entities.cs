@@ -151,11 +151,8 @@ namespace Orpheus.Core.Orbital.Entities
 
         public void OnDeath(IAbilityCaster caster, DamageType damageType)
         {
-            Dispose();
             GameManager.Instance.OnEnemyKilled(this);
         }
-
-       
 
         private void OnEnter(Collider other)
         {

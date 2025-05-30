@@ -25,13 +25,14 @@ namespace Orpheus.Core.FightSystem
 
         private List<IAbility> runningAbilities;
 
-        private void Awake()
+        private void OnEnable()
         {
             runningAbilities = new();
         }
 
         public void AddAbility(IAbility ability)
         {
+            ability.Init();
             runningAbilities.Add(ability);
         }
         public void RemoveAbility(IAbility ability)
@@ -50,12 +51,22 @@ namespace Orpheus.Core.FightSystem
 
                 foreach (var ability in abilities)
                 {
+                    Debug.Log(ability.GetLifeTime());
                     if (ability.AbilityUpdate(deltaTime))
                     {
                         RemoveAbility(ability);
                     }
                 }
             }
+        }
+
+        public void OnDisable()
+        {
+            for (int i = 0; i < runningAbilities.Count; i++)
+            {
+                runningAbilities[i].Dispose();
+            }
+            runningAbilities.Clear();
         }
     }
 }
