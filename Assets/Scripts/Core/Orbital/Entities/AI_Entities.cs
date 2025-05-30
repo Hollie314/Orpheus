@@ -180,5 +180,11 @@ namespace Orpheus.Core.Orbital.Entities
             float direction = 0;
             GetAim();
         }
+
+        public void OnDestroy()
+        {
+            Dispose();
+        }
     }
+    
 }

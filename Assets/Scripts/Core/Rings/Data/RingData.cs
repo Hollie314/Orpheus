@@ -1,3 +1,4 @@
+using Orpheus.Core.LevelGeneration;
 using UnityEngine;
 
 namespace Orpheus.Core.Rings
@@ -7,6 +8,6 @@ namespace Orpheus.Core.Rings
     {
         [field : SerializeField] public RingSize Size { get; private set; }
         [field : SerializeField]public float Radius { get; private set; }
-        [field : SerializeField]public GameObject Avatar { get; private set; }
+        [field : SerializeField]public RingVariantData[] Avatar { get; private set; }
     }
 }

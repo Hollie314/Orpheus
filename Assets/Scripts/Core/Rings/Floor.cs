@@ -10,6 +10,8 @@ namespace Orpheus.Core.Rings
         public float minY;
         public float maxY;
         [SerializeField]public List<Ring> rings;
+        [field:SerializeField]
+        public GameObject[] EnemiesToSpawn { get; private set; }
 
         public void Awake()
         {

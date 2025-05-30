@@ -12,7 +12,5 @@ namespace Orpheus.Core.Rings
         [field:SerializeField]
         public GameObject[] EnemiesToSpawn { get; private set; }
         
-        [field:SerializeField]
-        public GameObject[] TrapToSpawn { get; private set; }
     }
 }
