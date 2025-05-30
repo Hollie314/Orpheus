@@ -49,7 +49,7 @@ Transform:
   - {fileID: 1798996663503187566}
   - {fileID: 8641716436774427891}
   - {fileID: 3956002889269689268}
-  m_Father: {fileID: 680968146947218561}
+  m_Father: {fileID: 1991674765029634713}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7623969887844545219
 GameObject:
@@ -81,7 +81,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1991674765029634713}
-  - {fileID: 1344959606672321164}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &182056680938908427
@@ -472,7 +471,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6a933e139671cf7498f4d6978ab7cf33, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.227
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6a933e139671cf7498f4d6978ab7cf33, type: 3}
       propertyPath: m_LocalPosition.z
@@ -524,7 +523,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 6a933e139671cf7498f4d6978ab7cf33, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1344959606672321164}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 6a933e139671cf7498f4d6978ab7cf33, type: 3}
       insertIndex: -1

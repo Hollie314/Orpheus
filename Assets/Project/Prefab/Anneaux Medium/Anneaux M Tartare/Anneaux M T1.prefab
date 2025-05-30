@@ -29,7 +29,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 5719008458499721630}
   - {fileID: 5286128054355088907}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -77,7 +76,7 @@ Transform:
   - {fileID: 3325090816549644096}
   - {fileID: 5061221716697035137}
   - {fileID: 6773499383416042304}
-  m_Father: {fileID: 4482661183102279980}
+  m_Father: {fileID: 341017946216082388}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &905935092070691516
 PrefabInstance:
@@ -765,7 +764,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -3860383075606422988, guid: 1822727c32ef1454e9a7b21581211023, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.227
       objectReference: {fileID: 0}
     - target: {fileID: -3860383075606422988, guid: 1822727c32ef1454e9a7b21581211023, type: 3}
       propertyPath: m_LocalPosition.z
@@ -781,7 +780,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: -3860383075606422988, guid: 1822727c32ef1454e9a7b21581211023, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5719008458499721630}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: -8555561691671823474, guid: 1822727c32ef1454e9a7b21581211023, type: 3}
       insertIndex: -1
@@ -808,6 +810,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1038966588164473170}
   m_SourcePrefab: {fileID: 100100000, guid: 1822727c32ef1454e9a7b21581211023, type: 3}
+--- !u!4 &341017946216082388 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -3860383075606422988, guid: 1822727c32ef1454e9a7b21581211023, type: 3}
+  m_PrefabInstance: {fileID: 5680903936927773152}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &5157230636918327918 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -8555561691671823474, guid: 1822727c32ef1454e9a7b21581211023, type: 3}

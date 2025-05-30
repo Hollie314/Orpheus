@@ -44,7 +44,7 @@ Transform:
   - {fileID: 5191599120607220524}
   - {fileID: 3520959767029226881}
   - {fileID: 7986608123197622069}
-  m_Father: {fileID: 3339322001685335226}
+  m_Father: {fileID: 6742805230110218169}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1100066598705441612
 GameObject:
@@ -75,7 +75,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 752353885559952958}
   - {fileID: 4790688689219478132}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -571,7 +570,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -7466395166123208154, guid: 707301f3802fce84b93394c4f33b7595, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.227
       objectReference: {fileID: 0}
     - target: {fileID: -7466395166123208154, guid: 707301f3802fce84b93394c4f33b7595, type: 3}
       propertyPath: m_LocalPosition.z
@@ -591,7 +590,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: -7466395166123208154, guid: 707301f3802fce84b93394c4f33b7595, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 752353885559952958}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 7234940277358623566, guid: 707301f3802fce84b93394c4f33b7595, type: 3}
       insertIndex: -1
@@ -770,6 +772,11 @@ BoxCollider:
 --- !u!4 &4790688689219478132 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 707301f3802fce84b93394c4f33b7595, type: 3}
+  m_PrefabInstance: {fileID: 5039889200260171167}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &6742805230110218169 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -7466395166123208154, guid: 707301f3802fce84b93394c4f33b7595, type: 3}
   m_PrefabInstance: {fileID: 5039889200260171167}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5900184544734670368
