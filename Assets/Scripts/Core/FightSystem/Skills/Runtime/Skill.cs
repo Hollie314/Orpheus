@@ -37,7 +37,6 @@ namespace Orpheus.Core.FightSystem.Skills.Runtime
             }
             foreach (var conditionData in Data.ConditionDatas)
             {
-                Debug.Log(conditionData.name);
                 ICondition condition = conditionData.GenerateCondition(this);
                 conditions.Add(condition);
                 condition.Initialize();

@@ -9,7 +9,7 @@ namespace Orpheus.Core
         
         public GameDatabase()
         {
-            WeaponDatas = Resources.LoadAll<WeaponData>("Weapons");
+            WeaponDatas = Resources.LoadAll<WeaponData>("Player/Weapons");
         }
     }
 }

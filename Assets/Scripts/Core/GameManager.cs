@@ -30,6 +30,7 @@ namespace Orpheus.Core
         [field :SerializeField] private FloorData floorData;
         [field :SerializeField] private BiomeName currentBiomeName;
         private List<GameObject> enemiesSpawn;
+        private List<GameObject> listOfChildren;
         
         //related to the level
         private List<AI_Entities> enemiesToKill;
@@ -71,18 +72,22 @@ namespace Orpheus.Core
                 weapons.Add(weaponData.GenerateWeapon());
             }
 
+            Debug.Log("do we have any weapons ? ");
             if (weapons.Count > 0)
             {
                 currentWeapon = weapons[0];
                 currentWeapon.EquipItem(player);
+                Debug.Log(currentWeapon);
             }
             
             //enemies
             enemiesToKill = new List<AI_Entities>();
             enemiesSpawn = new List<GameObject>();
             deathType = new List<DamageType>();
+            listOfChildren = new List<GameObject>();
             roomNumber = 1;
             HidePlayer();
+            GenerateRoom();
         }
 
         private void GenerateRoom()
@@ -102,11 +107,12 @@ namespace Orpheus.Core
                 GameObject spawnRing = SpawnRing(ringAvatar, ring.transform);
                 
                 //now we will get all spawn in this ring
-                foreach (Transform child in spawnRing.transform)
+                listOfChildren.Clear();
+                GetChildRecursive(spawnRing);
+                foreach (var child in listOfChildren)
                 {
                     if (child.name == "Spawn_Enemies")
                     {
-                        Debug.Log("we found some spawn location");
                         enemiesSpawn.Add(child.gameObject);
                     }
                 }
@@ -122,6 +128,21 @@ namespace Orpheus.Core
                     }
                 }
                 SetPlayerOnRing(currentFloor.rings[0]);
+            }
+        }
+
+        private void GetChildRecursive(GameObject obj)
+        {
+            if (null == obj)
+                return;
+
+            foreach (Transform child in obj.transform)
+            {
+                if (null == child)
+                    continue;
+                //child.gameobject contains the current child you can do whatever you want like add it to an array
+                listOfChildren.Add(child.gameObject);
+                GetChildRecursive(child.gameObject);
             }
         }
 
@@ -189,15 +210,15 @@ namespace Orpheus.Core
 
         private void HidePlayer()
         {
-            player.SetRing(hiddenRing);
             SetPlayerOnRing(hiddenRing);
         }
 
         private void SetPlayerOnRing(Ring ring)
         {
+            player.SetRing(ring);
             Vector3 ringPosition = ring.transform.position;
             player.transform.position =
-                new Vector3(ringPosition.x + ring.RingData.Radius, ringPosition.y, ringPosition.z);
+                new Vector3(ringPosition.x + ring.RingData.Radius, ringPosition.y+1, ringPosition.z);
         }
 
         public void OnNewRoom()
