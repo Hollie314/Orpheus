@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9272ae4ad57a46858d0078564dfb71f1, type: 3}
+  m_Name: RingVariantData 1
+  m_EditorClassIdentifier: 
+  biomeVariants:
+  - biomeName: 0
+    ringVariantPrefab: {fileID: 8549618990504797341, guid: 685bf696a47556c469dfac649b808389, type: 3}
+  - biomeName: 1
+    ringVariantPrefab: {fileID: 9082593468744541052, guid: 3248d7ca5a3b95a4c8a6ebd1d5ed7053, type: 3}
+  - biomeName: 2
+    ringVariantPrefab: {fileID: 7686522637446901839, guid: 4e85a05445a53e546858aaeca96f2342, type: 3}

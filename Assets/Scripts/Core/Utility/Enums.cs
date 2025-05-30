@@ -62,5 +62,13 @@ namespace Orpheus.Core
         Enemy,
         Trap,
     }
+
+    public enum BiomeName
+    {
+        ChampsDesChatiments,
+        Elysee,
+        Tartare,
+        Styx
+    }
 }
 
