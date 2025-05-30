@@ -30,7 +30,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4790688689219478132}
-  - {fileID: 2644536100629714979}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8770680130814714236
@@ -80,7 +79,7 @@ Transform:
   - {fileID: 6145935318900946311}
   - {fileID: 9030201759118599179}
   - {fileID: 3340046613810300964}
-  m_Father: {fileID: 3339322001685335226}
+  m_Father: {fileID: 6742805230110218169}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &622378108458686443
 PrefabInstance:
@@ -524,6 +523,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3339322001685335226}
     m_Modifications:
+    - target: {fileID: -8732861426950727650, guid: 707301f3802fce84b93394c4f33b7595, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 6954608359e6c57449468c28cf1fd2fd, type: 2}
     - target: {fileID: -8679921383154817045, guid: 707301f3802fce84b93394c4f33b7595, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0
@@ -570,7 +573,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -7466395166123208154, guid: 707301f3802fce84b93394c4f33b7595, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.227
       objectReference: {fileID: 0}
     - target: {fileID: -7466395166123208154, guid: 707301f3802fce84b93394c4f33b7595, type: 3}
       propertyPath: m_LocalPosition.z
@@ -590,7 +593,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: -7466395166123208154, guid: 707301f3802fce84b93394c4f33b7595, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2644536100629714979}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 7234940277358623566, guid: 707301f3802fce84b93394c4f33b7595, type: 3}
       insertIndex: -1
@@ -769,6 +775,11 @@ BoxCollider:
 --- !u!4 &4790688689219478132 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 707301f3802fce84b93394c4f33b7595, type: 3}
+  m_PrefabInstance: {fileID: 5039889200260171167}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &6742805230110218169 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -7466395166123208154, guid: 707301f3802fce84b93394c4f33b7595, type: 3}
   m_PrefabInstance: {fileID: 5039889200260171167}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5343179194092866147

@@ -48,7 +48,7 @@ Transform:
   - {fileID: 5135999328266476620}
   - {fileID: 1784533643884180020}
   - {fileID: 5703474925033870227}
-  m_Father: {fileID: 4482661183102279980}
+  m_Father: {fileID: 341017946216082388}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5454305643833960838
 GameObject:
@@ -79,7 +79,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 3890377713238942606}
   - {fileID: 5286128054355088907}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -945,13 +944,17 @@ PrefabInstance:
       propertyPath: m_TagString
       value: ISGround
       objectReference: {fileID: 0}
+    - target: {fileID: -6989776354312106767, guid: 1822727c32ef1454e9a7b21581211023, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 6954608359e6c57449468c28cf1fd2fd, type: 2}
     - target: {fileID: -3860383075606422988, guid: 1822727c32ef1454e9a7b21581211023, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -3860383075606422988, guid: 1822727c32ef1454e9a7b21581211023, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.227
       objectReference: {fileID: 0}
     - target: {fileID: -3860383075606422988, guid: 1822727c32ef1454e9a7b21581211023, type: 3}
       propertyPath: m_LocalPosition.z
@@ -967,7 +970,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: -3860383075606422988, guid: 1822727c32ef1454e9a7b21581211023, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3890377713238942606}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: -8555561691671823474, guid: 1822727c32ef1454e9a7b21581211023, type: 3}
       insertIndex: -1
@@ -994,6 +1000,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1038966588164473170}
   m_SourcePrefab: {fileID: 100100000, guid: 1822727c32ef1454e9a7b21581211023, type: 3}
+--- !u!4 &341017946216082388 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -3860383075606422988, guid: 1822727c32ef1454e9a7b21581211023, type: 3}
+  m_PrefabInstance: {fileID: 5680903936927773152}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &5157230636918327918 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -8555561691671823474, guid: 1822727c32ef1454e9a7b21581211023, type: 3}

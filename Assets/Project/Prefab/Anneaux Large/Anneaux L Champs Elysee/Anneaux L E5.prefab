@@ -29,7 +29,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 936943440301510000}
   - {fileID: 56634260683387404}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -58,7 +57,7 @@ Transform:
   m_GameObject: {fileID: 7017336862359615486}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.39080498, y: 1.4928412, z: -1.0713459}
+  m_LocalPosition: {x: -0.39080498, y: 1.4928412, z: -2.371346}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -72,7 +71,7 @@ Transform:
   - {fileID: 4581355698537546970}
   - {fileID: 7341792405615060019}
   - {fileID: 94691071492983018}
-  m_Father: {fileID: 6599260467699334157}
+  m_Father: {fileID: 56634260683387404}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &493936333182529281
 PrefabInstance:
@@ -150,7 +149,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8b68543680f092d45a2b12673f34cab9, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.227
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8b68543680f092d45a2b12673f34cab9, type: 3}
       propertyPath: m_LocalPosition.z
@@ -184,6 +183,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 8b68543680f092d45a2b12673f34cab9, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 6954608359e6c57449468c28cf1fd2fd, type: 2}
     - target: {fileID: 919132149155446097, guid: 8b68543680f092d45a2b12673f34cab9, type: 3}
       propertyPath: m_Name
       value: 'AnneauLarge5 '
@@ -198,7 +201,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 8b68543680f092d45a2b12673f34cab9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 936943440301510000}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 8b68543680f092d45a2b12673f34cab9, type: 3}
       insertIndex: -1
