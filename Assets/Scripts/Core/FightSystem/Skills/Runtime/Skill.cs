@@ -55,6 +55,11 @@ namespace Orpheus.Core.FightSystem.Skills.Runtime
             {
                 condition.Dispose();
             }
+
+            foreach (var ability in abilities)
+            {
+                ability.Dispose();
+            }
             Cooldown.Dispose();
             abilities.Clear();
             conditions.Clear();

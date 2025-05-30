@@ -28,7 +28,6 @@ namespace Orpheus.Core.Orbital.Player.States.MovementState
             {
                 dunk = transform.DOJump(nextpoint, jumpPower, 1, Duration/2, false).OnComplete(() =>
                 {
-                    Debug.Log("we have finished it i guess");
                     IsFinished = true;
                 }).SetEase(Ease.Linear).SetUpdate(true);
             }

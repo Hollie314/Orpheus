@@ -24,6 +24,7 @@ namespace Orpheus.Core.Orbital.Entities
         public event Action<bool> Skill1;
         public event Action<bool> Skill2;
         public IMovement CurrentMovement { get; private set;}
+        public List<Skill> skills { get;private set; }
 
 
         private void Start()
@@ -35,6 +36,8 @@ namespace Orpheus.Core.Orbital.Entities
         {
             base.Awake();
             Team = TargetTeam.Enemy;
+            Direction = 1;
+            skills = new List<Skill>();
         }
         
         protected override void FixedUpdate()
@@ -83,13 +86,18 @@ namespace Orpheus.Core.Orbital.Entities
         {
             if (CurrentMovement == null)
             {
-                movement.Initialize(this.transform, this, Direction, duration);
+                movement.Initialize(this.transform, this, Direction*-1, duration);
                 CurrentMovement = movement;
             }
         }
 
         private void Dispose()
         {
+            foreach (var skill in skills)
+            {
+                skill.Dispose();
+            }
+            skills.Clear();
         }
 
         public void OnDeath(IAbilityCaster caster, DamageType damageType)

@@ -50,8 +50,7 @@ namespace Orpheus.Core.FightSystem
 
                 foreach (var ability in abilities)
                 {
-                    Debug.Log("we are using ability !" +ability);
-                    if (ability.Update(deltaTime))
+                    if (ability.AbilityUpdate(deltaTime))
                     {
                         RemoveAbility(ability);
                     }

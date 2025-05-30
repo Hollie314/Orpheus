@@ -27,6 +27,7 @@ namespace Orpheus.Core.Orbital.Player
         public event Action<bool> Skill1;
         public event Action<bool> Skill2;
         public IMovement CurrentMovement { get; private set;}
+        public List<Skill> skills { get;private set; }
         
         protected override void Awake()
         {
@@ -34,6 +35,7 @@ namespace Orpheus.Core.Orbital.Player
             PlayerInput = GetComponent<PlayerInput>();
             SetRing(ring);
             Team = TargetTeam.Player;
+            skills = new List<Skill>();
         }
 
         private void Start()

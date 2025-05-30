@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Orpheus.Core.FightSystem.Skills.Runtime;
 using Orpheus.Core.Rings;
 using UnityEngine;
@@ -9,9 +10,11 @@ namespace Orpheus.Core.FightSystem
     {
         public Vector3 CastPoint { get; }
         public Vector3 CastDirection { get; }
+        public float Direction { get; }
         public TargetTeam Team { get; }
         public Ring CurrentRing { get; }
         public OrbitalStats Stats { get; }
+        public List<Skill> skills { get; }
         public event Action<bool> Skill1;
         public event Action<bool> Skill2;
 

@@ -15,6 +15,7 @@ namespace Orpheus.Core.FightSystem
 
         void ApplyDamage(IAbilityCaster caster, float flatValue, float percentageOfStat, FloatStats stat, DamageType damageType)
         {
+            
             //Calculate damages
             float damages = StatsCalculus.Damage(caster.Stats, flatValue, percentageOfStat, stat);
             //Calculate mitigated damages
@@ -22,7 +23,7 @@ namespace Orpheus.Core.FightSystem
             
             //Apply damages, it does not implement shield for now.
             Stats.setStat(FloatStats.Hp, Mathf.Clamp(Stats.getStat(FloatStats.Hp)- damages,0,Stats.getStat(FloatStats.HpMax)));
-            
+            Debug.Log(damages);
             //Check for death
             if (Stats.getStat(FloatStats.Hp) <= 0)
             {

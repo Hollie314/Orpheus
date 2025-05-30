@@ -1,12 +1,14 @@
 using System;
 using System.Collections.Generic;
+using Orpheus.Core.FightSystem.AbilityHolders.Projectile;
 using Orpheus.Core.Orbital.Player.States.MovementState;
 using UnityEngine;
 using UnityEngine.Pool;
+using UnityEngine.UI;
 
 namespace Orpheus.Core.FightSystem.Runtime
 {
-    public abstract class Ability<T> : IAbility where T : AbilityData
+    public abstract class Ability<T> :MonoBehaviour, IAbility  where T : AbilityData
     {
         protected static Collider[] ColliderBuffer = new Collider[64];
         protected static RaycastHit[] HitsBuffer = new RaycastHit[64];
@@ -30,7 +32,7 @@ namespace Orpheus.Core.FightSystem.Runtime
             CurrentLifetime = 0;
         }
         
-        public bool Update(float deltaTime)
+        public bool AbilityUpdate(float deltaTime)
         {
             if (IsInCastPhase())
                 ProcessCastPhase(deltaTime);
@@ -105,6 +107,15 @@ namespace Orpheus.Core.FightSystem.Runtime
                     }
                 }
             }
+            if (Data.projectile != null)
+            {
+                Vector3 position = new Vector3(Caster.CastPoint.x+ (Caster.CastDirection.x*Data.xoffset), Caster.CastPoint.y+ Data.yoffset,
+                    Caster.CastPoint.z + (Caster.CastDirection.z*Data.zoffset));
+                Quaternion quaternion = Quaternion.LookRotation(Caster.CastDirection);
+                GameObject projectile = Instantiate(Data.projectile, position,quaternion);
+                Projectile projectileScript = projectile.GetComponent<Projectile>();
+                projectileScript.Initialize(Caster, Data.DamageType, Data.DamageStat, Data.FlatDamage, Data.PercentDamage);
+            }
         }
 
         protected abstract void GetTouchedTargets(List<IAbilityTarget> targets);
@@ -163,7 +174,7 @@ namespace Orpheus.Core.FightSystem.Runtime
 
         public virtual void Dispose()
         {
-        
+            AbilityManager.Instance.RemoveAbility(this);
         }
 
         public void Reset()

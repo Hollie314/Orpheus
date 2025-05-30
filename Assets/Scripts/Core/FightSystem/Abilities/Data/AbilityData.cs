@@ -81,6 +81,16 @@ namespace Orpheus.Core.FightSystem
         [field: SerializeField]
         public float FiremovementDuration;
         
+        [field: Header("Projectile")]
+        [field: SerializeField]
+        public float xoffset;
+        [field: SerializeField]
+        public float yoffset;
+        [field: SerializeField]
+        public float zoffset;
+        [field: SerializeField]
+        public GameObject projectile;
+        
         public float CastTiming => CastDuration;
         public float FireTiming => CastDuration + FireDuration;
         public float RecoilTiming => CastDuration + FireDuration + RecoilDuration;

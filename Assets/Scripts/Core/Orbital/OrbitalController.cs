@@ -40,7 +40,7 @@ namespace Orpheus.Core.Orbital
         
         
         [field: ShowNonSerializedField]
-        public int Direction { get; private set; }
+        public float Direction { get; protected set; }
     
 
         private List<IOrbitalMovementState<T>> _movementStates;

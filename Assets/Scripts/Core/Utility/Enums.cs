@@ -26,6 +26,7 @@ namespace Orpheus.Core
         BuffAugmentation,
         BuffMalus,
         SustainAugmentation,
+        Speed
     }
 
     public enum BoolStats
