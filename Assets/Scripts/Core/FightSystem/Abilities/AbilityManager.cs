@@ -63,7 +63,7 @@ namespace Orpheus.Core.FightSystem
         {
             for (int i = 0; i < runningAbilities.Count; i++)
             {
-                runningAbilities[i].Dispose();
+                runningAbilities.Remove(runningAbilities[i]);
             }
             runningAbilities.Clear();
         }

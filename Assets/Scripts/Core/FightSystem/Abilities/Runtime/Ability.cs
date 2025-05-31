@@ -252,6 +252,7 @@ namespace Orpheus.Core.FightSystem.Runtime
 
         public virtual void Dispose()
         {
+            OnEnd?.Invoke();
             AbilityManager.Instance.RemoveAbility(this);
         }
 

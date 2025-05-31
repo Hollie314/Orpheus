@@ -33,7 +33,10 @@ namespace Orpheus.Core.FightSystem.Skills.Runtime
             Data = data;
             abilities = new List<IAbility>();
             conditions = new List<ICondition>();
-            
+            //event relay
+            Caster.Skill1 += OnSkill1;
+            Caster.Skill2 += OnSkill2;
+            Caster.Death += OnDeath;
         }
 
         public void Initialize()
@@ -60,15 +63,16 @@ namespace Orpheus.Core.FightSystem.Skills.Runtime
             
             //set skill global duration to the longest ability duration
             GetLongestAbility().OnEnd += OnAbilityEnd;
-           
-            //event relay
-            Caster.Skill1 += OnSkill1;
-            Caster.Skill2 += OnSkill2;
-            Caster.Death += OnDeath;
         }
+        
 
         public void Dispose()
         {
+            //event clear
+            GetLongestAbility().OnEnd -= OnAbilityEnd;
+            Caster.Skill1 -= OnSkill1;
+            Caster.Skill2 -= OnSkill2;
+            Caster.Death -= OnDeath;
             
             foreach (var condition in conditions)
             {
@@ -86,12 +90,6 @@ namespace Orpheus.Core.FightSystem.Skills.Runtime
             }
             abilities.Clear();
             conditions.Clear();
-            
-            //event clear
-            GetLongestAbility().OnEnd -= OnAbilityEnd;
-            Caster.Skill1 -= OnSkill1;
-            Caster.Skill2 -= OnSkill2;
-            Caster.Death -= OnDeath;
         }
         
         private void OnSkill1(bool value)
