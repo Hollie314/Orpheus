@@ -4,12 +4,13 @@ using Orpheus.Core.FightSystem.Conditions;
 using Orpheus.Core.FightSystem.Conditions.Data;
 using Orpheus.Core.FightSystem.Conditions.Interface;
 using Orpheus.Core.FightSystem.Skills.Data;
+using Orpheus.Core.Rings;
 using UnityEditor;
 using UnityEngine;
 
 namespace Orpheus.Core.FightSystem.Skills.Runtime
 {
-    public class Skill
+    public class Skill : IConditionUser
     {
         public IAbilityCaster Caster { get; private set; }
         public readonly SkillData Data;
@@ -18,21 +19,31 @@ namespace Orpheus.Core.FightSystem.Skills.Runtime
         private bool AbilitiesRunning;
         public TimerCondition Cooldown { get; private set; }
         
+        public event Action<bool> Skill1;
+        public event Action<bool> Skill2;
+        public event Action<bool> Death;
+        public event Action<bool> InRange;
+
+        public Ring CurrentRing { get; private set; }
+        
+        
         public Skill(IAbilityCaster caster, SkillData data)
         {
             Caster = caster;
             Data = data;
             abilities = new List<IAbility>();
             conditions = new List<ICondition>();
-            Initialize();
+            
         }
 
         public void Initialize()
         {
+            //Init all abilities and conditions
             foreach (var abilityData in Data.AbilityDatas)
             {
                 IAbility ability = abilityData.GenerateAbility(Caster);
                 abilities.Add(ability);
+                ability.Init();
             }
             foreach (var conditionData in Data.ConditionDatas)
             {
@@ -42,13 +53,23 @@ namespace Orpheus.Core.FightSystem.Skills.Runtime
             }
             Cooldown = (TimerCondition)Data.CoolDown.GenerateCondition(this);
             Cooldown.Initialize();
-            Cooldown.LowerCurrentTime(Cooldown.CurrentTime); //set cd to 0 
+            
+            //set cd to 0
+            Cooldown.LowerCurrentTime(Cooldown.CurrentTime); 
+            AbilitiesRunning = false;
+            
+            //set skill global duration to the longest ability duration
             GetLongestAbility().OnEnd += OnAbilityEnd;
+           
+            //event relay
+            Caster.Skill1 += OnSkill1;
+            Caster.Skill2 += OnSkill2;
+            Caster.Death += OnDeath;
         }
 
         public void Dispose()
         {
-            GetLongestAbility().OnEnd -= OnAbilityEnd;
+            
             foreach (var condition in conditions)
             {
                 condition.Dispose();
@@ -58,9 +79,34 @@ namespace Orpheus.Core.FightSystem.Skills.Runtime
             {
                 ability.Dispose();
             }
-            Cooldown.Dispose();
+
+            if (Cooldown != null)
+            {
+                Cooldown.Dispose();
+            }
             abilities.Clear();
             conditions.Clear();
+            
+            //event clear
+            GetLongestAbility().OnEnd -= OnAbilityEnd;
+            Caster.Skill1 -= OnSkill1;
+            Caster.Skill2 -= OnSkill2;
+            Caster.Death -= OnDeath;
+        }
+        
+        private void OnSkill1(bool value)
+        {
+            Skill1?.Invoke(value);
+        }
+        
+        private void OnSkill2(bool value)
+        {
+            Skill2?.Invoke(value);
+        }
+        
+        private void OnDeath(bool value)
+        {
+            Death?.Invoke(value);
         }
 
         public IAbility GetLongestAbility()
@@ -83,9 +129,12 @@ namespace Orpheus.Core.FightSystem.Skills.Runtime
             return longestAbility;
         }
 
+       
+
         public void OnConditionReached()
         {
             //Use Ability if all Condition are met
+            Debug.Log("on condition is reached");
             if (Caster != null && AllConditionMeet()&& !AbilitiesRunning)
             {
                 foreach (var ability in abilities)
@@ -96,6 +145,11 @@ namespace Orpheus.Core.FightSystem.Skills.Runtime
                 AbilitiesRunning = true;
                 Caster.animator.SetTrigger("attaque");
             }
+        }
+
+        public void SetAnimator(string action)
+        {
+            
         }
 
         public bool AllConditionMeet()

@@ -21,7 +21,7 @@ namespace Orpheus.Core
         //related to the player
         [SerializeField] private PlayerOrbitalController player;
         [SerializeField] private Ring hiddenRing;
-        private List<WeaponData> weapons;
+        private List<Weapon> weapons;
         private Weapon currentWeapon;
         private List<DamageType> deathType;
         public event Action<int> WeaponSwap;
@@ -71,16 +71,17 @@ namespace Orpheus.Core
         public void Start()
         {
             //Weaponery
-            weapons = new List<WeaponData>();
+            weapons = new List<Weapon>();
             foreach (var weaponData in GameController.GameDatabase.WeaponDatas)
             {
-                weapons.Add(weaponData);
+                weapons.Add(weaponData.GenerateWeapon());
             }
             if (weapons.Count > 0)
             {
-                currentWeapon = weapons[0].GenerateWeapon();
+                currentWeapon = weapons[1];
+                Debug.Log(currentWeapon.weaponData.name);
                 currentWeapon.EquipItem(player);
-                WeaponSwap?.Invoke(0);
+                WeaponSwap?.Invoke(currentWeapon.weaponData.Index);
             }
             
             //list init
@@ -216,7 +217,7 @@ namespace Orpheus.Core
             if (0 <= index && index < weapons.Count)
             {
                 currentWeapon.UnequipItem(player);
-                currentWeapon = weapons[index].GenerateWeapon();
+                currentWeapon = weapons[index];
                 currentWeapon.EquipItem(player);
                 player.SetWeapon(index);
                 WeaponSwap?.Invoke(index);

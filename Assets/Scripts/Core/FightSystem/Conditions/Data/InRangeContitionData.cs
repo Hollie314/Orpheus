@@ -11,6 +11,6 @@ namespace Orpheus.Core.FightSystem.Conditions.Data
         public float Range { get; private set; }
         [field: SerializeField]
         public TargetTeam TeamInRange { get; private set; }
-        public override ICondition GenerateCondition(Skill skill) => new InRangeCondition(skill, this);
+        public override ICondition GenerateCondition(IConditionUser conditionUser) => new InRangeCondition(conditionUser, this);
     }
 }

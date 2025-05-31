@@ -10,13 +10,13 @@ namespace Orpheus.Core.FightSystem.Conditions
     public abstract class Condition<T> : ICondition where T : ConditionData
     {
         public T ConditionData { get; protected set;}
-        public Skill Skill { get;protected set; }
+        public IConditionUser ConditionUser { get;protected set; }
         public bool IsReached { get; protected set; }
         
 
-        public Condition(Skill skill, T data)
+        public Condition(IConditionUser conditionUser, T data)
         {
-            Skill = skill;
+            ConditionUser = conditionUser;
             ConditionData = data;
         }
 

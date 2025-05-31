@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using NaughtyAttributes;
 using Orpheus.Core.FightSystem;
+using Orpheus.Core.FightSystem.Conditions.Interface;
 using Orpheus.Core.FightSystem.Skills.Runtime;
 using Orpheus.Core.Orbital.Player.States.MovementState;
 using Orpheus.Core.Rings;
@@ -24,13 +25,16 @@ namespace Orpheus.Core.Orbital.Player
         public Vector3 CastPoint { get; private set; }
         public Vector3 CastDirection { get; private set; }
         public TargetTeam Team { get; private set;}
-        public event Action<bool> Skill1;
-        public event Action<bool> Skill2;
-        public event Action<bool> Skill3;
         public IMovement CurrentMovement { get; private set;}
         public List<Skill> skills { get;private set; }
         [field:SerializeField, BoxGroup("Player")]
         public Animator animator { get; set; }
+        
+        //Event for conditions
+        public event Action<bool> Skill1;
+        public event Action<bool> Skill2;
+        public event Action<bool> Death;
+        public event Action<bool> InRange;
         
         protected override void Awake()
         {
@@ -110,11 +114,13 @@ namespace Orpheus.Core.Orbital.Player
         public void AddSkill(Skill skill)
         {
             skills.Add(skill);
+            skill.Initialize();
         }
 
         public void RemoveSkill(Skill skill)
         {
             skills.Remove(skill);
+            skill.Dispose();
         }
 
         public Vector3 GetAim()
@@ -158,6 +164,17 @@ namespace Orpheus.Core.Orbital.Player
         public Transform GetTransform()
         {
             return this.transform;
+        }
+
+        
+        public void OnConditionReached()
+        {
+            
+        }
+
+        public void SetAnimator(string action)
+        {
+            
         }
     }
 }

@@ -64,6 +64,14 @@ namespace Orpheus.Core
         Trap,
     }
 
+    public enum ActionConditionName
+    {
+        Skill1,
+        Skill2,
+        Chase,
+        Death
+    }
+
     public enum BiomeName
     {
         ChampsDesChatiments,

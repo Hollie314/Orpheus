@@ -1,12 +1,13 @@
 using System;
 using System.Collections.Generic;
+using Orpheus.Core.FightSystem.Conditions.Interface;
 using Orpheus.Core.FightSystem.Skills.Runtime;
 using Orpheus.Core.Rings;
 using UnityEngine;
 
 namespace Orpheus.Core.FightSystem
 {
-    public interface IAbilityCaster
+    public interface IAbilityCaster : IConditionUser
     {
         public Vector3 CastPoint { get; }
         public Vector3 CastDirection { get; }
@@ -16,9 +17,6 @@ namespace Orpheus.Core.FightSystem
         public OrbitalStats Stats { get; }
         public List<Skill> skills { get; }
         public Animator animator { get; }
-        public event Action<bool> Skill1;
-        public event Action<bool> Skill2;
-        public event Action<bool> Skill3;
 
         public void AddSkill(Skill skill);
         public void RemoveSkill(Skill skill);

@@ -19,6 +19,13 @@ namespace Orpheus.Core.FightSystem.Runtime
 
         public float CurrentLifetime { get; private set; }
         public int CurrentFireCount { get; private set; }
+
+        private List<GameObject> castVFXGameObjects;
+        private bool isCastVFXInstantiated;
+        private List<GameObject> fireVFXGameObjects;
+        private bool isFireVFXInstantiated;
+        private List<GameObject> recoilVFXGameObjects;
+        private bool isRecoilVFXInstantiated;
         
         //event
         public event Action OnEnd;
@@ -30,6 +37,9 @@ namespace Orpheus.Core.FightSystem.Runtime
             Caster = caster;
             CurrentFireCount = 0;
             CurrentLifetime = 0;
+            castVFXGameObjects = new List<GameObject>();
+            fireVFXGameObjects = new List<GameObject>();
+            recoilVFXGameObjects = new List<GameObject>();
         }
         
         public bool AbilityUpdate(float deltaTime)
@@ -50,13 +60,18 @@ namespace Orpheus.Core.FightSystem.Runtime
         //Delay before fire, serve for animation as well
         protected virtual void ProcessCastPhase(float deltaTime)
         {
-            if (Data.Cast_VFX != null)
+            if (!isCastVFXInstantiated)
             {
-                foreach (var vfx in Data.Cast_VFX)
+                isCastVFXInstantiated = true;
+                if (Data.Cast_VFX != null)
                 {
-                    Instantiate(vfx, Caster.GetTransform());
+                    foreach (var vfx in Data.Cast_VFX)
+                    {
+                        castVFXGameObjects.Add(Instantiate(vfx, Caster.GetTransform()));
+                    }
                 }
             }
+            
             if (Data.Castmovement)
             {
                 IAbilityTarget target = (IAbilityTarget)Caster;
@@ -72,6 +87,18 @@ namespace Orpheus.Core.FightSystem.Runtime
 
         protected virtual void ProcessFirePhase(float deltaTime)
         {
+            if (!isFireVFXInstantiated)
+            {
+                isFireVFXInstantiated = true;
+                if (Data.Fire_VFX != null)
+                {
+                    foreach (var vfx in Data.Fire_VFX)
+                    {
+                        fireVFXGameObjects.Add(Instantiate(vfx, Caster.GetTransform()));
+                    }
+                }
+            }
+            
             //Time between fire
             float interval = Data.FireDuration / Data.FireCount;
             //Cmb de temps dans la phase de tir
@@ -87,33 +114,28 @@ namespace Orpheus.Core.FightSystem.Runtime
                 Fire();
 
             CurrentFireCount = targetFireCount;
-            if (Data.Fire_VFX != null)
-            {
-                foreach (var vfx in Data.Fire_VFX)
-                {
-                    Instantiate(vfx, Caster.GetTransform());
-                }
-            }
         }
         
         protected virtual void ProcessRecoilPhase(float deltaTime)
         {
-            if (Data.Recoil_VFX != null)
+            if (!isRecoilVFXInstantiated)
             {
-                foreach (var vfx in Data.Recoil_VFX)
+                isRecoilVFXInstantiated = true;
+                if (Data.Recoil_VFX != null)
                 {
-                    Instantiate(vfx, Caster.GetTransform());
+                    foreach (var vfx in Data.Recoil_VFX)
+                    {
+                        recoilVFXGameObjects.Add(Instantiate(vfx, Caster.GetTransform()));
+                    }
                 }
             }
         }
 
         protected virtual void Fire()
         {
-            Debug.Log("are we even fiering ?");
             using (ListPool<IAbilityTarget>.Get(out List<IAbilityTarget> targets))
             {
                 GetTouchedTargets(targets);
-                Debug.Log(targets.Count);
                 foreach (var target in targets)
                 {
                     if (CanDamageTarget(target))
@@ -201,6 +223,33 @@ namespace Orpheus.Core.FightSystem.Runtime
             CurrentLifetime = 0;
         }
 
+        private void ClearCastVFX()
+        {
+            for (int i = 0; i < castVFXGameObjects.Count; i++)
+            {
+                Destroy(castVFXGameObjects[i]);
+            }
+            castVFXGameObjects.Clear();
+        }
+
+        private void ClearFireVFX()
+        {
+            for (int i = 0; i < fireVFXGameObjects.Count; i++)
+            {
+                Destroy(fireVFXGameObjects[i]);
+            }
+            fireVFXGameObjects.Clear();
+        }
+
+        private void ClearRecoilVFX()
+        {
+            for (int i = 0; i < recoilVFXGameObjects.Count; i++)
+            {
+                Destroy(recoilVFXGameObjects[i]);
+            }
+            recoilVFXGameObjects.Clear();
+        }
+
         public virtual void Dispose()
         {
             AbilityManager.Instance.RemoveAbility(this);
@@ -210,6 +259,9 @@ namespace Orpheus.Core.FightSystem.Runtime
         {
             CurrentFireCount = 0;
             CurrentLifetime = 0;
+            isFireVFXInstantiated = false;
+            isCastVFXInstantiated = false;
+            isRecoilVFXInstantiated = false;
             OnEnd?.Invoke();
         }
         
