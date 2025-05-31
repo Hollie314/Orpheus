@@ -50,6 +50,13 @@ namespace Orpheus.Core.FightSystem.Runtime
         //Delay before fire, serve for animation as well
         protected virtual void ProcessCastPhase(float deltaTime)
         {
+            if (Data.Cast_VFX != null)
+            {
+                foreach (var vfx in Data.Cast_VFX)
+                {
+                    Instantiate(vfx, Caster.GetTransform());
+                }
+            }
             if (Data.Castmovement)
             {
                 IAbilityTarget target = (IAbilityTarget)Caster;
@@ -80,18 +87,33 @@ namespace Orpheus.Core.FightSystem.Runtime
                 Fire();
 
             CurrentFireCount = targetFireCount;
+            if (Data.Fire_VFX != null)
+            {
+                foreach (var vfx in Data.Fire_VFX)
+                {
+                    Instantiate(vfx, Caster.GetTransform());
+                }
+            }
         }
         
         protected virtual void ProcessRecoilPhase(float deltaTime)
         {
-            
+            if (Data.Recoil_VFX != null)
+            {
+                foreach (var vfx in Data.Recoil_VFX)
+                {
+                    Instantiate(vfx, Caster.GetTransform());
+                }
+            }
         }
 
         protected virtual void Fire()
         {
+            Debug.Log("are we even fiering ?");
             using (ListPool<IAbilityTarget>.Get(out List<IAbilityTarget> targets))
             {
                 GetTouchedTargets(targets);
+                Debug.Log(targets.Count);
                 foreach (var target in targets)
                 {
                     if (CanDamageTarget(target))

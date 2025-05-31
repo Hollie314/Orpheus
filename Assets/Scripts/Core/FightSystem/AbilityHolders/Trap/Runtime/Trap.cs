@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using NaughtyAttributes;
 using Orpheus.Core.FightSystem.Skills.Runtime;
 using Orpheus.Core.Rings;
 using UnityEngine;
@@ -21,6 +22,10 @@ namespace Orpheus.Core.FightSystem.Trap
         public List<Skill> skills { get;private set; }
         public event Action<bool> Skill1;
         public event Action<bool> Skill2;
+        public event Action<bool> Skill3;
+
+        [field:SerializeField, BoxGroup("Trap")]
+        public Animator animator { get; set; }
 
 
         public AbilityData AbilityData { get; private set; }
@@ -82,6 +87,10 @@ namespace Orpheus.Core.FightSystem.Trap
         public IAbilityTarget GetTarget()
         {
             throw new NotImplementedException();
+        }
+        public Transform GetTransform()
+        {
+            return this.transform;
         }
     }
 }

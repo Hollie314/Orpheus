@@ -12,9 +12,9 @@ namespace Orpheus.Core.Orbital.Player.States.MovementState
         private Ease knockease;
         [SerializeField, BoxGroup("Jump")] 
         private float knockForce;
-        private Tween knockback;
         private Vector3 knockbackDir;
-
+        private Tween knockback;
+        
         public override void Initialize(Transform transform, IAbilityTarget target, float direction, float duration)
         {
             knockbackDir = transform.forward * direction;

@@ -21,6 +21,8 @@ namespace Orpheus.Core.FightSystem.Conditions
                     break;
                 case 1 :  Skill.Caster.Skill2 += OnCondition;
                     break;
+                case 2 :  Skill.Caster.Skill3 += OnCondition;
+                    break;
             }
             IsReached = false;
         }
@@ -29,6 +31,7 @@ namespace Orpheus.Core.FightSystem.Conditions
         {
             Skill.Caster.Skill1 -= OnCondition;
             Skill.Caster.Skill2 -= OnCondition;
+            Skill.Caster.Skill3 -= OnCondition;
         }
 
         public override void ResetCondition()
@@ -38,7 +41,7 @@ namespace Orpheus.Core.FightSystem.Conditions
 
         public void OnCondition(bool reached)
         {
-            Debug.Log("we are using an input");
+            Skill.Caster.animator.SetInteger("abilityIndex",ConditionData.SkillIndex);
             IsReached = reached;
             if (reached)
             {

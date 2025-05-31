@@ -20,7 +20,7 @@ MonoBehaviour:
   <Cooldown>k__BackingField: 0
   <DamageOtherTeam>k__BackingField: 1
   <DamageSameTeam>k__BackingField: 1
-  <FlatDamage>k__BackingField: 50
+  <FlatDamage>k__BackingField: 30
   <PercentDamage>k__BackingField: 10
   <DamageStat>k__BackingField: 0
   <DamageType>k__BackingField: 0
@@ -30,7 +30,8 @@ MonoBehaviour:
   <PercentHealCurrentHp>k__BackingField: 0
   <PercentHealMaxHp>k__BackingField: 0
   Cast_VFX: []
-  Fire_VFX: []
+  Fire_VFX:
+  - {fileID: 5596311462199301327, guid: 249858faf0bd1c04093f5fb351037551, type: 3}
   Recoil_VFX: []
   Castmovement: {fileID: 0}
   Firemovement: {fileID: 11400000, guid: c5ac8be4f4ea5914f8cfbba5c398737d, type: 2}

@@ -16,9 +16,8 @@ namespace Orpheus.Core.Orbital.Player
         public PlayerInput PlayerInput { get; private set; }
         [SerializeField, BoxGroup("Player")] private PlayerMovementState[] defaultStates;
         [SerializeField, BoxGroup("Player")] private Ring ring;
-        [SerializeField, BoxGroup("Player")] private Animator animator;
         
-        //event 
+        //event
         public static event Action OnPlayerDeath;
         
         //Caster and Target
@@ -27,8 +26,11 @@ namespace Orpheus.Core.Orbital.Player
         public TargetTeam Team { get; private set;}
         public event Action<bool> Skill1;
         public event Action<bool> Skill2;
+        public event Action<bool> Skill3;
         public IMovement CurrentMovement { get; private set;}
         public List<Skill> skills { get;private set; }
+        [field:SerializeField, BoxGroup("Player")]
+        public Animator animator { get; set; }
         
         protected override void Awake()
         {
@@ -69,24 +71,21 @@ namespace Orpheus.Core.Orbital.Player
 
         private void SetAnimatorTrigger()
         {
-            string triggerName = "";
-            
             // idle or running
             if (CurrentVelocity.x != 0)
             {
-                animator.SetBool("running",true);
+                animator.SetBool("IsRunning",true);
             }
             else
             {
-                animator.SetBool("running",false); 
+                animator.SetBool("IsRunning",false); 
             }
-            
-            if (!IsGrounded)
-            {
-                triggerName = "chute";
-            } 
-            
-            animator.SetTrigger(triggerName);
+            animator.SetBool("IsGrounded",IsGrounded); 
+        }
+
+        public void SetWeapon(int index)
+        {
+            animator.SetInteger("weapon",index);
         }
 
         public void ApplyStatus()
@@ -155,6 +154,10 @@ namespace Orpheus.Core.Orbital.Player
                 default:
                     break;
             }
+        }
+        public Transform GetTransform()
+        {
+            return this.transform;
         }
     }
 }
