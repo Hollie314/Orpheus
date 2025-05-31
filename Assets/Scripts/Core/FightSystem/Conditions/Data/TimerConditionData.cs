@@ -10,6 +10,6 @@ namespace Orpheus.Core.FightSystem.Conditions.Data
     {
         [field: SerializeField]
         public float Duration { get; private set; }
-        public override ICondition GenerateCondition(Skill skill) => new TimerCondition(skill, this);
+        public override ICondition GenerateCondition(IConditionUser conditionUser) => new TimerCondition(conditionUser, this);
     }
 }

@@ -19,13 +19,26 @@ namespace Orpheus.Core
         public Vector3 CastDirection { get;private set; }
         public float Direction { get;private set; }
         public TargetTeam Team { get;private set; }
+        public event Action<bool> InRange;
         public Ring CurrentRing { get;private set; }
         public OrbitalStats Stats { get;private set; }
         public List<Skill> skills { get;private set; }
         
         public event Action<bool> Skill1;
         public event Action<bool> Skill2;
-        public event Action<bool> Skill3;
+        public event Action<bool> Death;
+       
+        public void OnConditionReached()
+        {
+            
+        }
+
+        public void SetAnimator(string action)
+        {
+           
+        }
+
+      
 
         private void Awake()
         {

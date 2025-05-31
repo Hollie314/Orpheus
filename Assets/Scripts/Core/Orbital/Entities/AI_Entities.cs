@@ -5,6 +5,7 @@ using NaughtyAttributes;
 using Orpheus.Core.FightSystem;
 using Orpheus.Core.FightSystem.Conditions;
 using Orpheus.Core.FightSystem.Conditions.Data;
+using Orpheus.Core.FightSystem.Conditions.Interface;
 using Orpheus.Core.FightSystem.Skills.Data;
 using Orpheus.Core.FightSystem.Skills.Runtime;
 using Orpheus.Core.Orbital.Player;
@@ -14,7 +15,7 @@ using UnityEngine;
 
 namespace Orpheus.Core.Orbital.Entities
 {
-    public class AI_Entities : OrbitalController<AI_Entities>, IAbilityTarget, IAbilityCaster
+    public class AI_Entities : OrbitalController<AI_Entities>, IAbilityTarget, IAbilityCaster, IConditionUser
     {
 
         [SerializeField, BoxGroup("Enemy")]
@@ -27,14 +28,18 @@ namespace Orpheus.Core.Orbital.Entities
         public Vector3 CastPoint { get;private set; }
         public Vector3 CastDirection { get;private set; }
         public TargetTeam Team { get; private set; }
-        public event Action<bool> Skill1;
-        public event Action<bool> Skill2;
-        public event Action<bool> Skill3;
         public IMovement CurrentMovement { get; private set;}
         public List<Skill> skills { get;private set; }
         public PlayerOrbitalController player { get;private set; }
         [field:SerializeField, BoxGroup("Enemy")]
         public Animator animator { get; set; }
+        
+        //Condition
+        public event Action<bool> Skill1;
+        public event Action<bool> Skill2;
+        public event Action<bool> Death;
+        public event Action<bool> InRange;
+        
 
         private bool IsDead;
 
@@ -53,6 +58,7 @@ namespace Orpheus.Core.Orbital.Entities
             rangeTrigger.OnEnterRange += OnEnter;
             rangeTrigger.OnExitRange += OnExit;
             rangeAttaque.OnEnterRange += InAttackRange;
+            rangeAttaque.OnExitRange += OutOfAttackRange;
             
             for (int i = 0; i < defaultStates.Length; i++)
             {
@@ -69,6 +75,7 @@ namespace Orpheus.Core.Orbital.Entities
             rangeTrigger.OnEnterRange -= OnEnter;
             rangeTrigger.OnExitRange -= OnExit;
             rangeAttaque.OnEnterRange -= InAttackRange;
+            rangeAttaque.OnExitRange -= OutOfAttackRange;
         }
         
         protected override void FixedUpdate()
@@ -182,7 +189,7 @@ namespace Orpheus.Core.Orbital.Entities
             if (!IsDead)
             {
                 IsDead = true;
-                Skill3?.Invoke(true);
+                Death?.Invoke(true);
                 CallAfterDelay(3);
             }
         }
@@ -208,6 +215,22 @@ namespace Orpheus.Core.Orbital.Entities
                 player = null;
             }
         }
+        
+        private void InAttackRange(Collider other)
+        {
+            if (other.TryGetComponent(out PlayerOrbitalController enteredTarget) && enteredTarget.CurrentRing == CurrentRing)
+            {
+                Skill1?.Invoke(true);
+            }
+        }
+        
+        private void OutOfAttackRange(Collider other)
+        {
+            if (other.TryGetComponent(out PlayerOrbitalController enteredTarget) && enteredTarget.CurrentRing == CurrentRing)
+            {
+                Skill1?.Invoke(false);
+            }
+        }
 
         public void ChangeDirection()=> Direction *= -1;
 
@@ -225,13 +248,17 @@ namespace Orpheus.Core.Orbital.Entities
         {
             return this.transform;
         }
+        
 
-        private void InAttackRange(Collider other)
+       
+        public void OnConditionReached()
         {
-            if (other.TryGetComponent(out PlayerOrbitalController enteredTarget) && enteredTarget.CurrentRing == CurrentRing)
-            {
-                Skill1?.Invoke(true);
-            }
+            throw new NotImplementedException();
+        }
+
+        public void SetAnimator(string action)
+        {
+            throw new NotImplementedException();
         }
     }
     

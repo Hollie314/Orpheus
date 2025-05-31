@@ -15,12 +15,12 @@ namespace Orpheus.Core.FightSystem
 
         void ApplyDamage(IAbilityCaster caster, float flatValue, float percentageOfStat, FloatStats stat, DamageType damageType)
         {
-            Debug.Log("wer a re dealing damagse");
+            Debug.Log("we are dealing damages");
             //Calculate damages
             float damages = StatsCalculus.Damage(caster.Stats, flatValue, percentageOfStat, stat);
             //Calculate mitigated damages
             damages = StatsCalculus.MitigatedDamages(damages, caster.Team, damageType, Stats);
-            
+            Debug.Log(damages);
             //Apply damages, it does not implement shield for now.
             Stats.setStat(FloatStats.Hp, Mathf.Clamp(Stats.getStat(FloatStats.Hp)- damages,0,Stats.getStat(FloatStats.HpMax)));
         }

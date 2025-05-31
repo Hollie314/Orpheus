@@ -13,7 +13,7 @@ namespace Orpheus.Core.FightSystem.Conditions
         public float Duration { get; private set; }
         
         
-        public TimerCondition(Skill skill, TimerConditionData data) : base(skill, data)
+        public TimerCondition(IConditionUser conditionUser, TimerConditionData data) : base(conditionUser, data)
         {
         }
         
@@ -44,7 +44,7 @@ namespace Orpheus.Core.FightSystem.Conditions
                IsReached = true;
                if (lastTime > 0)
                {
-                   Skill.OnConditionReached();
+                   ConditionUser.OnConditionReached();
                }
             }
         }

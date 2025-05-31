@@ -9,19 +9,19 @@ namespace Orpheus.Core.FightSystem.Conditions
 {
     public class ActionCondition : Condition<ActionConditionData>
     {
-        public ActionCondition(Skill skill, ActionConditionData data) : base(skill, data)
+        public ActionCondition(IConditionUser conditionUser, ActionConditionData data) : base(conditionUser, data)
         {
         }
         
         public override void Initialize()
         {
-            switch (ConditionData.SkillIndex)
+            switch (ConditionData.ActionConditionName)
             {
-                case 0 :  Skill.Caster.Skill1 += OnCondition;
+                case ActionConditionName.Skill1 :  ConditionUser.Skill1 += OnCondition;
                     break;
-                case 1 :  Skill.Caster.Skill2 += OnCondition;
+                case ActionConditionName.Skill2 :  ConditionUser.Skill2 += OnCondition;
                     break;
-                case 2 :  Skill.Caster.Skill3 += OnCondition;
+                case ActionConditionName.Death :  ConditionUser.Death += OnCondition;
                     break;
             }
             IsReached = false;
@@ -29,9 +29,9 @@ namespace Orpheus.Core.FightSystem.Conditions
 
         public override void Dispose()
         {
-            Skill.Caster.Skill1 -= OnCondition;
-            Skill.Caster.Skill2 -= OnCondition;
-            Skill.Caster.Skill3 -= OnCondition;
+            ConditionUser.Skill1 -= OnCondition;
+            ConditionUser.Skill2 -= OnCondition;
+            ConditionUser.Death -= OnCondition;
         }
 
         public override void ResetCondition()
@@ -41,11 +41,11 @@ namespace Orpheus.Core.FightSystem.Conditions
 
         public void OnCondition(bool reached)
         {
-            Skill.Caster.animator.SetInteger("abilityIndex",ConditionData.SkillIndex);
+            ConditionUser.SetAnimator(ConditionData.ActionConditionName.ToString());
             IsReached = reached;
             if (reached)
             {
-                Skill.OnConditionReached();
+                ConditionUser.OnConditionReached();
             }
         }
     }

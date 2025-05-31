@@ -1,4 +1,5 @@
 using Orpheus.Core.FightSystem.Conditions.Data;
+using Orpheus.Core.FightSystem.Conditions.Interface;
 using Orpheus.Core.FightSystem.Skills.Runtime;
 using Orpheus.Core.Orbital.Entities;
 using UnityEngine;
@@ -12,20 +13,20 @@ namespace Orpheus.Core.FightSystem.Conditions
         
         private GameObject rangeObject;
         private RangeTrigger rangeTrigger;
+
         
         
-        public InRangeCondition(Skill skill, InRangeConditionData data) : base(skill, data)
+        public InRangeCondition(IConditionUser conditionUser, InRangeConditionData data) : base(conditionUser, data)
         {
         }
 
         public override void Initialize()
         {
             target = ConditionData.TeamInRange;
-            caster = Skill.Caster;
             
             //Create the object that will serve as detector and stuck it to the caster
             rangeObject = new GameObject("RangeTrigger");
-            rangeObject.transform.SetParent(((MonoBehaviour)caster).transform);
+            rangeObject.transform.SetParent(((MonoBehaviour)ConditionUser).transform);
             rangeObject.transform.localPosition = Vector3.zero;
 
             //Add the collider and set its range
@@ -67,10 +68,11 @@ namespace Orpheus.Core.FightSystem.Conditions
         
         private void OnEnter(Collider other)
         {
-            if (other.TryGetComponent(out IAbilityTarget enteredTarget) && enteredTarget.Team == target && enteredTarget.CurrentRing == Skill.Caster.CurrentRing)
+            if (other.TryGetComponent(out IAbilityTarget enteredTarget) && enteredTarget.Team == target && enteredTarget.CurrentRing == ConditionUser.CurrentRing)
             {
                 IsReached = true;
-                Skill.OnConditionReached();
+                ConditionUser.OnConditionReached();
+                ConditionUser.SetAnimator("InRange");
             }
         }
 
