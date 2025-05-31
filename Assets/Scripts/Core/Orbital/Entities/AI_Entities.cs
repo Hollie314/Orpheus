@@ -44,10 +44,7 @@ namespace Orpheus.Core.Orbital.Entities
         private bool IsDead;
 
 
-        private void Start()
-        {
-            
-        }
+       
 
         protected override void Awake()
         {
@@ -55,11 +52,10 @@ namespace Orpheus.Core.Orbital.Entities
             Team = TargetTeam.Enemy;
             Direction = 1;
             skills = new List<Skill>();
-            rangeTrigger.OnEnterRange += OnEnter;
-            rangeTrigger.OnExitRange += OnExit;
-            rangeAttaque.OnEnterRange += InAttackRange;
-            rangeAttaque.OnExitRange += OutOfAttackRange;
             
+        }
+        private void Start()
+        {
             for (int i = 0; i < defaultStates.Length; i++)
             {
                 AddState(defaultStates[i]);
@@ -69,13 +65,23 @@ namespace Orpheus.Core.Orbital.Entities
                 AddSkill(skillDatas[i].GenerateAbility(this));
             }
         }
-        
+
+        private void OnEnable()
+        {
+            rangeTrigger.OnEnterRange += OnEnter;
+            rangeTrigger.OnExitRange += OnExit;
+            rangeAttaque.OnEnterRange += InAttackRange;
+            rangeAttaque.OnExitRange += OutOfAttackRange;
+            IsDead = false;
+        }
+
         private void OnDisable()
         {
             rangeTrigger.OnEnterRange -= OnEnter;
             rangeTrigger.OnExitRange -= OnExit;
             rangeAttaque.OnEnterRange -= InAttackRange;
             rangeAttaque.OnExitRange -= OutOfAttackRange;
+            
         }
         
         protected override void FixedUpdate()
@@ -121,11 +127,13 @@ namespace Orpheus.Core.Orbital.Entities
         public void AddSkill(Skill skill)
         {
             skills.Add(skill);
+            skill.Initialize();
         }
 
         public void RemoveSkill(Skill skill)
         {
             skills.Remove(skill);
+            skill.Dispose();
         }
 
         public Vector3 GetAim()
@@ -177,10 +185,7 @@ namespace Orpheus.Core.Orbital.Entities
 
         private void Dispose()
         {
-            foreach (var skill in skills)
-            {
-                skill.Dispose();
-            }
+            Debug.Log("number if skills : "+skills.Count);
             skills.Clear();
         }
 
@@ -188,16 +193,18 @@ namespace Orpheus.Core.Orbital.Entities
         {
             if (!IsDead)
             {
+                Debug.Log("ITS DEAD");
                 IsDead = true;
                 Death?.Invoke(true);
-                CallAfterDelay(3);
+                StartCoroutine(CallAfterDelay(1));
             }
         }
         
         IEnumerator CallAfterDelay(float delay)
         {
-            yield return new WaitForSeconds(delay); // Wait for 2 seconds
-            GameManager.Instance.OnEnemyKilled(this);// Call your function after the delay
+            Debug.Log("allo ?????");
+            yield return new WaitForSeconds(delay);
+            GameManager.Instance.OnEnemyKilled(this);
         }
 
         private void OnEnter(Collider other)
