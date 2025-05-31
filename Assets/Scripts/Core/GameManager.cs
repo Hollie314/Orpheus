@@ -93,8 +93,9 @@ namespace Orpheus.Core
             HidePlayer();
         }
 
-        private void StartRun()
+        public void StartRun()
         {
+            Debug.Log("start run");
             player.Stats.setStat(FloatStats.Hp, player.Stats.getStat(FloatStats.HpMax));
             GenerateRoom();
         }
@@ -104,6 +105,7 @@ namespace Orpheus.Core
             HidePlayer();
             int ringIndex = 0;
             
+            Debug.Log(currentFloor.rings.Count);
             //we do this for all ring size
             foreach (var ring in currentFloor.rings)
             {
@@ -226,10 +228,10 @@ namespace Orpheus.Core
 
         private void SetPlayerOnRing(Ring ring)
         {
-            player.SetRing(ring);
             Vector3 ringPosition = ring.transform.position;
             //player.transform.Translate(new Vector3(ringPosition.x + ring.RingData.Radius, ringPosition.y+1, ringPosition.z));
-            //player.transform.position = new Vector3(ringPosition.x + ring.RingData.Radius, ringPosition.y+1, ringPosition.z);
+            player.transform.position = new Vector3(ringPosition.x + ring.RingData.Radius, ringPosition.y+1, ringPosition.z);
+            player.SetRing(ring);
         }
 
         public void OnNewRoom()

@@ -28,7 +28,7 @@ namespace Orpheus.Core.Orbital
         [field: ShowNonSerializedField]
         public Vector2 CurrentVelocity { get; private set; }
         [field: ShowNonSerializedField, ShowIf("@Application.isPlaying")]
-        public Ring CurrentRing { get; private set; }
+        public Ring CurrentRing { get; protected set; }
         [field: ShowNonSerializedField]
         public bool IsGrounded { get; private set;}
         [field: ShowNonSerializedField]
@@ -80,7 +80,10 @@ namespace Orpheus.Core.Orbital
 
         public void SetRing(Ring ring)
         {
-            CurrentRing = ring;
+            if (ring != null)
+            {
+                CurrentRing = ring;
+            }
         }
 
         //might need to instantiate SO here to avoid issue with shared datas

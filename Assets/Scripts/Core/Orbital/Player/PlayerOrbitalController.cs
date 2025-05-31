@@ -16,6 +16,7 @@ namespace Orpheus.Core.Orbital.Player
         public PlayerInput PlayerInput { get; private set; }
         [SerializeField, BoxGroup("Player")] private PlayerMovementState[] defaultStates;
         [SerializeField, BoxGroup("Player")] private Ring ring;
+        [SerializeField, BoxGroup("Player")] private Animator animator;
         
         //event 
         public static event Action OnPlayerDeath;
@@ -62,8 +63,31 @@ namespace Orpheus.Core.Orbital.Player
                   CurrentMovement = null;
               }
           }
+          SetAnimatorTrigger();
         }
-        
+
+
+        private void SetAnimatorTrigger()
+        {
+            string triggerName = "";
+            
+            // idle or running
+            if (CurrentVelocity.x != 0)
+            {
+                animator.SetBool("running",true);
+            }
+            else
+            {
+                animator.SetBool("running",false); 
+            }
+            
+            if (!IsGrounded)
+            {
+                triggerName = "chute";
+            } 
+            
+            animator.SetTrigger(triggerName);
+        }
 
         public void ApplyStatus()
         {

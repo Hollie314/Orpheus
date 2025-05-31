@@ -51,7 +51,6 @@ namespace Orpheus.Core.FightSystem
 
                 foreach (var ability in abilities)
                 {
-                    Debug.Log(ability.GetLifeTime());
                     if (ability.AbilityUpdate(deltaTime))
                     {
                         RemoveAbility(ability);

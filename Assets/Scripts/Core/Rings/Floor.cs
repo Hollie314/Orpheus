@@ -13,9 +13,8 @@ namespace Orpheus.Core.Rings
         [field:SerializeField]
         public GameObject[] EnemiesToSpawn { get; private set; }
 
-        public void Start()
+        public void Awake()
         {
-            rings = new List<Ring>();
             foreach (var ring in rings)
             { 
                 ring.Initialize(this);
