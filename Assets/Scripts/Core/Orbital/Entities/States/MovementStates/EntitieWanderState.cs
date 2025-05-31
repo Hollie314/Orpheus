@@ -18,7 +18,7 @@ namespace Orpheus.Core.Orbital.Entities.States.MovementStates
 
         public override Vector2 GetVelocity(AI_Entities orbitalController, float deltaTime)
         {
-            return new Vector2(orbitalController.Direction * orbitalController.Stats.getStat(FloatStats.Speed), 0);
+            return new Vector2(orbitalController.Direction * orbitalController.Stats.getStat(FloatStats.Speed) *deltaTime, 0);
         }
 
         public override void Initialize(AI_Entities orbitalController)
@@ -33,7 +33,7 @@ namespace Orpheus.Core.Orbital.Entities.States.MovementStates
 
         public override void OnEnter(AI_Entities orbitalController)
         {
-            
+            orbitalController.animator.SetBool("IsRunning", true);
         }
     }
 }

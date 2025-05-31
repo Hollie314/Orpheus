@@ -49,9 +49,9 @@ namespace Orpheus.Core.Orbital.Player
         public override void OnEnter(PlayerOrbitalController orbitalController)
         {
             base.OnEnter(orbitalController);
-            //Debug.Log("Beginning jump");
             currentJumpTime = 0;
             currentJumpCount ++;
+            orbitalController.animator.SetTrigger("saut");
         }
 
         public override void OnExit(PlayerOrbitalController orbitalController)

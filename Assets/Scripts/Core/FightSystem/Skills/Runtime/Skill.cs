@@ -94,6 +94,7 @@ namespace Orpheus.Core.FightSystem.Skills.Runtime
                 }
                 Debug.Log("ability start");
                 AbilitiesRunning = true;
+                Caster.animator.SetTrigger("attaque");
             }
         }
 

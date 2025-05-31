@@ -15,7 +15,7 @@ namespace Orpheus.Core.FightSystem
 
         void ApplyDamage(IAbilityCaster caster, float flatValue, float percentageOfStat, FloatStats stat, DamageType damageType)
         {
-            
+            Debug.Log("wer a re dealing damagse");
             //Calculate damages
             float damages = StatsCalculus.Damage(caster.Stats, flatValue, percentageOfStat, stat);
             //Calculate mitigated damages

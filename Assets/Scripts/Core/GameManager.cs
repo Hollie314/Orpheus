@@ -21,9 +21,10 @@ namespace Orpheus.Core
         //related to the player
         [SerializeField] private PlayerOrbitalController player;
         [SerializeField] private Ring hiddenRing;
-        private List<Weapon> weapons;
+        private List<WeaponData> weapons;
         private Weapon currentWeapon;
         private List<DamageType> deathType;
+        public event Action<int> WeaponSwap;
         
         //related to the room generation
         [SerializeField] private Floor currentFloor;
@@ -70,15 +71,16 @@ namespace Orpheus.Core
         public void Start()
         {
             //Weaponery
-            weapons = new List<Weapon>();
+            weapons = new List<WeaponData>();
             foreach (var weaponData in GameController.GameDatabase.WeaponDatas)
             {
-                weapons.Add(weaponData.GenerateWeapon());
+                weapons.Add(weaponData);
             }
             if (weapons.Count > 0)
             {
-                currentWeapon = weapons[0];
+                currentWeapon = weapons[0].GenerateWeapon();
                 currentWeapon.EquipItem(player);
+                WeaponSwap?.Invoke(0);
             }
             
             //list init
@@ -95,7 +97,6 @@ namespace Orpheus.Core
 
         public void StartRun()
         {
-            Debug.Log("start run");
             player.Stats.setStat(FloatStats.Hp, player.Stats.getStat(FloatStats.HpMax));
             GenerateRoom();
         }
@@ -105,7 +106,6 @@ namespace Orpheus.Core
             HidePlayer();
             int ringIndex = 0;
             
-            Debug.Log(currentFloor.rings.Count);
             //we do this for all ring size
             foreach (var ring in currentFloor.rings)
             {
@@ -177,7 +177,7 @@ namespace Orpheus.Core
 
         private GameObject GetRandomeRing(Ring ring)
         {
-            int random = Random.Range(0, ring.RingData.Avatar.Length-1);
+            int random = Random.Range(0, ring.RingData.Avatar.Length);
             RingVariantData variant = ring.RingData.Avatar[random];
             return variant.GetVariant(currentBiomeName);
         }
@@ -190,14 +190,14 @@ namespace Orpheus.Core
 
         private GameObject GetRandomSpawn()
         {
-            int random = Random.Range(0, enemiesSpawn.Count-1);
+            int random = Random.Range(0, enemiesSpawn.Count);
             return enemiesSpawn[random];
         }
         
         private GameObject GetRandomEnemie()
         {
-            int random = Random.Range(0, floorData.EnemiesToSpawn.Length-1);
-            return floorData.EnemiesToSpawn[random];
+            int random = Random.Range(0, currentFloor.EnemiesToSpawn.Length);
+            return currentFloor.EnemiesToSpawn[random];
         }
 
         public void OnEnemyKilled(AI_Entities enemy)
@@ -216,8 +216,10 @@ namespace Orpheus.Core
             if (0 <= index && index < weapons.Count)
             {
                 currentWeapon.UnequipItem(player);
-                currentWeapon = weapons[index];
+                currentWeapon = weapons[index].GenerateWeapon();
                 currentWeapon.EquipItem(player);
+                player.SetWeapon(index);
+                WeaponSwap?.Invoke(index);
             }
         }
 

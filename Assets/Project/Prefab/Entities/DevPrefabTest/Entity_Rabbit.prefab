@@ -144,7 +144,7 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 128
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -174,11 +174,13 @@ MonoBehaviour:
   IsFlying: 1
   orbitalStatsData: {fileID: 11400000, guid: e05c555c28fb91b4c95b2d7ecd5d4ac3, type: 2}
   rangeTrigger: {fileID: 4886615252932731012}
+  rangeAttaque: {fileID: 4886615252932731012}
   defaultStates:
   - {fileID: 11400000, guid: 28adc17cbf6c8e648b7ae76433063a24, type: 2}
   - {fileID: 11400000, guid: a600f94916d37a34599cd821c11f0a6b, type: 2}
   skillDatas:
   - {fileID: 11400000, guid: 06acb7a7c36ee884da6566659a689a25, type: 2}
+  <animator>k__BackingField: {fileID: 1772523327554728863}
 --- !u!1001 &5328832834456948238
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -240,6 +242,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3ee3f57a46598e041a5a2c4c00fa1df6, type: 3}
+--- !u!95 &1772523327554728863 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 3ee3f57a46598e041a5a2c4c00fa1df6, type: 3}
+  m_PrefabInstance: {fileID: 5328832834456948238}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5654665464438319589 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 3ee3f57a46598e041a5a2c4c00fa1df6, type: 3}

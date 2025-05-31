@@ -67,11 +67,11 @@ namespace Orpheus.Core.FightSystem
 
         [field: Header("Vfx")]
         [field: SerializeField]
-        public VisualEffect[] Cast_VFX;
+        public GameObject[] Cast_VFX;
         [field: SerializeField]
-        public VisualEffect[] Fire_VFX;
+        public GameObject[] Fire_VFX;
         [field: SerializeField]
-        public VisualEffect[] Recoil_VFX;
+        public GameObject[] Recoil_VFX;
 
         [field: Header("Movement")] 
         [field: SerializeField]

@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using NaughtyAttributes;
 using Orpheus.Core.FightSystem;
@@ -18,6 +19,8 @@ namespace Orpheus.Core.Orbital.Entities
 
         [SerializeField, BoxGroup("Enemy")]
         private RangeTrigger rangeTrigger;
+        [SerializeField, BoxGroup("Enemy")]
+        private RangeTrigger rangeAttaque;
         [SerializeField, BoxGroup("Enemy")] private EntitiesMovementState[] defaultStates;
         [SerializeField, BoxGroup("Enemy")] private SkillData[] skillDatas;
         
@@ -26,21 +29,19 @@ namespace Orpheus.Core.Orbital.Entities
         public TargetTeam Team { get; private set; }
         public event Action<bool> Skill1;
         public event Action<bool> Skill2;
+        public event Action<bool> Skill3;
         public IMovement CurrentMovement { get; private set;}
         public List<Skill> skills { get;private set; }
         public PlayerOrbitalController player { get;private set; }
+        [field:SerializeField, BoxGroup("Enemy")]
+        public Animator animator { get; set; }
+
+        private bool IsDead;
 
 
         private void Start()
         {
-            for (int i = 0; i < defaultStates.Length; i++)
-            {
-                AddState(defaultStates[i]);
-            }
-            for (int i = 0; i < skillDatas.Length; i++)
-            {
-                AddSkill(skillDatas[i].GenerateAbility(this));
-            }
+            
         }
 
         protected override void Awake()
@@ -51,12 +52,23 @@ namespace Orpheus.Core.Orbital.Entities
             skills = new List<Skill>();
             rangeTrigger.OnEnterRange += OnEnter;
             rangeTrigger.OnExitRange += OnExit;
+            rangeAttaque.OnEnterRange += InAttackRange;
+            
+            for (int i = 0; i < defaultStates.Length; i++)
+            {
+                AddState(defaultStates[i]);
+            }
+            for (int i = 0; i < skillDatas.Length; i++)
+            {
+                AddSkill(skillDatas[i].GenerateAbility(this));
+            }
         }
         
         private void OnDisable()
         {
             rangeTrigger.OnEnterRange -= OnEnter;
             rangeTrigger.OnExitRange -= OnExit;
+            rangeAttaque.OnEnterRange -= InAttackRange;
         }
         
         protected override void FixedUpdate()
@@ -80,7 +92,23 @@ namespace Orpheus.Core.Orbital.Entities
             {
                 ChangeDirection();
             }
-            
+
+            SetAnimatorTrigger();
+        }
+        
+        
+        private void SetAnimatorTrigger()
+        {
+            // idle or running
+            if (CurrentVelocity.x != 0)
+            {
+                animator.SetBool("IsRunning",true);
+            }
+            else
+            {
+                animator.SetBool("IsRunning",false); 
+            }
+            animator.SetBool("IsGrounded",IsGrounded); 
         }
         
         public void AddSkill(Skill skill)
@@ -151,7 +179,18 @@ namespace Orpheus.Core.Orbital.Entities
 
         public void OnDeath(IAbilityCaster caster, DamageType damageType)
         {
-            GameManager.Instance.OnEnemyKilled(this);
+            if (!IsDead)
+            {
+                IsDead = true;
+                Skill3?.Invoke(true);
+                CallAfterDelay(3);
+            }
+        }
+        
+        IEnumerator CallAfterDelay(float delay)
+        {
+            yield return new WaitForSeconds(delay); // Wait for 2 seconds
+            GameManager.Instance.OnEnemyKilled(this);// Call your function after the delay
         }
 
         private void OnEnter(Collider other)
@@ -181,6 +220,18 @@ namespace Orpheus.Core.Orbital.Entities
         public void OnDestroy()
         {
             Dispose();
+        }
+        public Transform GetTransform()
+        {
+            return this.transform;
+        }
+
+        private void InAttackRange(Collider other)
+        {
+            if (other.TryGetComponent(out PlayerOrbitalController enteredTarget) && enteredTarget.CurrentRing == CurrentRing)
+            {
+                Skill1?.Invoke(true);
+            }
         }
     }
     

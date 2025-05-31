@@ -1,5 +1,7 @@
 using System;
+using System.Net.Mime;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Orpheus.Core.UI
 {
@@ -11,6 +13,12 @@ namespace Orpheus.Core.UI
         
         [field:SerializeField]
         private GameObject UI_HUB;
+        
+        [field:SerializeField]
+        private Text  money;
+        
+        [field:SerializeField]
+        private GameObject LifeIWishICouldUse;
         
         protected void Awake()
         {
@@ -58,6 +66,11 @@ namespace Orpheus.Core.UI
         public void OpenHUB()
         {
             UI_HUB.SetActive(true);
+        }
+
+        public void UpdateMoney(int money)
+        {
+            this.money.text = money.ToString();
         }
     }
 }

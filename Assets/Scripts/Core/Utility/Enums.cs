@@ -54,6 +54,7 @@ namespace Orpheus.Core
         Bleed,
         True,
         Crush,
+        Fall
     }
     
     public enum TargetTeam

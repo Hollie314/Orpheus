@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cdb9ee3b1d04818ba30ef1205b6d2e4, type: 3}
   m_Name: Lyre_Skill_1_Ability_1
   m_EditorClassIdentifier: 
-  <CastDuration>k__BackingField: 0.2
+  <CastDuration>k__BackingField: 0
   <FireCount>k__BackingField: 2
-  <FireDuration>k__BackingField: 0.2
+  <FireDuration>k__BackingField: 2
   <HitInterval>k__BackingField: 0.2
   <RecoilDuration>k__BackingField: 0
   <Cooldown>k__BackingField: 5
@@ -30,14 +30,15 @@ MonoBehaviour:
   <PercentHealCurrentHp>k__BackingField: 0
   <PercentHealMaxHp>k__BackingField: 0
   Cast_VFX: []
-  Fire_VFX: []
+  Fire_VFX:
+  - {fileID: 2322356275825305367, guid: 485e798940142d445b4fffa4dd05310d, type: 3}
   Recoil_VFX: []
   Castmovement: {fileID: 0}
-  Firemovement: {fileID: 11400000, guid: c5ac8be4f4ea5914f8cfbba5c398737d, type: 2}
+  Firemovement: {fileID: 0}
   FiremovementDuration: 0.2
   xoffset: 0.2
   yoffset: 0.3
   zoffset: 0.2
-  projectile: {fileID: 6785471071304353471, guid: ec683c064c65b524db7d064f8fea9c66, type: 3}
-  <HitBoxRadius>k__BackingField: 1
-  <HitBoxHeight>k__BackingField: 1
+  projectile: {fileID: 0}
+  <HitBoxRadius>k__BackingField: 5
+  <HitBoxHeight>k__BackingField: 5
