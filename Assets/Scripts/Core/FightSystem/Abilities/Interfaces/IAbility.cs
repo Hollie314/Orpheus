@@ -10,5 +10,6 @@ namespace Orpheus.Core.FightSystem
         public void Dispose();
 
         float GetLifeTime();
+        public void Init();
     }
 }

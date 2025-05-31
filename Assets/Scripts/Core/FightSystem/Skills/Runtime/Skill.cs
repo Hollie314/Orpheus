@@ -33,7 +33,6 @@ namespace Orpheus.Core.FightSystem.Skills.Runtime
             {
                 IAbility ability = abilityData.GenerateAbility(Caster);
                 abilities.Add(ability);
-                //abilities.Init();
             }
             foreach (var conditionData in Data.ConditionDatas)
             {
@@ -93,6 +92,7 @@ namespace Orpheus.Core.FightSystem.Skills.Runtime
                 {
                     AbilityManager.Instance.AddAbility(ability);
                 }
+                Debug.Log("ability start");
                 AbilitiesRunning = true;
             }
         }
@@ -132,6 +132,7 @@ namespace Orpheus.Core.FightSystem.Skills.Runtime
         {
             Cooldown.ResetCondition();
             AbilitiesRunning = false;
+            Debug.Log("ability end");
         }
     }
 }

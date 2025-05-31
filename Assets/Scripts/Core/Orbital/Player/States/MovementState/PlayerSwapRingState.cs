@@ -58,7 +58,7 @@ namespace Orpheus.Core.Orbital.Player
 
         public override Vector2 GetVelocity(PlayerOrbitalController orbitalController, float deltaTime)
         {
-            if (isSwapingRing)
+            if (isSwapingRing&& nextRing!=null)
             {
                 if (orbitalController.IsBlocked)
                 {

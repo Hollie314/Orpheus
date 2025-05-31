@@ -38,6 +38,7 @@ namespace Orpheus.Core.FightSystem.Conditions
 
         public void OnCondition(bool reached)
         {
+            Debug.Log("we are using an input");
             IsReached = reached;
             if (reached)
             {
