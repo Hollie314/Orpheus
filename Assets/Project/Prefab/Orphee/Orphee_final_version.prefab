@@ -1721,8 +1721,9 @@ Transform:
   - {fileID: 4836574810135707059}
   - {fileID: 1257170728841082134}
   - {fileID: 6967566697586505618}
-  - {fileID: 933129319505914814}
   - {fileID: 7991071281897895437}
+  - {fileID: 4334551954767011000}
+  - {fileID: 7268299846620667429}
   m_Father: {fileID: 4130927236475416667}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1243666571817652735
@@ -9543,12 +9544,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7617809294057323715}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.000060959544, y: -0.06440929, z: -0.00071480795}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.011100633, z: -0.0007148079}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 933129319505914814}
+  m_Father: {fileID: 3991767447356536851}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!137 &2825415684873746008
 SkinnedMeshRenderer:
@@ -10497,12 +10498,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8024894137541270444}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.000060959544, y: -0.06440929, z: -0.00071480795}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.011100633, z: -0.0007148079}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 933129319505914814}
+  m_Father: {fileID: 3991767447356536851}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!137 &8345346830683870343
 SkinnedMeshRenderer:
@@ -12047,39 +12048,6 @@ Transform:
   m_Children:
   - {fileID: 3005072950600496520}
   m_Father: {fileID: 927874413706912067}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &8378122838112138406
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 933129319505914814}
-  m_Layer: 0
-  m_Name: tunique_low
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &933129319505914814
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8378122838112138406}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.000060959544, y: 0.053308666, z: 5.551115e-19}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 4334551954767011000}
-  - {fileID: 7268299846620667429}
-  m_Father: {fileID: 3991767447356536851}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8383837205166004978
 GameObject:
