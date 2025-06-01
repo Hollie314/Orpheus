@@ -25,6 +25,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 0f3e07d8b5a9a1b47a1a650fb22efa98, type: 2}
     - target: {fileID: 1528766064172447767, guid: a8ad1efea3f255245bf97a24b54a451c, type: 3}
+      propertyPath: <Animator>k__BackingField
+      value: 
+      objectReference: {fileID: 1338532148901873533}
+    - target: {fileID: 1528766064172447767, guid: a8ad1efea3f255245bf97a24b54a451c, type: 3}
       propertyPath: <animator>k__BackingField
       value: 
       objectReference: {fileID: 1338532148901873533}
@@ -77,8 +81,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8631663933854453763, guid: a8ad1efea3f255245bf97a24b54a451c, type: 3}
+      propertyPath: m_Height
+      value: 0.5490938
+      objectReference: {fileID: 0}
+    - target: {fileID: 8631663933854453763, guid: a8ad1efea3f255245bf97a24b54a451c, type: 3}
+      propertyPath: m_Center.y
+      value: 0.29455563
+      objectReference: {fileID: 0}
+    - target: {fileID: 8631663933854453763, guid: a8ad1efea3f255245bf97a24b54a451c, type: 3}
       propertyPath: m_IsTrigger
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8704197672453010116, guid: a8ad1efea3f255245bf97a24b54a451c, type: 3}
       propertyPath: m_Name
@@ -128,7 +140,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3202392969346248122, guid: c553f1e3732025843939e9b8ad5d572c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.261
       objectReference: {fileID: 0}
     - target: {fileID: 3202392969346248122, guid: c553f1e3732025843939e9b8ad5d572c, type: 3}
       propertyPath: m_LocalPosition.z

@@ -48,7 +48,7 @@ AnimatorState:
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
---- !u!1101 &-4912950532336356099
+--- !u!1101 &-3474019563024999629
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -65,10 +65,10 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.9617873
-  m_TransitionOffset: 0.04596622
-  m_ExitTime: 0.12307664
-  m_HasExitTime: 1
+  m_TransitionDuration: 0.25
+  m_TransitionOffset: 0
+  m_ExitTime: 0.75
+  m_HasExitTime: 0
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
@@ -83,8 +83,7 @@ AnimatorState:
   m_Name: degat_anim_clip
   m_Speed: 1
   m_CycleOffset: 0
-  m_Transitions:
-  - {fileID: -4912950532336356099}
+  m_Transitions: []
   m_StateMachineBehaviours: []
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
@@ -323,6 +322,7 @@ AnimatorStateMachine:
   - {fileID: -2243289611270123624}
   - {fileID: 4316312611211863141}
   - {fileID: 180997167014529888}
+  - {fileID: -3474019563024999629}
   m_EntryTransitions: []
   m_StateMachineTransitions: {}
   m_StateMachineBehaviours: []

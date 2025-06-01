@@ -33,7 +33,7 @@ namespace Orpheus.Core.Orbital.Entities.States.MovementStates
 
         public override void OnEnter(AI_Entities orbitalController)
         {
-            orbitalController.animator.SetBool("IsRunning", true);
+            orbitalController.Animator.SetBool("IsRunning", true);
         }
     }
 }

@@ -51,7 +51,8 @@ namespace Orpheus.Core.Orbital.Player
             base.OnEnter(orbitalController);
             currentJumpTime = 0;
             currentJumpCount ++;
-            orbitalController.animator.SetTrigger("saut");
+            orbitalController.Animator.SetTrigger("saut");
+            orbitalController.Animator.SetBool("IsJumping", true);
         }
 
         public override void OnExit(PlayerOrbitalController orbitalController)
@@ -60,6 +61,7 @@ namespace Orpheus.Core.Orbital.Player
             //Debug.Log("Ending jump");
             currentJumpTime = -1;
             currentJumpBuffer = 0;
+            orbitalController.Animator.SetBool("IsJumping", false);
         }
 
         public override void PreUpdate(PlayerOrbitalController orbitalController)

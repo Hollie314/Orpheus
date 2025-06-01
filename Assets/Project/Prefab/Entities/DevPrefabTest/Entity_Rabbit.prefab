@@ -78,7 +78,7 @@ GameObject:
   - component: {fileID: 8889367953883551955}
   - component: {fileID: 8631663933854453763}
   - component: {fileID: 1528766064172447767}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Entity_Rabbit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -121,7 +121,7 @@ Rigidbody:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 128
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 0
@@ -142,16 +142,16 @@ CapsuleCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 0
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.18968597
-  m_Height: 0.46530503
+  m_Height: 0.48078984
   m_Direction: 1
-  m_Center: {x: 0, y: 0.25, z: -0.000000029802322}
+  m_Center: {x: 0, y: 0.2422576, z: -0.000000029802322}
 --- !u!114 &1528766064172447767
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -180,7 +180,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a600f94916d37a34599cd821c11f0a6b, type: 2}
   skillDatas:
   - {fileID: 11400000, guid: 06acb7a7c36ee884da6566659a689a25, type: 2}
-  <animator>k__BackingField: {fileID: 615169296362330960}
+  <Animator>k__BackingField: {fileID: 615169296362330960}
 --- !u!1001 &2240425746568094312
 PrefabInstance:
   m_ObjectHideFlags: 0

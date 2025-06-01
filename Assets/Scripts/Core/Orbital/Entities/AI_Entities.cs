@@ -32,7 +32,7 @@ namespace Orpheus.Core.Orbital.Entities
         public List<Skill> skills { get;private set; }
         public PlayerOrbitalController player { get;private set; }
         [field:SerializeField, BoxGroup("Enemy")]
-        public Animator animator { get; set; }
+        public Animator Animator { get; set; }
         
         //Condition
         public event Action<bool> Skill1;
@@ -43,8 +43,6 @@ namespace Orpheus.Core.Orbital.Entities
 
         private bool IsDead;
 
-
-       
 
         protected override void Awake()
         {
@@ -115,13 +113,13 @@ namespace Orpheus.Core.Orbital.Entities
             // idle or running
             if (CurrentVelocity.x != 0)
             {
-                animator.SetBool("IsRunning",true);
+                Animator.SetBool("IsRunning",true);
             }
             else
             {
-                animator.SetBool("IsRunning",false); 
+                Animator.SetBool("IsRunning",false); 
             }
-            animator.SetBool("IsGrounded",IsGrounded); 
+            Animator.SetBool("IsGrounded",IsGrounded); 
         }
         
         public void AddSkill(Skill skill)
@@ -185,7 +183,6 @@ namespace Orpheus.Core.Orbital.Entities
 
         private void Dispose()
         {
-            Debug.Log("number if skills : "+skills.Count);
             skills.Clear();
         }
 
@@ -194,6 +191,7 @@ namespace Orpheus.Core.Orbital.Entities
             if (!IsDead)
             {
                 Debug.Log("ITS DEAD");
+                Animator.SetTrigger("mort");
                 IsDead = true;
                 Death?.Invoke(true);
                 StartCoroutine(CallAfterDelay(1));
@@ -202,7 +200,6 @@ namespace Orpheus.Core.Orbital.Entities
         
         IEnumerator CallAfterDelay(float delay)
         {
-            Debug.Log("allo ?????");
             yield return new WaitForSeconds(delay);
             GameManager.Instance.OnEnemyKilled(this);
         }

@@ -13,7 +13,7 @@ namespace Orpheus.Core
         [field:SerializeField]
         private RangeTrigger rangeTrigger;
         [field:SerializeField]
-        public Animator animator { get;private set; }
+        public Animator Animator { get;private set; }
 
         public Vector3 CastPoint { get; private set; }
         public Vector3 CastDirection { get;private set; }

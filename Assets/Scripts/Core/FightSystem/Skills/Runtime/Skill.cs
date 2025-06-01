@@ -132,7 +132,6 @@ namespace Orpheus.Core.FightSystem.Skills.Runtime
         public void OnConditionReached()
         {
             //Use Ability if all Condition are met
-            Debug.Log("on condition is reached");
             if (Caster != null && AllConditionMeet()&& !AbilitiesRunning)
             {
                 foreach (var ability in abilities)
@@ -141,7 +140,7 @@ namespace Orpheus.Core.FightSystem.Skills.Runtime
                 }
                 Debug.Log("ability start");
                 AbilitiesRunning = true;
-                Caster.animator.SetTrigger("attaque");
+                Caster.Animator.SetTrigger("attaque");
             }
         }
 

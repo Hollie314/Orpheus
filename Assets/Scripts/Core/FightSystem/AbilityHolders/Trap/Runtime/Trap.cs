@@ -28,7 +28,7 @@ namespace Orpheus.Core.FightSystem.Trap
         public event Action<bool> Death;
 
         [field:SerializeField, BoxGroup("Trap")]
-        public Animator animator { get; set; }
+        public Animator Animator { get; set; }
 
 
         public AbilityData AbilityData { get; private set; }
