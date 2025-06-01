@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Guitare_Skill_2_Ability
   m_EditorClassIdentifier: 
   <CastDuration>k__BackingField: 0.5
-  <FireCount>k__BackingField: 0.2
+  <FireCount>k__BackingField: 2
   <FireDuration>k__BackingField: 0.2
   <HitInterval>k__BackingField: 2
   <RecoilDuration>k__BackingField: 0
@@ -40,5 +40,5 @@ MonoBehaviour:
   yoffset: 0
   zoffset: 0
   projectile: {fileID: 0}
-  <HitBoxRadius>k__BackingField: 0.5
-  <HitBoxHeight>k__BackingField: 0.5
+  <HitBoxRadius>k__BackingField: 1
+  <HitBoxHeight>k__BackingField: 1

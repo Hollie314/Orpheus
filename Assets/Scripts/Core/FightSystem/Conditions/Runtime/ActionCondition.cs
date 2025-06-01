@@ -23,6 +23,8 @@ namespace Orpheus.Core.FightSystem.Conditions
                     break;
                 case ActionConditionName.Death :  ConditionUser.Death += OnCondition;
                     break;
+                case ActionConditionName.Chase :  ConditionUser.Chase += OnCondition;
+                    break;
             }
             IsReached = false;
         }
@@ -32,6 +34,7 @@ namespace Orpheus.Core.FightSystem.Conditions
             ConditionUser.Skill1 -= OnCondition;
             ConditionUser.Skill2 -= OnCondition;
             ConditionUser.Death -= OnCondition;
+            ConditionUser.Chase -= OnCondition;
         }
 
         public override void ResetCondition()

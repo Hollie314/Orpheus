@@ -26,7 +26,7 @@ namespace Orpheus.Core.FightSystem.Conditions
             
             //Create the object that will serve as detector and stuck it to the caster
             rangeObject = new GameObject("RangeTrigger");
-            rangeObject.transform.SetParent(((MonoBehaviour)ConditionUser).transform);
+            rangeObject.transform.SetParent((ConditionUser).GetTransform());
             rangeObject.transform.localPosition = Vector3.zero;
 
             //Add the collider and set its range
@@ -68,7 +68,7 @@ namespace Orpheus.Core.FightSystem.Conditions
         
         private void OnEnter(Collider other)
         {
-            if (other.TryGetComponent(out IAbilityTarget enteredTarget) && enteredTarget.Team == target && enteredTarget.CurrentRing == ConditionUser.CurrentRing)
+            if (other.TryGetComponent(out IAbilityTarget enteredTarget) && enteredTarget.Team == target)
             {
                 IsReached = true;
                 ConditionUser.OnConditionReached();
@@ -80,7 +80,7 @@ namespace Orpheus.Core.FightSystem.Conditions
         {
             if (other.TryGetComponent(out IAbilityTarget exitedTarget) && exitedTarget.Team == target)
             {
-                IsReached = false;
+                //IsReached = false;
             }
         }
     }

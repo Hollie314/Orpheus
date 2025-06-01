@@ -15,13 +15,11 @@ using UnityEngine;
 
 namespace Orpheus.Core.Orbital.Entities
 {
-    public class AI_Entities : OrbitalController<AI_Entities>, IAbilityTarget, IAbilityCaster, IConditionUser
+    public class AI_Entities : OrbitalController<AI_Entities>, IAbilityTarget, IAbilityCaster
     {
 
         [SerializeField, BoxGroup("Enemy")]
         private RangeTrigger rangeTrigger;
-        [SerializeField, BoxGroup("Enemy")]
-        private RangeTrigger rangeAttaque;
         [SerializeField, BoxGroup("Enemy")] private EntitiesMovementState[] defaultStates;
         [SerializeField, BoxGroup("Enemy")] private SkillData[] skillDatas;
         
@@ -38,7 +36,7 @@ namespace Orpheus.Core.Orbital.Entities
         public event Action<bool> Skill1;
         public event Action<bool> Skill2;
         public event Action<bool> Death;
-        public event Action<bool> InRange;
+        public event Action<bool> Chase;
         
 
         private bool IsDead;
@@ -68,8 +66,6 @@ namespace Orpheus.Core.Orbital.Entities
         {
             rangeTrigger.OnEnterRange += OnEnter;
             rangeTrigger.OnExitRange += OnExit;
-            rangeAttaque.OnEnterRange += InAttackRange;
-            rangeAttaque.OnExitRange += OutOfAttackRange;
             IsDead = false;
         }
 
@@ -77,8 +73,6 @@ namespace Orpheus.Core.Orbital.Entities
         {
             rangeTrigger.OnEnterRange -= OnEnter;
             rangeTrigger.OnExitRange -= OnExit;
-            rangeAttaque.OnEnterRange -= InAttackRange;
-            rangeAttaque.OnExitRange -= OutOfAttackRange;
             
         }
         
@@ -103,8 +97,20 @@ namespace Orpheus.Core.Orbital.Entities
             {
                 ChangeDirection();
             }
-
             SetAnimatorTrigger();
+
+            if (player != null)
+            {
+                if (player.CurrentRing == CurrentRing)
+                {
+                    Debug.Log("same ring");
+                    Chase?.Invoke(true);
+                }
+                else
+                {
+                    Chase?.Invoke(false); 
+                }
+            }
         }
         
         
@@ -190,7 +196,6 @@ namespace Orpheus.Core.Orbital.Entities
         {
             if (!IsDead)
             {
-                Debug.Log("ITS DEAD");
                 Animator.SetTrigger("mort");
                 IsDead = true;
                 Death?.Invoke(true);
@@ -206,9 +211,11 @@ namespace Orpheus.Core.Orbital.Entities
 
         private void OnEnter(Collider other)
         {
+            Debug.Log("in chase range");
             if (other.TryGetComponent(out PlayerOrbitalController enteredTarget) && enteredTarget.CurrentRing == CurrentRing)
             {
                 player = enteredTarget;
+                
             }
         }
 
@@ -217,22 +224,6 @@ namespace Orpheus.Core.Orbital.Entities
             if (other.TryGetComponent(out PlayerOrbitalController exitedTarget) && exitedTarget.Equals(player))
             {
                 player = null;
-            }
-        }
-        
-        private void InAttackRange(Collider other)
-        {
-            if (other.TryGetComponent(out PlayerOrbitalController enteredTarget) && enteredTarget.CurrentRing == CurrentRing)
-            {
-                Skill1?.Invoke(true);
-            }
-        }
-        
-        private void OutOfAttackRange(Collider other)
-        {
-            if (other.TryGetComponent(out PlayerOrbitalController enteredTarget) && enteredTarget.CurrentRing == CurrentRing)
-            {
-                Skill1?.Invoke(false);
             }
         }
 
@@ -252,17 +243,15 @@ namespace Orpheus.Core.Orbital.Entities
         {
             return this.transform;
         }
-        
-
        
         public void OnConditionReached()
         {
-            throw new NotImplementedException();
+           
         }
 
         public void SetAnimator(string action)
         {
-            throw new NotImplementedException();
+            
         }
     }
     

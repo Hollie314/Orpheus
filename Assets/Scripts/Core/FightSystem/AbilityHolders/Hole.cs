@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using NaughtyAttributes;
 using Orpheus.Core.FightSystem;
 using Orpheus.Core.FightSystem.Conditions;
 using Orpheus.Core.FightSystem.Skills.Runtime;
@@ -12,18 +13,18 @@ namespace Orpheus.Core
     {
         [field:SerializeField]
         private RangeTrigger rangeTrigger;
-        [field:SerializeField]
         public Animator Animator { get;private set; }
-
+        [BoxGroup("Stats")]
+        [SerializeField] private OrbitalStatsData orbitalStatsData;
+        public OrbitalStats Stats { get; private set;}
         public Vector3 CastPoint { get; private set; }
         public Vector3 CastDirection { get;private set; }
         public float Direction { get;private set; }
         public TargetTeam Team { get;private set; }
-        public event Action<bool> InRange;
         public Ring CurrentRing { get;private set; }
-        public OrbitalStats Stats { get;private set; }
         public List<Skill> skills { get;private set; }
         
+        public event Action<bool> Chase;
         public event Action<bool> Skill1;
         public event Action<bool> Skill2;
         public event Action<bool> Death;
@@ -37,15 +38,15 @@ namespace Orpheus.Core
         {
            
         }
-
-      
-
+        
         private void Awake()
         {
             Team = TargetTeam.Trap;
             Direction = 1;
             skills = new List<Skill>();
             rangeTrigger.OnEnterRange += OnEnter;
+            Stats = new OrbitalStats();
+            Stats.Initialize(orbitalStatsData,1);
         }
         
         private void OnDisable()
@@ -81,11 +82,10 @@ namespace Orpheus.Core
         private void OnEnter(Collider other)
         {
             IAbilityTarget target = other.GetComponent<IAbilityTarget>();
-            Debug.Log(other.gameObject.name);
             if (target!=null)
             {
                 Debug.Log("whahaha");
-                target.ApplyDamage(this,target.Stats.getStat(FloatStats.Hp),0,FloatStats.Power,DamageType.Fall);
+                target.ApplyDamage(this,9999,0,FloatStats.Power,DamageType.Fall);
             }
         }
     }

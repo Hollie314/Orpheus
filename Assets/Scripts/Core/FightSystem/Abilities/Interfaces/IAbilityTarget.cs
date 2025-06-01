@@ -24,6 +24,11 @@ namespace Orpheus.Core.FightSystem
             //Apply damages, it does not implement shield for now.
             Stats.setStat(FloatStats.Hp, Mathf.Clamp(Stats.getStat(FloatStats.Hp)- damages,0,Stats.getStat(FloatStats.HpMax)));
             Animator.SetTrigger("damages");
+            
+            if (Stats.getStat(FloatStats.Hp) <= 0)
+            {
+                OnDeath(caster, damageType);
+            }
         }
 
         void Heal(IAbilityCaster caster, float flatValue,  float percentageOffMissingHp, float percentageOfMaxHp)

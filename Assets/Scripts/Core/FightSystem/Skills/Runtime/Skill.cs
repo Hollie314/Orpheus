@@ -22,7 +22,7 @@ namespace Orpheus.Core.FightSystem.Skills.Runtime
         public event Action<bool> Skill1;
         public event Action<bool> Skill2;
         public event Action<bool> Death;
-        public event Action<bool> InRange;
+        public event Action<bool> Chase;
 
         public Ring CurrentRing { get; private set; }
         
@@ -37,6 +37,7 @@ namespace Orpheus.Core.FightSystem.Skills.Runtime
             Caster.Skill1 += OnSkill1;
             Caster.Skill2 += OnSkill2;
             Caster.Death += OnDeath;
+            Caster.Chase += OnChase;
         }
 
         public void Initialize()
@@ -73,6 +74,7 @@ namespace Orpheus.Core.FightSystem.Skills.Runtime
             Caster.Skill1 -= OnSkill1;
             Caster.Skill2 -= OnSkill2;
             Caster.Death -= OnDeath;
+            Caster.Chase -= OnChase;
             
             foreach (var condition in conditions)
             {
@@ -105,6 +107,11 @@ namespace Orpheus.Core.FightSystem.Skills.Runtime
         private void OnDeath(bool value)
         {
             Death?.Invoke(value);
+        }
+        
+        private void OnChase(bool value)
+        {
+            Chase?.Invoke(value);
         }
 
         public IAbility GetLongestAbility()
@@ -149,6 +156,11 @@ namespace Orpheus.Core.FightSystem.Skills.Runtime
             
         }
 
+        public Transform GetTransform()
+        {
+            return Caster.GetTransform();
+        }
+
         public bool AllConditionMeet()
         {
             foreach (var condition in conditions)
@@ -160,6 +172,7 @@ namespace Orpheus.Core.FightSystem.Skills.Runtime
             }
             if (!Cooldown.IsReached)
             {
+                Debug.Log("cd issue");
                 return false;
             }
             //If all condition are met it reset them 

@@ -37,7 +37,7 @@ namespace Orpheus.Core.Orbital.Player
         public event Action<bool> Skill1;
         public event Action<bool> Skill2;
         public event Action<bool> Death;
-        public event Action<bool> InRange;
+        public event Action<bool> Chase;
         
         protected override void Awake()
         {
@@ -122,7 +122,7 @@ namespace Orpheus.Core.Orbital.Player
                 IsDead = true;
                 Animator.SetTrigger("mort");
                 Death?.Invoke(true);
-                StartCoroutine(CallAfterDelay(1,caster,damageType));
+                StartCoroutine(CallAfterDelay(2,caster,damageType));
             }
         }
         
@@ -159,6 +159,7 @@ namespace Orpheus.Core.Orbital.Player
 
         public void OnSkill1(InputAction.CallbackContext obj)
         {
+            Animator.SetInteger("abilityIndex",0);
             switch (obj.phase)
             {
                 case InputActionPhase.Performed : Skill1?.Invoke(true);
@@ -172,6 +173,7 @@ namespace Orpheus.Core.Orbital.Player
         
         public void OnSkill2(InputAction.CallbackContext obj)
         {
+            Animator.SetInteger("abilityIndex",1);
             switch (obj.phase)
             {
                 case InputActionPhase.Performed : Skill2?.Invoke(true);
