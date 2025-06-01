@@ -1,3 +1,5 @@
+using System;
+using Orpheus.Core;
 using UnityEngine;
 
 public class SkyboxChanger : MonoBehaviour
@@ -7,24 +9,35 @@ public class SkyboxChanger : MonoBehaviour
 
     void Start()
     {
-        if (skyboxes.Length > 0)
-        {
-            RenderSettings.skybox = skyboxes[currentIndex];
-        }
+    
+        GameManager.Instance.ChangeBiome += ChangeSkybox;
+    }
+
+    private void OnDestroy()
+    {
+        GameManager.Instance.ChangeBiome -= ChangeSkybox;
     }
 
     void Update()
     {
-        // Exemple : appuyer sur la touche "S" pour changer
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            ChangeSkybox();
-        }
+      
     }
 
-    void ChangeSkybox()
+    void ChangeSkybox(BiomeName biome)
     {
-        currentIndex = (currentIndex + 1) % skyboxes.Length;
+        switch (biome)
+        {
+            case BiomeName.Elysee : currentIndex = 0;
+                break;
+            case BiomeName.Styx :currentIndex = 1;
+                break;
+            case BiomeName.Tartare :currentIndex = 3;
+                break;
+            case BiomeName.ChampsDesChatiments :currentIndex = 2;
+                break;
+            default: currentIndex = 0;
+                break;
+        }
         RenderSettings.skybox = skyboxes[currentIndex];
         DynamicGI.UpdateEnvironment(); // Pour recharger l’éclairage global (optionnel mais conseillé)
     }

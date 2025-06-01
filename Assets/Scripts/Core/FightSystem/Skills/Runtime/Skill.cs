@@ -145,7 +145,6 @@ namespace Orpheus.Core.FightSystem.Skills.Runtime
                 {
                     AbilityManager.Instance.AddAbility(ability);
                 }
-                Debug.Log("ability start");
                 AbilitiesRunning = true;
                 Caster.Animator.SetTrigger("attaque");
             }
@@ -172,7 +171,6 @@ namespace Orpheus.Core.FightSystem.Skills.Runtime
             }
             if (!Cooldown.IsReached)
             {
-                Debug.Log("cd issue");
                 return false;
             }
             //If all condition are met it reset them 

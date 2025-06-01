@@ -105,7 +105,7 @@ namespace Orpheus.Core.FightSystem.Runtime
             float currentFireDuration = CurrentLifetime - Data.CastDuration;
 
             //How many time it should have fire
-            int targetFireCount = Mathf.FloorToInt(currentFireDuration / interval);
+            int targetFireCount = Mathf.CeilToInt(currentFireDuration / interval);
             //Delay fire has
             int missingFires = targetFireCount - CurrentFireCount;
 

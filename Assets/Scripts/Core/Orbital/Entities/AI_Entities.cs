@@ -214,6 +214,7 @@ namespace Orpheus.Core.Orbital.Entities
             Debug.Log("in chase range");
             if (other.TryGetComponent(out PlayerOrbitalController enteredTarget) && enteredTarget.CurrentRing == CurrentRing)
             {
+                Debug.Log("and its the player");
                 player = enteredTarget;
                 
             }

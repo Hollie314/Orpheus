@@ -80,7 +80,7 @@ namespace Orpheus.Core.FightSystem.Conditions
         {
             if (other.TryGetComponent(out IAbilityTarget exitedTarget) && exitedTarget.Team == target)
             {
-                //IsReached = false;
+                IsReached = false;
             }
         }
     }

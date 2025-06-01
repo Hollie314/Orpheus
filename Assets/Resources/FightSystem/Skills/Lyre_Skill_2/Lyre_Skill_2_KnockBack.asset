@@ -10,13 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a1d7a58ff8284b9f86771560df74b44d, type: 3}
-  m_Name: Harpi_Skill_1_AbilityDash
+  m_Name: Lyre_Skill_2_KnockBack
   m_EditorClassIdentifier: 
   <CastDuration>k__BackingField: 0
   <FireCount>k__BackingField: 1
-  <FireDuration>k__BackingField: 3
-  <HitInterval>k__BackingField: 0.2
+  <FireDuration>k__BackingField: 0.2
+  <HitInterval>k__BackingField: 0
   <RecoilDuration>k__BackingField: 0
+  <Cooldown>k__BackingField: 0
   <DamageOtherTeam>k__BackingField: 1
   <DamageSameTeam>k__BackingField: 0
   <FlatDamage>k__BackingField: 0
@@ -26,14 +27,14 @@ MonoBehaviour:
   <HealOtherTeam>k__BackingField: 0
   <HealSameTeam>k__BackingField: 1
   <FlatHeal>k__BackingField: 0
-  <PercentHealCurrentHp>k__BackingField: 20
+  <PercentHealCurrentHp>k__BackingField: 0
   <PercentHealMaxHp>k__BackingField: 0
   Cast_VFX: []
   Fire_VFX: []
   Recoil_VFX: []
   Castmovement: {fileID: 0}
-  Firemovement: {fileID: 11400000, guid: 3da727d7b5db8204490075f1b6326356, type: 2}
-  FiremovementDuration: 5
+  Firemovement: {fileID: 11400000, guid: c5ac8be4f4ea5914f8cfbba5c398737d, type: 2}
+  FiremovementDuration: 0
   xoffset: 0
   yoffset: 0
   zoffset: 0
