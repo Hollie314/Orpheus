@@ -141,11 +141,6 @@ namespace Orpheus.Core.FightSystem.Runtime
                     if (CanDamageTarget(target))
                     {
                         target.ApplyDamage(Caster, Data.FlatDamage, Data.PercentDamage, Data.DamageStat, Data.DamageType);
-                        if (target.Stats.getStat(FloatStats.Hp) <= 0)
-                        {
-                            target.OnDeath(Caster, Data.DamageType);
-                            continue;
-                        }
                     }
                     
                     if(CanHealTarget(target))

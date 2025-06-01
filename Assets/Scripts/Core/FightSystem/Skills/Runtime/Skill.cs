@@ -22,7 +22,7 @@ namespace Orpheus.Core.FightSystem.Skills.Runtime
         public event Action<bool> Skill1;
         public event Action<bool> Skill2;
         public event Action<bool> Death;
-        public event Action<bool> InRange;
+        public event Action<bool> Chase;
 
         public Ring CurrentRing { get; private set; }
         
@@ -37,6 +37,7 @@ namespace Orpheus.Core.FightSystem.Skills.Runtime
             Caster.Skill1 += OnSkill1;
             Caster.Skill2 += OnSkill2;
             Caster.Death += OnDeath;
+            Caster.Chase += OnChase;
         }
 
         public void Initialize()
@@ -73,6 +74,7 @@ namespace Orpheus.Core.FightSystem.Skills.Runtime
             Caster.Skill1 -= OnSkill1;
             Caster.Skill2 -= OnSkill2;
             Caster.Death -= OnDeath;
+            Caster.Chase -= OnChase;
             
             foreach (var condition in conditions)
             {
@@ -106,6 +108,11 @@ namespace Orpheus.Core.FightSystem.Skills.Runtime
         {
             Death?.Invoke(value);
         }
+        
+        private void OnChase(bool value)
+        {
+            Chase?.Invoke(value);
+        }
 
         public IAbility GetLongestAbility()
         {
@@ -132,7 +139,6 @@ namespace Orpheus.Core.FightSystem.Skills.Runtime
         public void OnConditionReached()
         {
             //Use Ability if all Condition are met
-            Debug.Log("on condition is reached");
             if (Caster != null && AllConditionMeet()&& !AbilitiesRunning)
             {
                 foreach (var ability in abilities)
@@ -141,13 +147,18 @@ namespace Orpheus.Core.FightSystem.Skills.Runtime
                 }
                 Debug.Log("ability start");
                 AbilitiesRunning = true;
-                Caster.animator.SetTrigger("attaque");
+                Caster.Animator.SetTrigger("attaque");
             }
         }
 
         public void SetAnimator(string action)
         {
             
+        }
+
+        public Transform GetTransform()
+        {
+            return Caster.GetTransform();
         }
 
         public bool AllConditionMeet()
@@ -161,6 +172,7 @@ namespace Orpheus.Core.FightSystem.Skills.Runtime
             }
             if (!Cooldown.IsReached)
             {
+                Debug.Log("cd issue");
                 return false;
             }
             //If all condition are met it reset them 

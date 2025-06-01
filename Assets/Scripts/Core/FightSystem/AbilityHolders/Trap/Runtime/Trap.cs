@@ -17,7 +17,7 @@ namespace Orpheus.Core.FightSystem.Trap
         public virtual Vector3 CastDirection { get; private set; }
         public float Direction { get; }
         public TargetTeam Team { get; private set; } = TargetTeam.Trap;
-        public event Action<bool> InRange;
+        public event Action<bool> Chase;
         public Ring CurrentRing { get; private set; }
         
 
@@ -28,7 +28,7 @@ namespace Orpheus.Core.FightSystem.Trap
         public event Action<bool> Death;
 
         [field:SerializeField, BoxGroup("Trap")]
-        public Animator animator { get; set; }
+        public Animator Animator { get; set; }
 
 
         public AbilityData AbilityData { get; private set; }

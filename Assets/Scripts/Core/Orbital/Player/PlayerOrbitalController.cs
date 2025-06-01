@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using NaughtyAttributes;
 using Orpheus.Core.FightSystem;
@@ -20,6 +21,8 @@ namespace Orpheus.Core.Orbital.Player
         
         //event
         public static event Action OnPlayerDeath;
+        private bool IsDead;
+        private bool IsJumping;
         
         //Caster and Target
         public Vector3 CastPoint { get; private set; }
@@ -28,13 +31,13 @@ namespace Orpheus.Core.Orbital.Player
         public IMovement CurrentMovement { get; private set;}
         public List<Skill> skills { get;private set; }
         [field:SerializeField, BoxGroup("Player")]
-        public Animator animator { get; set; }
+        public Animator Animator { get; set; }
         
         //Event for conditions
         public event Action<bool> Skill1;
         public event Action<bool> Skill2;
         public event Action<bool> Death;
-        public event Action<bool> InRange;
+        public event Action<bool> Chase;
         
         protected override void Awake()
         {
@@ -51,6 +54,12 @@ namespace Orpheus.Core.Orbital.Player
             {
                 AddState(defaultStates[i]);
             }
+        }
+
+        public void Init()
+        {
+            Stats.setStat(FloatStats.Hp, Stats.getStat(FloatStats.HpMax));
+            IsDead = false;
         }
 
         protected override void FixedUpdate()
@@ -78,18 +87,18 @@ namespace Orpheus.Core.Orbital.Player
             // idle or running
             if (CurrentVelocity.x != 0)
             {
-                animator.SetBool("IsRunning",true);
+                Animator.SetBool("IsRunning",true);
             }
             else
             {
-                animator.SetBool("IsRunning",false); 
+                Animator.SetBool("IsRunning",false); 
             }
-            animator.SetBool("IsGrounded",IsGrounded); 
+            Animator.SetBool("IsGrounded",IsGrounded); 
         }
 
         public void SetWeapon(int index)
         {
-            animator.SetInteger("weapon",index);
+            Animator.SetInteger("weapon",index);
         }
 
         public void ApplyStatus()
@@ -108,6 +117,18 @@ namespace Orpheus.Core.Orbital.Player
 
         public void OnDeath(IAbilityCaster caster, DamageType damageType)
         {
+            if (!IsDead)
+            {
+                IsDead = true;
+                Animator.SetTrigger("mort");
+                Death?.Invoke(true);
+                StartCoroutine(CallAfterDelay(2,caster,damageType));
+            }
+        }
+        
+        IEnumerator CallAfterDelay(float delay,IAbilityCaster caster, DamageType damageType )
+        {
+            yield return new WaitForSeconds(delay);
             GameManager.Instance.OnPlayerDeath(damageType,caster.Team);
         }
         
@@ -138,6 +159,7 @@ namespace Orpheus.Core.Orbital.Player
 
         public void OnSkill1(InputAction.CallbackContext obj)
         {
+            Animator.SetInteger("abilityIndex",0);
             switch (obj.phase)
             {
                 case InputActionPhase.Performed : Skill1?.Invoke(true);
@@ -151,6 +173,7 @@ namespace Orpheus.Core.Orbital.Player
         
         public void OnSkill2(InputAction.CallbackContext obj)
         {
+            Animator.SetInteger("abilityIndex",1);
             switch (obj.phase)
             {
                 case InputActionPhase.Performed : Skill2?.Invoke(true);

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <CastDuration>k__BackingField: 0
   <FireCount>k__BackingField: 2
-  <FireDuration>k__BackingField: 2
+  <FireDuration>k__BackingField: 0.5
   <HitInterval>k__BackingField: 0.2
   <RecoilDuration>k__BackingField: 0
   <Cooldown>k__BackingField: 5
@@ -40,5 +40,5 @@ MonoBehaviour:
   yoffset: 0.3
   zoffset: 0.2
   projectile: {fileID: 0}
-  <HitBoxRadius>k__BackingField: 5
-  <HitBoxHeight>k__BackingField: 5
+  <HitBoxRadius>k__BackingField: 1
+  <HitBoxHeight>k__BackingField: 1

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8830061424227570182}
   - component: {fileID: 6340795159876960459}
   - component: {fileID: 2585826406184601176}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -48,10 +48,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 129
+    m_Bits: 0
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
@@ -80,7 +80,7 @@ Rigidbody:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 129
+    m_Bits: 128
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 0
@@ -262,7 +262,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 4b4b81f919cb81749859b7f56ace8b2a, type: 2}
   - {fileID: 11400000, guid: bee16f974a7240b4599fdf8dc2658e98, type: 2}
   ring: {fileID: 0}
-  <animator>k__BackingField: {fileID: 0}
+  <Animator>k__BackingField: {fileID: 1164679983484858103}
 --- !u!114 &2585826406184601176
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -382,6 +382,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 767ca610e3b53bf439058f68c80a0820, type: 3}
+--- !u!95 &1164679983484858103 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 4714173536700406984, guid: 767ca610e3b53bf439058f68c80a0820, type: 3}
+  m_PrefabInstance: {fileID: 5856330556510073407}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2249845927553496706 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5655627707965441213, guid: 767ca610e3b53bf439058f68c80a0820, type: 3}

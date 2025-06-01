@@ -36,7 +36,7 @@ namespace Orpheus.Core.Orbital.Entities.States.MovementStates
 
         public override void OnEnter(AI_Entities orbitalController)
         {
-           
+           Debug.Log("entity is chasing");
         }
 
         public override void PreUpdate(AI_Entities orbitalController)

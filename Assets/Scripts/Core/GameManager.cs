@@ -79,7 +79,6 @@ namespace Orpheus.Core
             if (weapons.Count > 0)
             {
                 currentWeapon = weapons[1];
-                Debug.Log(currentWeapon.weaponData.name);
                 currentWeapon.EquipItem(player);
                 WeaponSwap?.Invoke(currentWeapon.weaponData.Index);
             }
@@ -104,6 +103,7 @@ namespace Orpheus.Core
 
         private void GenerateRoom()
         {
+            enemiesToKill.Clear();
             HidePlayer();
             int ringIndex = 0;
             
@@ -219,8 +219,8 @@ namespace Orpheus.Core
                 currentWeapon.UnequipItem(player);
                 currentWeapon = weapons[index];
                 currentWeapon.EquipItem(player);
-                player.SetWeapon(index);
-                WeaponSwap?.Invoke(index);
+                player.SetWeapon(currentWeapon.weaponData.Index);
+                WeaponSwap?.Invoke(currentWeapon.weaponData.Index);
             }
         }
 
@@ -259,6 +259,7 @@ namespace Orpheus.Core
                 Debug.Log("new death");
                 deathType.Add(damage);
             }
+            Debug.Log("we dedge");
             PlayerDeath?.Invoke();
         }
 

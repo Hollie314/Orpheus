@@ -16,12 +16,11 @@ namespace Orpheus.Core.FightSystem
         public Ring CurrentRing { get; }
         public OrbitalStats Stats { get; }
         public List<Skill> skills { get; }
-        public Animator animator { get; }
+        public Animator Animator { get; }
 
         public void AddSkill(Skill skill);
         public void RemoveSkill(Skill skill);
         public Vector3 GetAim();
         public IAbilityTarget GetTarget();
-        public Transform GetTransform();
     }
 }

@@ -1,5 +1,6 @@
 using System;
 using System.Net.Mime;
+using Orpheus.Core.Orbital.Player;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,7 +19,9 @@ namespace Orpheus.Core.UI
         private Text  money;
         
         [field:SerializeField]
-        private GameObject LifeIWishICouldUse;
+        private Image LifeIWishICouldUse;
+        [field:SerializeField]
+        private PlayerOrbitalController player;
         
         protected void Awake()
         {
@@ -52,7 +55,12 @@ namespace Orpheus.Core.UI
             }
             return Instance;
         }
-        
+
+        private void Update()
+        {
+            UpadateLife();
+        }
+
         public void StartRun()
         {
             UI_HUB.SetActive(false);
@@ -71,6 +79,11 @@ namespace Orpheus.Core.UI
         public void UpdateMoney(int money)
         {
             this.money.text = money.ToString();
+        }
+
+        private void UpadateLife()
+        {
+            LifeIWishICouldUse.fillAmount = player.Stats.getStat(FloatStats.Hp)/player.Stats.getStat(FloatStats.HpMax);
         }
     }
 }

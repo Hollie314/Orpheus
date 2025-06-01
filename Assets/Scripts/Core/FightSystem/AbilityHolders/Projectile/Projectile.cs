@@ -12,8 +12,6 @@ namespace Orpheus.Core.FightSystem.AbilityHolders.Projectile
 {
     public class Projectile : MonoBehaviour
     {
-       
-        
         [field :SerializeField]
         public float Speed { get; private set; }
         [field :SerializeField]
@@ -62,7 +60,7 @@ namespace Orpheus.Core.FightSystem.AbilityHolders.Projectile
         }
         public void OnTriggerEnter(Collider other)
         {
-            IAbilityTarget target = other.GetComponent<IAbilityTarget>();
+            IAbilityTarget target = other.gameObject.GetComponent<IAbilityTarget>();
             if (target!=null)
             {
                 if (target.Team!=Caster.Team)
