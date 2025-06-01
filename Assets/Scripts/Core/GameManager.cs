@@ -39,7 +39,8 @@ namespace Orpheus.Core
         
         //related to the run
         public event Action PlayerDeath; 
-        public int Money { get; private set;} 
+        public int Money { get; private set;}
+        private int difficulty;
         
         
         protected void Awake()
@@ -98,6 +99,7 @@ namespace Orpheus.Core
         public void StartRun()
         {
             player.Stats.setStat(FloatStats.Hp, player.Stats.getStat(FloatStats.HpMax));
+            difficulty = 0;
             GenerateRoom();
         }
 
@@ -131,7 +133,7 @@ namespace Orpheus.Core
                 // now we will get a few random spawn 
                 if (enemiesSpawn.Count > 0)
                 {
-                    int lenght = enemiesSpawn.Count / 2;
+                    int lenght = enemiesSpawn.Count/Mathf.CeilToInt((4f - difficulty) * 0.5f);
                     for (int i = 0; i < lenght; i++)
                     {
                         GameObject spawn = GetRandomSpawn();
@@ -240,12 +242,14 @@ namespace Orpheus.Core
         public void OnNewRoom()
         {
             roomNumber++;
-            if (roomNumber > 4)
+            if (roomNumber == 4)
             {
+                difficulty++;
                 currentBiomeName = BiomeName.ChampsDesChatiments;
             }
-            if (roomNumber > 8)
+            if (roomNumber == 8)
             {
+                difficulty++;
                 currentBiomeName = BiomeName.Tartare;
             }
             GenerateRoom();
