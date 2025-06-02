@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using NaughtyAttributes;
+using Orpheus.Core.FightSystem.Conditions;
+using Orpheus.Core.FightSystem.Skills.Data;
 using Orpheus.Core.FightSystem.Skills.Runtime;
 using Orpheus.Core.Rings;
 using UnityEngine;
@@ -10,18 +12,23 @@ using UnityEngine.UIElements;
 
 namespace Orpheus.Core.FightSystem.Trap
 {
-    [RequireComponent(typeof(CapsuleCollider))]
-    public abstract class Trap : MonoBehaviour, IAbilityCaster
+    public class Trap : MonoBehaviour, IAbilityCaster
     {
+
+        [SerializeField, BoxGroup("Trap")] private OrbitalStatsData statsData;
+        [SerializeField, BoxGroup("Trap")] private SkillData[] skillDatas;
+        [SerializeField, BoxGroup("Trap")] private RangeTrigger rangeTrigger;
+        
         public Vector3 CastPoint { get;private set; }
         public virtual Vector3 CastDirection { get; private set; }
-        public float Direction { get; }
+        public float Direction { get;private set; }
         public TargetTeam Team { get; private set; } = TargetTeam.Trap;
         public event Action<bool> Chase;
         public Ring CurrentRing { get; private set; }
         
 
-        public OrbitalStats Stats { get; }
+        
+        public OrbitalStats Stats { get;private set; }
         public List<Skill> skills { get;private set; }
         public event Action<bool> Skill1;
         public event Action<bool> Skill2;
@@ -29,67 +36,54 @@ namespace Orpheus.Core.FightSystem.Trap
 
         [field:SerializeField, BoxGroup("Trap")]
         public Animator Animator { get; set; }
-
-
-        public AbilityData AbilityData { get; private set; }
-        
         public bool IsActive { get; set; }
-        [field: SerializeField] public float ActivationRate { get; private set; }
-        private float currentTime;
+
+        private List<IAbilityTarget> allTarget;
+        
 
         public void Initialize(Ring ring)
         {
             this.CurrentRing = ring;
-            currentTime = 0;
             IsActive = false;
             skills = new List<Skill>();
+            allTarget = new List<IAbilityTarget>();
+            Stats.Initialize(statsData, 1);
+        }
+
+        private void Start()
+        {
+            for (int i = 0; i < skillDatas.Length; i++)
+            {
+                AddSkill(skillDatas[i].GenerateAbility(this));
+            }
         }
 
         public void Update()
         {
-            //apply 
-            if (IsActive)
-            {
-                if (currentTime >= ActivationRate || currentTime == 0)
-                {
-                    ActivateAbility(AbilityData.TotalLifetime);
-                    currentTime = 0;
-                }
-                currentTime+= Time.deltaTime;
-            }
-            else
-            {
-                currentTime = 0;
-            }
+           
         }
-
-        public IEnumerator ActivateAbility(float duration)
-        {
-            IAbility ability = this.AbilityData.GenerateAbility(this);
-            AbilityManager.Instance.AddAbility(ability);
-            yield return duration;
-            AbilityManager.Instance.RemoveAbility(ability);
-            
-        }
+        
         
         public void AddSkill(Skill skill)
         {
-            throw new NotImplementedException();
+            skills.Add(skill);
+            skill.Initialize();
         }
 
         public void RemoveSkill(Skill skill)
         {
-            throw new NotImplementedException();
+            skills.Remove(skill);
+            skill.Dispose();
         }
 
         public Vector3 GetAim()
         {
-            throw new NotImplementedException();
+            return Vector3.zero;
         }
 
         public IAbilityTarget GetTarget()
         {
-            throw new NotImplementedException();
+            return null;
         }
         public Transform GetTransform()
         {
@@ -103,7 +97,28 @@ namespace Orpheus.Core.FightSystem.Trap
 
         public void SetAnimator(string action)
         {
+            
         }
         
+        private void OnEnter(Collider other)
+        {
+            if (other.TryGetComponent(out IAbilityTarget enteredTarget) && enteredTarget.CurrentRing == CurrentRing)
+            {
+                allTarget.Add(enteredTarget);
+                Skill1?.Invoke(true);
+            }
+        }
+
+        private void OnExit(Collider other)
+        {
+            if (other.TryGetComponent(out IAbilityTarget exitedTarget) && allTarget.Contains(exitedTarget))
+            {
+                allTarget.Remove(exitedTarget);
+                if (allTarget.Count == 0)
+                {
+                    Skill1?.Invoke(false);
+                }
+            }
+        }
     }
 }
