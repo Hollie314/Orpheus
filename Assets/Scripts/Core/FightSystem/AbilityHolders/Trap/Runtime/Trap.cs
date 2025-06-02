@@ -12,7 +12,7 @@ using UnityEngine.UIElements;
 
 namespace Orpheus.Core.FightSystem.Trap
 {
-    public class Trap : MonoBehaviour, IAbilityCaster
+    public abstract class Trap : MonoBehaviour, IAbilityCaster
     {
 
         [SerializeField, BoxGroup("Trap")] private OrbitalStatsData statsData;
@@ -20,7 +20,7 @@ namespace Orpheus.Core.FightSystem.Trap
         [SerializeField, BoxGroup("Trap")] private RangeTrigger rangeTrigger;
         
         public Vector3 CastPoint { get;private set; }
-        public virtual Vector3 CastDirection { get; private set; }
+        public Vector3 CastDirection { get; protected set; }
         public float Direction { get;private set; }
         public TargetTeam Team { get; private set; } = TargetTeam.Trap;
         public event Action<bool> Chase;
@@ -50,20 +50,36 @@ namespace Orpheus.Core.FightSystem.Trap
             Stats.Initialize(statsData, 1);
         }
 
-        private void Start()
+        protected virtual void Start()
         {
             for (int i = 0; i < skillDatas.Length; i++)
             {
                 AddSkill(skillDatas[i].GenerateAbility(this));
             }
+            
+            rangeTrigger.OnEnterRange += OnEnter;
+            rangeTrigger.OnExitRange += OnExit;
+
+            CastPoint = transform.position;
+            SetCastDirection();
         }
 
         public void Update()
         {
            
         }
-        
-        
+
+        private void OnDestroy()
+        {
+            rangeTrigger.OnEnterRange -= OnEnter;
+            rangeTrigger.OnExitRange -= OnExit;
+        }
+
+        protected virtual void SetCastDirection()
+        {
+            CastDirection = transform.forward;
+        }
+
         public void AddSkill(Skill skill)
         {
             skills.Add(skill);
@@ -96,6 +112,11 @@ namespace Orpheus.Core.FightSystem.Trap
         }
 
         public void SetAnimator(string action)
+        {
+            
+        }
+        
+        public void SetAnimatorTrigger(string triggerName)
         {
             
         }

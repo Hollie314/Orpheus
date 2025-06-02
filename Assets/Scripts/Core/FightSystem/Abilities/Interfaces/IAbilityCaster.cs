@@ -22,5 +22,6 @@ namespace Orpheus.Core.FightSystem
         public void RemoveSkill(Skill skill);
         public Vector3 GetAim();
         public IAbilityTarget GetTarget();
+        public void SetAnimatorTrigger(String triggerName );
     }
 }

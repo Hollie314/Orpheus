@@ -31,6 +31,7 @@ namespace Orpheus.Core
         [field :SerializeField] private FloorData floorData;
         [field :SerializeField] private BiomeName currentBiomeName;
         private List<GameObject> enemiesSpawn;
+        private List<GameObject> trapSpawns;
         private List<GameObject> listOfChildren;
         
         //related to the room

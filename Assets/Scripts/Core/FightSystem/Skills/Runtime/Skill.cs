@@ -139,7 +139,6 @@ namespace Orpheus.Core.FightSystem.Skills.Runtime
 
         public void OnConditionReached()
         {
-            
             //Use Ability if all Condition are met
             if (Caster != null && AllConditionMeet()&& !AbilitiesRunning)
             {
@@ -149,7 +148,7 @@ namespace Orpheus.Core.FightSystem.Skills.Runtime
                     AbilityManager.Instance.AddAbility(ability);
                 }
                 AbilitiesRunning = true;
-                Caster.Animator.SetTrigger("attaque");
+                Caster.SetAnimatorTrigger("attaque");
             }
         }
 

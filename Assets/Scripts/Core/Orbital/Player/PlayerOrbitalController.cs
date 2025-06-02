@@ -157,6 +157,11 @@ namespace Orpheus.Core.Orbital.Player
             return null;
         }
 
+        public void SetAnimatorTrigger(string triggerName)
+        {
+            Animator.SetTrigger(triggerName);
+        }
+
         public void OnSkill1(InputAction.CallbackContext obj)
         {
             Animator.SetInteger("abilityIndex",0);

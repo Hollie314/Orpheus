@@ -39,6 +39,10 @@ namespace Orpheus.Core
            
         }
         
+        public void SetAnimatorTrigger(string triggerName)
+        {
+        }
+        
         private void Awake()
         {
             Team = TargetTeam.Trap;

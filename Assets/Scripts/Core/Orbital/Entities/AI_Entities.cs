@@ -98,7 +98,7 @@ namespace Orpheus.Core.Orbital.Entities
                 ChangeDirection();
             }
             
-            SetAnimatorTrigger();
+            SetAnimatorBool();
 
             if (player != null)
             {
@@ -113,8 +113,12 @@ namespace Orpheus.Core.Orbital.Entities
             }
         }
         
+        public void SetAnimatorTrigger(string triggerName)
+        {
+            Animator.SetTrigger(triggerName);
+        }
         
-        private void SetAnimatorTrigger()
+        private void SetAnimatorBool()
         {
             // idle or running
             if (CurrentVelocity.x != 0)
