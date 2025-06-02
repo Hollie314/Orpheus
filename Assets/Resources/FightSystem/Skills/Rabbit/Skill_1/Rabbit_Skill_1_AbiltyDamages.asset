@@ -9,18 +9,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3cdb9ee3b1d04818ba30ef1205b6d2e4, type: 3}
-  m_Name: Rabbit_Skill_1_AbilityDamages
+  m_Script: {fileID: 11500000, guid: de2a46ded59340bd8b0ff6df05b317a2, type: 3}
+  m_Name: Rabbit_Skill_1_AbiltyDamages
   m_EditorClassIdentifier: 
   <CastDuration>k__BackingField: 0
-  <FireCount>k__BackingField: 2
-  <FireDuration>k__BackingField: 0.2
-  <HitInterval>k__BackingField: 0.2
+  <FireCount>k__BackingField: 4
+  <FireDuration>k__BackingField: 2
+  <HitInterval>k__BackingField: 0.5
   <RecoilDuration>k__BackingField: 0
-  <Cooldown>k__BackingField: 0
   <DamageOtherTeam>k__BackingField: 1
-  <DamageSameTeam>k__BackingField: 1
-  <FlatDamage>k__BackingField: 30
+  <DamageSameTeam>k__BackingField: 0
+  <FlatDamage>k__BackingField: 10
   <PercentDamage>k__BackingField: 10
   <DamageStat>k__BackingField: 0
   <DamageType>k__BackingField: 0
@@ -34,11 +33,11 @@ MonoBehaviour:
   - {fileID: 5596311462199301327, guid: 249858faf0bd1c04093f5fb351037551, type: 3}
   Recoil_VFX: []
   Castmovement: {fileID: 0}
-  Firemovement: {fileID: 11400000, guid: c5ac8be4f4ea5914f8cfbba5c398737d, type: 2}
+  Firemovement: {fileID: 11400000, guid: ae86ef67ce438b44f9f3bb3d22f600dd, type: 2}
   FiremovementDuration: 0
   xoffset: 1
   yoffset: 1
   zoffset: 3
   projectile: {fileID: 0}
-  <HitBoxRadius>k__BackingField: 0
-  <HitBoxHeight>k__BackingField: 0
+  <BoxHeight>k__BackingField: 0.5
+  <RayDistance>k__BackingField: 2

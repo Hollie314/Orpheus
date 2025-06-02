@@ -10,8 +10,11 @@ namespace Orpheus.Core.FightSystem.Runtime
 
         protected override void GetTouchedTargets(List<IAbilityTarget> targets)
         {
-            if (Caster is IAbilityTarget target)
+            IAbilityTarget target = (IAbilityTarget)Caster;
+            if (target != null)
+            {
                 targets.Add(target);
+            }
         }
     }
 }

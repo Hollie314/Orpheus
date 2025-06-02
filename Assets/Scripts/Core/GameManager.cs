@@ -41,6 +41,7 @@ namespace Orpheus.Core
         public event Action PlayerDeath; 
         public int Money { get; private set;}
         private int difficulty;
+        public event Action<BiomeName> ChangeBiome;
         
         
         protected void Awake()
@@ -55,6 +56,13 @@ namespace Orpheus.Core
                 Destroy(gameObject);
             }
             //for singleton behavior_end
+            
+            DontDestroyOnLoad(this);
+        }
+        
+        private void OnApplicationQuit()
+        {
+            Destroy(this); // Destroy the GameObject when quitting
         }
     
         // for singleton Ensures it's created automatically if accessed before existing
@@ -93,12 +101,13 @@ namespace Orpheus.Core
             //room
             roomNumber = 1;
             currentBiomeName = BiomeName.Elysee;
+            ChangeBiome?.Invoke(currentBiomeName);
             HidePlayer();
         }
 
         public void StartRun()
         {
-            player.Stats.setStat(FloatStats.Hp, player.Stats.getStat(FloatStats.HpMax));
+            player.Init();
             difficulty = 0;
             GenerateRoom();
         }
@@ -209,7 +218,6 @@ namespace Orpheus.Core
             enemy.gameObject.SetActive(false);
             if (enemiesToKill.Count == 0)
             {
-                AbilityManager.Instance.OnDisable();
                 OnNewRoom();
             }
         }
@@ -246,11 +254,13 @@ namespace Orpheus.Core
             {
                 difficulty++;
                 currentBiomeName = BiomeName.ChampsDesChatiments;
+                ChangeBiome?.Invoke(currentBiomeName);
             }
             if (roomNumber == 8)
             {
                 difficulty++;
                 currentBiomeName = BiomeName.Tartare;
+                ChangeBiome?.Invoke(currentBiomeName);
             }
             GenerateRoom();
         }
@@ -262,6 +272,7 @@ namespace Orpheus.Core
             {
                 Debug.Log("new death");
                 deathType.Add(damage);
+                // faire logique de débloquage or whatever
             }
             Debug.Log("we dedge");
             PlayerDeath?.Invoke();
@@ -278,6 +289,11 @@ namespace Orpheus.Core
         }
 
         private void EndRun()
+        {
+            
+        }
+
+        public void ChooseMuse(int museID)
         {
             
         }

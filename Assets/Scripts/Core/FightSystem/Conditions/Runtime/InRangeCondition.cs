@@ -63,7 +63,6 @@ namespace Orpheus.Core.FightSystem.Conditions
 
         public override void ResetCondition()
         {
-            IsReached = false;
         }
         
         private void OnEnter(Collider other)
@@ -80,7 +79,7 @@ namespace Orpheus.Core.FightSystem.Conditions
         {
             if (other.TryGetComponent(out IAbilityTarget exitedTarget) && exitedTarget.Team == target)
             {
-                //IsReached = false;
+                IsReached = false;
             }
         }
     }

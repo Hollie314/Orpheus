@@ -30,9 +30,6 @@ namespace Orpheus.Core.FightSystem
         [field: SerializeField] 
         public float RecoilDuration { get; private set; }
         
-        [field: Space]
-        [field: SerializeField] 
-        public float Cooldown { get; private set; }
 
 
         [field: Header("Damage")]

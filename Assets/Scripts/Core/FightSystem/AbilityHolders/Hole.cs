@@ -84,7 +84,6 @@ namespace Orpheus.Core
             IAbilityTarget target = other.GetComponent<IAbilityTarget>();
             if (target!=null)
             {
-                Debug.Log("whahaha");
                 target.ApplyDamage(this,9999,0,FloatStats.Power,DamageType.Fall);
             }
         }

@@ -19,15 +19,18 @@ namespace Orpheus.Core.Orbital.Player.States.MovementState
         {
             dashDir = transform.forward;
             Duration = duration;
+            Vector2 angularVelocity = new Vector2(target.CurrentRing.GetAngularSpeed(direction*dashForce),0) * Time.deltaTime;
+            nextpoint = target.CurrentRing.GetPositionOnRing(transform.position, angularVelocity);
+            nextpoint = OrbitalMath.ClampToRing(nextpoint, target.CurrentRing.transform.position, target.CurrentRing.RingData.Radius);
         }
 
         public override void ApplyMovement(Transform transform, float deltaTime, IAbilityTarget target)
         {
-            dash = transform.DOMove(transform.position + dashDir * dashForce, Duration).OnComplete(() =>
+            dash = transform.DOMove(nextpoint, Duration).OnComplete(() =>
                 {
                     IsFinished = true;
                 })
-                .SetEase(deashease);
+                .SetEase(deashease).SetUpdate(true);
         }
     }
 }

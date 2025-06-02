@@ -79,5 +79,12 @@ namespace Orpheus.Core
         Tartare,
         Styx
     }
+
+    public enum MuseName
+    {
+        Calliope,
+        Eratos,
+        Melpomene
+    }
 }
 

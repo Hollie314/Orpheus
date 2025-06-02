@@ -19,15 +19,18 @@ namespace Orpheus.Core.Orbital.Player.States.MovementState
         {
             knockbackDir = transform.forward * direction;
             Duration = duration;
+            Vector2 angularVelocity = new Vector2(target.CurrentRing.GetAngularSpeed(direction*knockForce),0) * Time.deltaTime;
+            nextpoint = target.CurrentRing.GetPositionOnRing(transform.position, angularVelocity);
+            nextpoint = OrbitalMath.ClampToRing(nextpoint, target.CurrentRing.transform.position, target.CurrentRing.RingData.Radius);
         }
 
         public override void ApplyMovement(Transform transform, float deltaTime, IAbilityTarget target)
         {
-            knockback = transform.DOMove(transform.position + knockbackDir * knockForce, Duration).OnComplete(() =>
+            knockback = transform.DOMove(nextpoint, Duration).OnComplete(() =>
                 {
                     IsFinished = true;
                 })
-                .SetEase(knockease);
+                .SetEase(knockease).SetUpdate(true);
         }
     }
 }
