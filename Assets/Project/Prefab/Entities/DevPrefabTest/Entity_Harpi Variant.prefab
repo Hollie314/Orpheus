@@ -90,11 +90,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8631663933854453763, guid: a8ad1efea3f255245bf97a24b54a451c, type: 3}
       propertyPath: m_IsTrigger
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8631663933854453763, guid: a8ad1efea3f255245bf97a24b54a451c, type: 3}
+      propertyPath: m_ExcludeLayers.m_Bits
+      value: 128
       objectReference: {fileID: 0}
     - target: {fileID: 8704197672453010116, guid: a8ad1efea3f255245bf97a24b54a451c, type: 3}
       propertyPath: m_Name
       value: Entity_Harpi Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 8889367953883551955, guid: a8ad1efea3f255245bf97a24b54a451c, type: 3}
+      propertyPath: m_ExcludeLayers.m_Bits
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:

@@ -63,7 +63,6 @@ namespace Orpheus.Core.FightSystem.Conditions
 
         public override void ResetCondition()
         {
-            IsReached = false;
         }
         
         private void OnEnter(Collider other)

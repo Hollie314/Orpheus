@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 namespace Orpheus.Core.FightSystem.Runtime
 {
-    public abstract class Ability<T> :MonoBehaviour, IAbility  where T : AbilityData
+    public abstract class Ability<T> : IAbility  where T : AbilityData
     {
         protected static Collider[] ColliderBuffer = new Collider[64];
         protected static RaycastHit[] HitsBuffer = new RaycastHit[64];
@@ -20,15 +20,18 @@ namespace Orpheus.Core.FightSystem.Runtime
         public float CurrentLifetime { get; private set; }
         public int CurrentFireCount { get; private set; }
 
-        private List<GameObject> castVFXGameObjects;
+        
         private bool isCastVFXInstantiated;
-        private List<GameObject> fireVFXGameObjects;
         private bool isFireVFXInstantiated;
-        private List<GameObject> recoilVFXGameObjects;
         private bool isRecoilVFXInstantiated;
+        
+        private List<GameObject> castVFXGameObjects;
+        private List<GameObject> fireVFXGameObjects;
+        private List<GameObject> recoilVFXGameObjects;
         
         //event
         public event Action OnEnd;
+        private bool isRunning;
 
 
         public Ability(IAbilityCaster caster, T data)
@@ -37,9 +40,11 @@ namespace Orpheus.Core.FightSystem.Runtime
             Caster = caster;
             CurrentFireCount = 0;
             CurrentLifetime = 0;
+            
             castVFXGameObjects = new List<GameObject>();
             fireVFXGameObjects = new List<GameObject>();
             recoilVFXGameObjects = new List<GameObject>();
+            
         }
         
         public bool AbilityUpdate(float deltaTime)
@@ -67,7 +72,7 @@ namespace Orpheus.Core.FightSystem.Runtime
                 {
                     foreach (var vfx in Data.Cast_VFX)
                     {
-                        castVFXGameObjects.Add(Instantiate(vfx, Caster.GetTransform()));
+                        castVFXGameObjects.Add(AbilityManager.Instance.SpawnVFX(vfx, Caster.GetTransform()));
                     }
                 }
             }
@@ -77,10 +82,7 @@ namespace Orpheus.Core.FightSystem.Runtime
                 IAbilityTarget target = (IAbilityTarget)Caster;
                 if (target != null)
                 {
-                    if (target.CurrentMovement == null)
-                    {
-                        target.ApplyMovement(Data.Castmovement,Data.CastDuration);
-                    }
+                    target.ApplyMovement(Data.Castmovement,Data.CastDuration);
                 }
             }
         }
@@ -94,7 +96,7 @@ namespace Orpheus.Core.FightSystem.Runtime
                 {
                     foreach (var vfx in Data.Fire_VFX)
                     {
-                        fireVFXGameObjects.Add(Instantiate(vfx, Caster.GetTransform()));
+                        fireVFXGameObjects.Add(AbilityManager.Instance.SpawnVFX(vfx, Caster.GetTransform()));
                     }
                 }
             }
@@ -125,7 +127,7 @@ namespace Orpheus.Core.FightSystem.Runtime
                 {
                     foreach (var vfx in Data.Recoil_VFX)
                     {
-                        recoilVFXGameObjects.Add(Instantiate(vfx, Caster.GetTransform()));
+                        recoilVFXGameObjects.Add(AbilityManager.Instance.SpawnVFX(vfx, Caster.GetTransform()));
                     }
                 }
             }
@@ -158,7 +160,7 @@ namespace Orpheus.Core.FightSystem.Runtime
                 Vector3 position = new Vector3(Caster.CastPoint.x+ (Caster.CastDirection.x*Data.xoffset), Caster.CastPoint.y+ Data.yoffset,
                     Caster.CastPoint.z + (Caster.CastDirection.z*Data.zoffset));
                 Quaternion quaternion = Quaternion.LookRotation(Caster.CastDirection);
-                GameObject projectile = Instantiate(Data.projectile, position,quaternion);
+                GameObject projectile = AbilityManager.Instance.SpawnProjectiles(Data.projectile, position,quaternion);
                 Projectile projectileScript = projectile.GetComponent<Projectile>();
                 projectileScript.Initialize(Caster, Data.DamageType, Data.DamageStat, Data.FlatDamage, Data.PercentDamage);
             }
@@ -214,15 +216,20 @@ namespace Orpheus.Core.FightSystem.Runtime
 
         public virtual void Init()
         {
+            Debug.Log("ability start !");
+            isRunning = false;
             CurrentFireCount = 0;
             CurrentLifetime = 0;
+            isFireVFXInstantiated = false;
+            isCastVFXInstantiated = false;
+            isRecoilVFXInstantiated = false;
         }
 
         private void ClearCastVFX()
         {
             for (int i = 0; i < castVFXGameObjects.Count; i++)
             {
-                Destroy(castVFXGameObjects[i]);
+                AbilityManager.Instance.DestroyVfx(castVFXGameObjects[i]);
             }
             castVFXGameObjects.Clear();
         }
@@ -231,7 +238,7 @@ namespace Orpheus.Core.FightSystem.Runtime
         {
             for (int i = 0; i < fireVFXGameObjects.Count; i++)
             {
-                Destroy(fireVFXGameObjects[i]);
+                AbilityManager.Instance.DestroyVfx(fireVFXGameObjects[i]);
             }
             fireVFXGameObjects.Clear();
         }
@@ -240,25 +247,24 @@ namespace Orpheus.Core.FightSystem.Runtime
         {
             for (int i = 0; i < recoilVFXGameObjects.Count; i++)
             {
-                Destroy(recoilVFXGameObjects[i]);
+                AbilityManager.Instance.DestroyVfx(recoilVFXGameObjects[i]);
             }
             recoilVFXGameObjects.Clear();
         }
 
         public virtual void Dispose()
         {
-            OnEnd?.Invoke();
+            ClearCastVFX();
+            ClearFireVFX();
+            ClearRecoilVFX();
             AbilityManager.Instance.RemoveAbility(this);
         }
 
-        public void Reset()
+        public void EndAbility()
         {
-            CurrentFireCount = 0;
-            CurrentLifetime = 0;
-            isFireVFXInstantiated = false;
-            isCastVFXInstantiated = false;
-            isRecoilVFXInstantiated = false;
+            isRunning = false;
             OnEnd?.Invoke();
+            AbilityManager.Instance.RemoveAbility(this);
         }
         
         public float GetLifeTime()

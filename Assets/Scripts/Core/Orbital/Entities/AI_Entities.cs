@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Codice.Client.BaseCommands.Replication;
 using NaughtyAttributes;
 using Orpheus.Core.FightSystem;
 using Orpheus.Core.FightSystem.Conditions;
@@ -79,9 +80,8 @@ namespace Orpheus.Core.Orbital.Entities
         protected override void FixedUpdate()
         {
             base.FixedUpdate();
-            Transform transform1 = this.transform;
-            CastPoint = transform1.position;
-            CastDirection = transform1.forward;
+            CastPoint = transform.position;
+            CastDirection = transform.forward;
             
             if (CurrentMovement != null)
             {
@@ -97,13 +97,13 @@ namespace Orpheus.Core.Orbital.Entities
             {
                 ChangeDirection();
             }
+            
             SetAnimatorTrigger();
 
             if (player != null)
             {
                 if (player.CurrentRing == CurrentRing)
                 {
-                    Debug.Log("same ring");
                     Chase?.Invoke(true);
                 }
                 else
@@ -136,8 +136,8 @@ namespace Orpheus.Core.Orbital.Entities
 
         public void RemoveSkill(Skill skill)
         {
-            skills.Remove(skill);
             skill.Dispose();
+            skills.Remove(skill);
         }
 
         public Vector3 GetAim()
@@ -182,13 +182,18 @@ namespace Orpheus.Core.Orbital.Entities
         {
             if (CurrentMovement == null)
             {
-                movement.Initialize(this.transform, this, Direction*-1, duration);
-                CurrentMovement = movement;
+                IMovement movementClone = (IMovement)Instantiate((ScriptableObject)movement);
+                movementClone.Initialize(this.transform, this, Direction*-1, duration);
+                CurrentMovement = movementClone;
             }
         }
 
         private void Dispose()
         {
+            for (int i = 0; i < skills.Count; i++)
+            {
+                RemoveSkill(skills[i]);
+            }
             skills.Clear();
         }
 
@@ -211,12 +216,9 @@ namespace Orpheus.Core.Orbital.Entities
 
         private void OnEnter(Collider other)
         {
-            Debug.Log("in chase range");
             if (other.TryGetComponent(out PlayerOrbitalController enteredTarget) && enteredTarget.CurrentRing == CurrentRing)
             {
-                Debug.Log("and its the player");
                 player = enteredTarget;
-                
             }
         }
 

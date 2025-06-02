@@ -218,7 +218,6 @@ namespace Orpheus.Core
             enemy.gameObject.SetActive(false);
             if (enemiesToKill.Count == 0)
             {
-                AbilityManager.Instance.OnDisable();
                 OnNewRoom();
             }
         }

@@ -15,6 +15,7 @@ namespace Orpheus.Core.FightSystem.Skills.Runtime
         public IAbilityCaster Caster { get; private set; }
         public readonly SkillData Data;
         public readonly List<IAbility> abilities;
+        private IAbility longestAbility;
         public readonly List<ICondition> conditions;
         private bool AbilitiesRunning;
         public TimerCondition Cooldown { get; private set; }
@@ -47,7 +48,6 @@ namespace Orpheus.Core.FightSystem.Skills.Runtime
             {
                 IAbility ability = abilityData.GenerateAbility(Caster);
                 abilities.Add(ability);
-                ability.Init();
             }
             foreach (var conditionData in Data.ConditionDatas)
             {
@@ -63,14 +63,15 @@ namespace Orpheus.Core.FightSystem.Skills.Runtime
             AbilitiesRunning = false;
             
             //set skill global duration to the longest ability duration
-            GetLongestAbility().OnEnd += OnAbilityEnd;
+            longestAbility = GetLongestAbility();
+            longestAbility.OnEnd += OnAbilityEnd;
         }
         
 
         public void Dispose()
         {
             //event clear
-            GetLongestAbility().OnEnd -= OnAbilityEnd;
+            longestAbility.OnEnd -= OnAbilityEnd;
             Caster.Skill1 -= OnSkill1;
             Caster.Skill2 -= OnSkill2;
             Caster.Death -= OnDeath;
@@ -138,9 +139,11 @@ namespace Orpheus.Core.FightSystem.Skills.Runtime
 
         public void OnConditionReached()
         {
+            
             //Use Ability if all Condition are met
             if (Caster != null && AllConditionMeet()&& !AbilitiesRunning)
             {
+                ResetCondition();
                 foreach (var ability in abilities)
                 {
                     AbilityManager.Instance.AddAbility(ability);
@@ -173,8 +176,7 @@ namespace Orpheus.Core.FightSystem.Skills.Runtime
             {
                 return false;
             }
-            //If all condition are met it reset them 
-            ResetCondition();
+            
             return true;
         }
 
@@ -195,7 +197,6 @@ namespace Orpheus.Core.FightSystem.Skills.Runtime
         {
             Cooldown.ResetCondition();
             AbilitiesRunning = false;
-            Debug.Log("ability end");
         }
     }
 }

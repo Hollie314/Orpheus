@@ -8,6 +8,8 @@ namespace Orpheus.Core.FightSystem
     public class AbilityManager : MonoBehaviour
     {
         public static AbilityManager _instance;
+        private List<IAbility> runningAbilities;
+        
         
         public static AbilityManager Instance
         {
@@ -23,22 +25,21 @@ namespace Orpheus.Core.FightSystem
             }
         }
 
-        private List<IAbility> runningAbilities;
-
-        private void OnEnable()
+        private void Awake()
         {
             runningAbilities = new();
+            
         }
 
         public void AddAbility(IAbility ability)
         {
             ability.Init();
             runningAbilities.Add(ability);
+            
         }
         public void RemoveAbility(IAbility ability)
         {
             runningAbilities.Remove(ability);
-            ability.Reset();
         }
 
 
@@ -48,14 +49,20 @@ namespace Orpheus.Core.FightSystem
             using (ListPool<IAbility>.Get(out List<IAbility> abilities))
             {
                 abilities.AddRange(runningAbilities);
-
+                Debug.Log("le nombre d'abilities en cours : "+abilities.Count);
                 foreach (var ability in abilities)
                 {
                     if (ability.AbilityUpdate(deltaTime))
                     {
-                        RemoveAbility(ability);
+                        ability.EndAbility();
+                        Debug.Log("this is the end");
+                    }
+                    else
+                    {
+                        Debug.Log("the end is never the enf");
                     }
                 }
+                abilities.Clear();
             }
         }
 
@@ -67,5 +74,21 @@ namespace Orpheus.Core.FightSystem
             }
             runningAbilities.Clear();
         }
+        
+        public GameObject SpawnVFX(GameObject prefab, Transform transform)
+        {
+            return Instantiate(prefab, transform);
+        }
+        
+        public void DestroyVfx(GameObject vfx)
+        {
+            Destroy(vfx);
+        }
+        
+        public GameObject SpawnProjectiles(GameObject prefab, Vector3 position, Quaternion rotation)
+        {
+            return Instantiate(prefab, position, rotation);
+        }
+        
     }
 }
