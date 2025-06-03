@@ -48,6 +48,7 @@ namespace Orpheus.Core.FightSystem.Trap
             IsActive = false;
             skills = new List<Skill>();
             allTarget = new List<IAbilityTarget>();
+            Stats = new OrbitalStats();
             Stats.Initialize(statsData, 1);
         }
 
@@ -129,7 +130,7 @@ namespace Orpheus.Core.FightSystem.Trap
             if (other.TryGetComponent(out IAbilityTarget enteredTarget) && enteredTarget.CurrentRing == CurrentRing)
             {
                 allTarget.Add(enteredTarget);
-                Skill1?.Invoke(true);
+                Attaque?.Invoke(true,0);
             }
         }
 
@@ -140,7 +141,7 @@ namespace Orpheus.Core.FightSystem.Trap
                 allTarget.Remove(exitedTarget);
                 if (allTarget.Count == 0)
                 {
-                    Skill1?.Invoke(false);
+                    Attaque?.Invoke(false,0);
                 }
             }
         }

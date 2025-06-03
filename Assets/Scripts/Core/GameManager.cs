@@ -4,6 +4,7 @@ using System.Linq;
 using Orpheus.Core.FightSystem;
 using Orpheus.Core.FightSystem.AbilityHolders.Items;
 using Orpheus.Core.FightSystem.AbilityHolders.Items.Data;
+using Orpheus.Core.FightSystem.Trap;
 using Orpheus.Core.LevelGeneration;
 using Orpheus.Core.Orbital.Entities;
 using Orpheus.Core.Orbital.Player;
@@ -97,6 +98,7 @@ namespace Orpheus.Core
             //list init
             enemiesToKill = new List<AI_Entities>();
             enemiesSpawn = new List<GameObject>();
+            trapSpawns = new List<GameObject>();
             deathType = new List<DamageType>();
             listOfChildren = new List<GameObject>();
             
@@ -127,6 +129,7 @@ namespace Orpheus.Core
                 {
                     //clearing the list of spawn 
                     enemiesSpawn.Clear();
+                    trapSpawns.Clear();
                 
                     //destroy old ring body and set new random ring
                     DestroyRingChild(ring);
@@ -142,9 +145,13 @@ namespace Orpheus.Core
                         {
                             enemiesSpawn.Add(child.gameObject);
                         }
+                        if (child.name == "Spawn_Trap")
+                        {
+                            trapSpawns.Add(child.gameObject);
+                        }
                     }
-                    // now we will get a few random spawn 
-                    if (enemiesSpawn.Count > 0)
+                    // now we will spawn a few ennemies
+                    if (enemiesSpawn.Count > 0&& floor.EnemiesToSpawn.Length>0)
                     {
                         int lenght = enemiesSpawn.Count/Mathf.CeilToInt((4f - difficulty) * 0.5f);
                         for (int i = 0; i < lenght; i++)
@@ -152,6 +159,17 @@ namespace Orpheus.Core
                             GameObject spawn = GetRandomSpawn();
                             SpawnEnemies(ringIndex,spawn, floor);
                             enemiesSpawn.Remove(spawn);
+                        }
+                    }
+                    //and a few traps
+                    if (trapSpawns.Count > 0 && floor.TrapToSpawn.Length>0)
+                    {
+                        int lenght = trapSpawns.Count/Mathf.CeilToInt((4f - difficulty) * 0.5f);
+                        for (int i = 0; i < lenght; i++)
+                        {
+                            GameObject spawn = GetRandomSpawn();
+                            SpawnTraps(ringIndex,spawn, floor);
+                            trapSpawns.Remove(spawn);
                         }
                     }
                     ringIndex++;
@@ -206,6 +224,14 @@ namespace Orpheus.Core
             enemyObject.transform.localRotation = Quaternion.identity;
             enemiesToKill.Add(enemyObject.GetComponent<AI_Entities>());
         }
+        
+        private void SpawnTraps(int ringIndex, GameObject spawn, Floor floor)
+        {
+            GameObject enemyObject = Instantiate(GetRandomTrap(), spawn.transform);
+            enemyObject.GetComponent<Trap>().Initialize(floor.rings[ringIndex]);
+            enemyObject.transform.localPosition = Vector3.zero;
+            enemyObject.transform.localRotation = Quaternion.identity;
+        }
 
         private GameObject GetRandomSpawn()
         {
@@ -217,6 +243,12 @@ namespace Orpheus.Core
         {
             int random = Random.Range(0, currentFloor.EnemiesToSpawn.Length);
             return currentFloor.EnemiesToSpawn[random];
+        }
+        
+        private GameObject GetRandomTrap()
+        {
+            int random = Random.Range(0, currentFloor.TrapToSpawn.Length);
+            return currentFloor.TrapToSpawn[random];
         }
 
         public void OnEnemyKilled(AI_Entities enemy)

@@ -59,6 +59,7 @@ namespace Orpheus.Core.Orbital.Player
         {
             Stats.setStat(FloatStats.Hp, Stats.getStat(FloatStats.HpMax));
             IsDead = false;
+            Animator.SetBool("IsDead",false);
         }
 
         protected override void FixedUpdate()
@@ -119,9 +120,9 @@ namespace Orpheus.Core.Orbital.Player
             if (!IsDead)
             {
                 IsDead = true;
-                Animator.SetTrigger("mort");
+                Animator.SetBool("IsDead",true);
                 Death?.Invoke(true);
-                StartCoroutine(CallAfterDelay(2,caster,damageType));
+                StartCoroutine(CallAfterDelay(1,caster,damageType));
             }
         }
         
