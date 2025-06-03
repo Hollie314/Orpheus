@@ -1,9 +1,7 @@
 using System;
 using Orpheus.Core.FightSystem.Conditions.Data;
 using Orpheus.Core.FightSystem.Conditions.Interface;
-using Orpheus.Core.FightSystem.Runtime;
-using Orpheus.Core.FightSystem.Skills.Runtime;
-using PlasticPipe.PlasticProtocol.Messages.Serialization;
+
 
 namespace Orpheus.Core.FightSystem.Conditions
 {

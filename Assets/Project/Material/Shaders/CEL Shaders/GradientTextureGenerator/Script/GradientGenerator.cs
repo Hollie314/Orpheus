@@ -1,8 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 
 namespace LKHGames
 {
@@ -20,14 +21,14 @@ namespace LKHGames
         private Texture2D _gradientTexture;
         private Texture2D _tempTexture;
 
-        public enum OnPlayMode {Off, UpdateOnStart, UpdateEveryFrame};
+        public enum OnPlayMode { Off, UpdateOnStart, UpdateEveryFrame };
         [Header("Material Properties")]
         public OnPlayMode onPlayMode;
         public string propertiesName;
         public string fileName;
         public Renderer materialRenderer;
 
-        public enum TextureFormat {Png, Jpg};
+        public enum TextureFormat { Png, Jpg };
         [Header("Texture Baker")]
         public TextureFormat textureFormat;
 
@@ -61,17 +62,12 @@ namespace LKHGames
 
         Texture2D GenerateGradientTexture(Gradient grad)
         {
-            /*
-            if (tempTexture == null)
-            {
-                tempTexture = new Texture2D((int)width, (int)height);
-            }*/
             _tempTexture = new Texture2D((int)width, (int)height);
             for (int x = 0; x < width; x++)
             {
                 for (int y = 0; y < height; y++)
                 {
-                    Color color = grad.Evaluate(0 + (x / width));
+                    Color color = grad.Evaluate(x / width);
                     _tempTexture.SetPixel(x, y, color);
                 }
             }
@@ -82,7 +78,7 @@ namespace LKHGames
 
         public void UpdateGradientTexture()
         {
-            if(materialRenderer!=null)
+            if (materialRenderer != null)
             {
                 _gradientTexture = GenerateGradientTexture(gradient);
                 materialRenderer.material.SetTexture(propertiesName, _gradientTexture);
@@ -102,32 +98,33 @@ namespace LKHGames
                     saveFormat = ".jpg";
                     break;
             }
-            
+
             _gradientTexture = GenerateGradientTexture(gradient);
             byte[] _bytes = _gradientTexture.EncodeToPNG();
 
-            #region Create new folder if it doesn't exist
-			if(AssetDatabase.IsValidFolder("Assets/" + savingPath) == false)
-			{
-				string[] folderNameArray = savingPath.Split('/');
-				string newfolderPath = "";
+#if UNITY_EDITOR
+            // Create folder if it doesn't exist
+            if (AssetDatabase.IsValidFolder("Assets/" + savingPath) == false)
+            {
+                string[] folderNameArray = savingPath.Split('/');
+                string newfolderPath = "";
 
-				for(int i = 0; i < folderNameArray.Length-2; i++)
-				{	
-					newfolderPath += folderNameArray[i];
-					if(i != folderNameArray.Length-3)
-					{
-						newfolderPath += "/";
-					}
-				}
-				AssetDatabase.CreateFolder("Assets" + newfolderPath, folderNameArray[folderNameArray.Length-2]);
-				Debug.Log("<color=#FFFF00><b>Path saving location not found, New folder was created</b></color>");
-			}
-			#endregion
+                for (int i = 0; i < folderNameArray.Length - 2; i++)
+                {
+                    newfolderPath += folderNameArray[i];
+                    if (i != folderNameArray.Length - 3)
+                    {
+                        newfolderPath += "/";
+                    }
+                }
 
-            /*var randomIndex = Random.Range(0, 999999).ToString();*/
-            File.WriteAllBytes(Application.dataPath + savingPath + fileName /*+ randomIndex*/ + saveFormat, _bytes);
-            Debug.Log("<color=#00FF00><b> GradientTexture_" /*+ randomIndex*/ + saveFormat + " baked sucessfully. Saved in the following path: " + "Assets" + savingPath + "</b></color>");
+                AssetDatabase.CreateFolder("Assets" + newfolderPath, folderNameArray[folderNameArray.Length - 2]);
+                Debug.Log("<color=#FFFF00><b>Path saving location not found, New folder was created</b></color>");
+            }
+#endif
+
+            File.WriteAllBytes(Application.dataPath + savingPath + fileName + saveFormat, _bytes);
+            Debug.Log("<color=#00FF00><b> GradientTexture_" + saveFormat + " baked successfully. Saved in the following path: " + "Assets" + savingPath + "</b></color>");
         }
     }
 }
