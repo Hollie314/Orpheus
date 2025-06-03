@@ -1,17 +1,16 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Codice.Client.BaseCommands.Replication;
+
 using NaughtyAttributes;
 using Orpheus.Core.FightSystem;
 using Orpheus.Core.FightSystem.Conditions;
-using Orpheus.Core.FightSystem.Conditions.Data;
-using Orpheus.Core.FightSystem.Conditions.Interface;
+
 using Orpheus.Core.FightSystem.Skills.Data;
 using Orpheus.Core.FightSystem.Skills.Runtime;
 using Orpheus.Core.Orbital.Player;
 using Orpheus.Core.Orbital.Player.States.MovementState;
-using Orpheus.Core.Rings;
+
 using UnityEngine;
 
 namespace Orpheus.Core.Orbital.Entities

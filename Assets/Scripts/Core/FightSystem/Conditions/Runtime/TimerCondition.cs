@@ -1,8 +1,7 @@
-using Codice.Client.Common.EventTracking;
+
 using Orpheus.Core.FightSystem.Conditions.Data;
 using Orpheus.Core.FightSystem.Conditions.Interface;
-using Orpheus.Core.FightSystem.Skills.Runtime;
-using PlasticPipe.PlasticProtocol.Messages.Serialization;
+
 using UnityEngine;
 
 namespace Orpheus.Core.FightSystem.Conditions
