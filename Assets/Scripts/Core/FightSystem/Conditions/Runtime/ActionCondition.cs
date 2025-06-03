@@ -17,13 +17,11 @@ namespace Orpheus.Core.FightSystem.Conditions
         {
             switch (ConditionData.ActionConditionName)
             {
-                case ActionConditionName.Skill1 :  ConditionUser.Skill1 += OnCondition;
-                    break;
-                case ActionConditionName.Skill2 :  ConditionUser.Skill2 += OnCondition;
-                    break;
                 case ActionConditionName.Death :  ConditionUser.Death += OnCondition;
                     break;
                 case ActionConditionName.Chase :  ConditionUser.Chase += OnCondition;
+                    break;
+                case ActionConditionName.Attaque : ConditionUser.Attaque += OnCondition;
                     break;
             }
             IsReached = false;
@@ -31,10 +29,9 @@ namespace Orpheus.Core.FightSystem.Conditions
 
         public override void Dispose()
         {
-            ConditionUser.Skill1 -= OnCondition;
-            ConditionUser.Skill2 -= OnCondition;
             ConditionUser.Death -= OnCondition;
             ConditionUser.Chase -= OnCondition;
+            ConditionUser.Attaque -= OnCondition;
         }
 
         public override void ResetCondition()
@@ -44,12 +41,26 @@ namespace Orpheus.Core.FightSystem.Conditions
 
         public void OnCondition(bool reached)
         {
-            ConditionUser.SetAnimator(ConditionData.ActionConditionName.ToString());
             IsReached = reached;
             if (reached)
             {
+                ConditionUser.SetAnimator(ConditionData.ActionConditionName.ToString());
                 ConditionUser.OnConditionReached();
             }
+        }
+        
+        public void OnCondition(bool reached, int index)
+        {
+            if (index == ConditionUser.AttaqueIndex)
+            {
+                IsReached = reached;
+                if (reached)
+                {
+                    ConditionUser.SetAnimator(ConditionData.ActionConditionName.ToString());
+                    ConditionUser.OnConditionReached();
+                } 
+            }
+            
         }
     }
 }

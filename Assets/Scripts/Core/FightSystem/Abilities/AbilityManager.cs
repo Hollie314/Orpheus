@@ -49,17 +49,12 @@ namespace Orpheus.Core.FightSystem
             using (ListPool<IAbility>.Get(out List<IAbility> abilities))
             {
                 abilities.AddRange(runningAbilities);
-                Debug.Log("le nombre d'abilities en cours : "+abilities.Count);
                 foreach (var ability in abilities)
                 {
                     if (ability.AbilityUpdate(deltaTime))
                     {
                         ability.EndAbility();
-                        Debug.Log("this is the end");
-                    }
-                    else
-                    {
-                        Debug.Log("the end is never the enf");
+                       
                     }
                 }
                 abilities.Clear();

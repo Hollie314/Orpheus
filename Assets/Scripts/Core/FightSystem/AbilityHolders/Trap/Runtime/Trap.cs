@@ -12,7 +12,7 @@ using UnityEngine.UIElements;
 
 namespace Orpheus.Core.FightSystem.Trap
 {
-    public class Trap : MonoBehaviour, IAbilityCaster
+    public abstract class Trap : MonoBehaviour, IAbilityCaster
     {
 
         [SerializeField, BoxGroup("Trap")] private OrbitalStatsData statsData;
@@ -20,10 +20,11 @@ namespace Orpheus.Core.FightSystem.Trap
         [SerializeField, BoxGroup("Trap")] private RangeTrigger rangeTrigger;
         
         public Vector3 CastPoint { get;private set; }
-        public virtual Vector3 CastDirection { get; private set; }
+        public Vector3 CastDirection { get; protected set; }
         public float Direction { get;private set; }
         public TargetTeam Team { get; private set; } = TargetTeam.Trap;
         public event Action<bool> Chase;
+        public event Action<bool, int> Attaque;
         public Ring CurrentRing { get; private set; }
         
 
@@ -47,27 +48,44 @@ namespace Orpheus.Core.FightSystem.Trap
             IsActive = false;
             skills = new List<Skill>();
             allTarget = new List<IAbilityTarget>();
+            Stats = new OrbitalStats();
             Stats.Initialize(statsData, 1);
         }
 
-        private void Start()
+        protected virtual void Start()
         {
             for (int i = 0; i < skillDatas.Length; i++)
             {
-                AddSkill(skillDatas[i].GenerateAbility(this));
+                AddSkill(skillDatas[i].GenerateAbility(this),i);
             }
+            
+            rangeTrigger.OnEnterRange += OnEnter;
+            rangeTrigger.OnExitRange += OnExit;
+
+            CastPoint = transform.position;
+            SetCastDirection();
         }
 
         public void Update()
         {
            
         }
-        
-        
-        public void AddSkill(Skill skill)
+
+        private void OnDestroy()
+        {
+            rangeTrigger.OnEnterRange -= OnEnter;
+            rangeTrigger.OnExitRange -= OnExit;
+        }
+
+        protected virtual void SetCastDirection()
+        {
+            CastDirection = transform.forward;
+        }
+
+        public void AddSkill(Skill skill, int index)
         {
             skills.Add(skill);
-            skill.Initialize();
+            skill.Initialize(index);
         }
 
         public void RemoveSkill(Skill skill)
@@ -89,7 +107,9 @@ namespace Orpheus.Core.FightSystem.Trap
         {
             return this.transform;
         }
-        
+
+        public int AttaqueIndex { get; }
+
         public void OnConditionReached()
         {
             
@@ -100,12 +120,17 @@ namespace Orpheus.Core.FightSystem.Trap
             
         }
         
+        public void SetAnimatorTrigger(string triggerName)
+        {
+            
+        }
+        
         private void OnEnter(Collider other)
         {
             if (other.TryGetComponent(out IAbilityTarget enteredTarget) && enteredTarget.CurrentRing == CurrentRing)
             {
                 allTarget.Add(enteredTarget);
-                Skill1?.Invoke(true);
+                Attaque?.Invoke(true,0);
             }
         }
 
@@ -116,7 +141,7 @@ namespace Orpheus.Core.FightSystem.Trap
                 allTarget.Remove(exitedTarget);
                 if (allTarget.Count == 0)
                 {
-                    Skill1?.Invoke(false);
+                    Attaque?.Invoke(false,0);
                 }
             }
         }

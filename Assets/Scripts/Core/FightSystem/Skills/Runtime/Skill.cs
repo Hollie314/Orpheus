@@ -24,10 +24,11 @@ namespace Orpheus.Core.FightSystem.Skills.Runtime
         public event Action<bool> Skill2;
         public event Action<bool> Death;
         public event Action<bool> Chase;
+        public event Action<bool, int> Attaque;
+        
+        public int AttaqueIndex { get; private set; }
 
-        public Ring CurrentRing { get; private set; }
-        
-        
+
         public Skill(IAbilityCaster caster, SkillData data)
         {
             Caster = caster;
@@ -35,14 +36,14 @@ namespace Orpheus.Core.FightSystem.Skills.Runtime
             abilities = new List<IAbility>();
             conditions = new List<ICondition>();
             //event relay
-            Caster.Skill1 += OnSkill1;
-            Caster.Skill2 += OnSkill2;
             Caster.Death += OnDeath;
             Caster.Chase += OnChase;
+            Caster.Attaque += OnAttaque;
         }
 
-        public void Initialize()
+        public void Initialize(int attaqueIndex)
         {
+            AttaqueIndex = attaqueIndex;
             //Init all abilities and conditions
             foreach (var abilityData in Data.AbilityDatas)
             {
@@ -72,10 +73,9 @@ namespace Orpheus.Core.FightSystem.Skills.Runtime
         {
             //event clear
             longestAbility.OnEnd -= OnAbilityEnd;
-            Caster.Skill1 -= OnSkill1;
-            Caster.Skill2 -= OnSkill2;
             Caster.Death -= OnDeath;
             Caster.Chase -= OnChase;
+            Caster.Attaque -= OnAttaque;
             
             foreach (var condition in conditions)
             {
@@ -114,6 +114,11 @@ namespace Orpheus.Core.FightSystem.Skills.Runtime
         {
             Chase?.Invoke(value);
         }
+        
+        private void OnAttaque(bool value, int index)
+        {
+            Attaque?.Invoke(value, index);
+        }
 
         public IAbility GetLongestAbility()
         {
@@ -139,7 +144,6 @@ namespace Orpheus.Core.FightSystem.Skills.Runtime
 
         public void OnConditionReached()
         {
-            
             //Use Ability if all Condition are met
             if (Caster != null && AllConditionMeet()&& !AbilitiesRunning)
             {
@@ -149,7 +153,7 @@ namespace Orpheus.Core.FightSystem.Skills.Runtime
                     AbilityManager.Instance.AddAbility(ability);
                 }
                 AbilitiesRunning = true;
-                Caster.Animator.SetTrigger("attaque");
+                Caster.SetAnimatorTrigger("attaque");
             }
         }
 

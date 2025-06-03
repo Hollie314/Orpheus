@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Orpheus.Core.Orbital.Player;
 using UnityEngine;
 
 namespace Orpheus.Core.Rings
@@ -12,6 +13,8 @@ namespace Orpheus.Core.Rings
         [SerializeField]public List<Ring> rings;
         [field:SerializeField]
         public GameObject[] EnemiesToSpawn { get; private set; }
+        [field:SerializeField]
+        public GameObject[] TrapToSpawn { get; private set; }
 
         public void Awake()
         {
@@ -37,6 +40,15 @@ namespace Orpheus.Core.Rings
                 return rings[rings.IndexOf(currentRing) + 1];
             }
             return default;
+        }
+
+        public void OnTriggerEnter(Collider other)
+        {
+            PlayerOrbitalController target = other.GetComponent<PlayerOrbitalController>();
+            if (target != null)
+            {
+                GameManager.Instance.SwapFloor(this);
+            }
         }
     }
 }

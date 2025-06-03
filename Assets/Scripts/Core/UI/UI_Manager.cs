@@ -14,6 +14,8 @@ namespace Orpheus.Core.UI
         
         [field:SerializeField]
         private GameObject UI_HUB;
+        [field:SerializeField]
+        private GameObject UI_DeathScreen;
         
         [field:SerializeField]
         private Text  money;
@@ -68,7 +70,7 @@ namespace Orpheus.Core.UI
 
         private void OnPlayerDeath()
         {
-            OpenHUB();
+            UI_DeathScreen.SetActive(true);
         }
 
         public void OpenHUB()

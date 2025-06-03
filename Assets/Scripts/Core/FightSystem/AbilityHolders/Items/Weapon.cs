@@ -21,9 +21,10 @@ namespace Orpheus.Core.FightSystem.AbilityHolders.Items
             {
                 skills.Add(skill.GenerateAbility(caster));
             }
-            foreach (var skill in skills)
+
+            for (int i = 0; i < skills.Count; i++)
             {
-                caster.AddSkill(skill);
+                caster.AddSkill(skills[i],i);
             }
         }
         

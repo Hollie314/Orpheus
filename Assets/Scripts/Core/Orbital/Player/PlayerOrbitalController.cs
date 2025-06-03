@@ -34,11 +34,10 @@ namespace Orpheus.Core.Orbital.Player
         public Animator Animator { get; set; }
         
         //Event for conditions
-        public event Action<bool> Skill1;
-        public event Action<bool> Skill2;
         public event Action<bool> Death;
         public event Action<bool> Chase;
-        
+        public event Action<bool, int> Attaque;
+
         protected override void Awake()
         {
             base.Awake();
@@ -60,6 +59,7 @@ namespace Orpheus.Core.Orbital.Player
         {
             Stats.setStat(FloatStats.Hp, Stats.getStat(FloatStats.HpMax));
             IsDead = false;
+            Animator.SetBool("IsDead",false);
         }
 
         protected override void FixedUpdate()
@@ -120,9 +120,9 @@ namespace Orpheus.Core.Orbital.Player
             if (!IsDead)
             {
                 IsDead = true;
-                Animator.SetTrigger("mort");
+                Animator.SetBool("IsDead",true);
                 Death?.Invoke(true);
-                StartCoroutine(CallAfterDelay(2,caster,damageType));
+                StartCoroutine(CallAfterDelay(1,caster,damageType));
             }
         }
         
@@ -132,10 +132,10 @@ namespace Orpheus.Core.Orbital.Player
             GameManager.Instance.OnPlayerDeath(damageType,caster.Team);
         }
         
-        public void AddSkill(Skill skill)
+        public void AddSkill(Skill skill, int index)
         {
             skills.Add(skill);
-            skill.Initialize();
+            skill.Initialize(index);
         }
 
         public void RemoveSkill(Skill skill)
@@ -157,14 +157,21 @@ namespace Orpheus.Core.Orbital.Player
             return null;
         }
 
+        public void SetAnimatorTrigger(string triggerName)
+        {
+            Animator.SetTrigger(triggerName);
+        }
+
         public void OnSkill1(InputAction.CallbackContext obj)
         {
             Animator.SetInteger("abilityIndex",0);
             switch (obj.phase)
             {
-                case InputActionPhase.Performed : Skill1?.Invoke(true);
+                case InputActionPhase.Performed : 
+                    Attaque?.Invoke(true, 0);
                     break;
-                case InputActionPhase.Canceled : Skill1?.Invoke(false);
+                case InputActionPhase.Canceled : 
+                    Attaque?.Invoke(false, 0);
                     break;
                 default:
                     break;
@@ -176,9 +183,11 @@ namespace Orpheus.Core.Orbital.Player
             Animator.SetInteger("abilityIndex",1);
             switch (obj.phase)
             {
-                case InputActionPhase.Performed : Skill2?.Invoke(true);
+                case InputActionPhase.Performed :
+                    Attaque?.Invoke(true, 1);
                     break;
-                case InputActionPhase.Canceled : Skill2?.Invoke(false);
+                case InputActionPhase.Canceled : 
+                    Attaque?.Invoke(false, 1);
                     break;
                 default:
                     break;
@@ -189,7 +198,9 @@ namespace Orpheus.Core.Orbital.Player
             return this.transform;
         }
 
-        
+
+        public int AttaqueIndex { get; }
+
         public void OnConditionReached()
         {
             

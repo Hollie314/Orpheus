@@ -39,8 +39,8 @@ namespace Orpheus.Core.Rings
             float angle = GetAngle(position); //get actual angle
             angle += speed.x; //calculate new angle based on speed
             Vector3 positionFromAngle = OrbitalMath.GetPositionFromAngle(this.transform.position, RingData.Radius, angle);
-            Vector3 verticalPosition = new Vector3(0,position.y + speed.y,0); // Vertical position
-            return positionFromAngle+verticalPosition; //calculate new position
+            positionFromAngle.y = position.y + speed.y;// Vertical position
+            return positionFromAngle; //calculate new position
         }
 
         public Vector3 ClampToRing(Vector3 position)
