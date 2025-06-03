@@ -25,10 +25,13 @@ namespace Orpheus.Core
         public List<Skill> skills { get;private set; }
         
         public event Action<bool> Chase;
+        public event Action<bool, int> Attaque;
         public event Action<bool> Skill1;
         public event Action<bool> Skill2;
         public event Action<bool> Death;
-       
+
+        public int AttaqueIndex { get; }
+
         public void OnConditionReached()
         {
             
@@ -58,7 +61,7 @@ namespace Orpheus.Core
             rangeTrigger.OnEnterRange -= OnEnter;
         }
         
-        public void AddSkill(Skill skill)
+        public void AddSkill(Skill skill, int i)
         {
             
         }

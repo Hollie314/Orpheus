@@ -69,7 +69,8 @@ namespace Orpheus.Core
         Skill1,
         Skill2,
         Chase,
-        Death
+        Death,
+        Attaque
     }
 
     public enum BiomeName

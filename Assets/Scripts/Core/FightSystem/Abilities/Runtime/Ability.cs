@@ -216,7 +216,6 @@ namespace Orpheus.Core.FightSystem.Runtime
 
         public virtual void Init()
         {
-            Debug.Log("ability start !");
             isRunning = false;
             CurrentFireCount = 0;
             CurrentLifetime = 0;

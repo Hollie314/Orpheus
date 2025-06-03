@@ -6,12 +6,10 @@ namespace Orpheus.Core.FightSystem.Conditions.Interface
 {
     public interface IConditionUser
     {
-        public event Action<bool> Skill1;
-        public event Action<bool> Skill2;
         public event Action<bool> Death;
         public event Action<bool> Chase;
-        public Ring CurrentRing { get; }
-        
+        public event Action<bool,int> Attaque;
+        public int AttaqueIndex{ get; }
         public void OnConditionReached();
         public void SetAnimator(String action);
         public Transform GetTransform();

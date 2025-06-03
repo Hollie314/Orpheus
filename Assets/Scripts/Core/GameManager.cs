@@ -28,11 +28,12 @@ namespace Orpheus.Core
         
         //related to the room generation
         [SerializeField] private Floor currentFloor;
-        [field :SerializeField] private FloorData floorData;
+        [field :SerializeField] private FloorData[] floorData;
         [field :SerializeField] private BiomeName currentBiomeName;
         private List<GameObject> enemiesSpawn;
         private List<GameObject> trapSpawns;
         private List<GameObject> listOfChildren;
+        [field :SerializeField] private List<Floor> floors;
         
         //related to the room
         private List<AI_Entities> enemiesToKill;
@@ -117,41 +118,44 @@ namespace Orpheus.Core
         {
             enemiesToKill.Clear();
             HidePlayer();
-            int ringIndex = 0;
-            
-            //we do this for all ring size
-            foreach (var ring in currentFloor.rings)
+            foreach (var floor in floors)
             {
-                //clearing the list of spawn 
-                enemiesSpawn.Clear();
-                
-                //destroy old ring body and set new ring
-                DestroyRingChild(ring);
-                GameObject ringAvatar = GetRandomeRing(ring);
-                GameObject spawnRing = SpawnRing(ringAvatar, ring.transform);
-                
-                //now we will get all spawn in this ring
-                listOfChildren.Clear();
-                GetChildRecursive(spawnRing);
-                foreach (var child in listOfChildren)
+                int ringIndex = 0;
+            
+                //we do this for all ring size
+                foreach (var ring in floor.rings)
                 {
-                    if (child.name == "Spawn_Enemies")
+                    //clearing the list of spawn 
+                    enemiesSpawn.Clear();
+                
+                    //destroy old ring body and set new random ring
+                    DestroyRingChild(ring);
+                    GameObject ringAvatar = GetRandomeRing(ring);
+                    GameObject spawnRing = SpawnRing(ringAvatar, ring.transform);
+                
+                    //now we will get all spawn in this ring
+                    listOfChildren.Clear();
+                    GetChildRecursive(spawnRing);
+                    foreach (var child in listOfChildren)
                     {
-                        enemiesSpawn.Add(child.gameObject);
+                        if (child.name == "Spawn_Enemies")
+                        {
+                            enemiesSpawn.Add(child.gameObject);
+                        }
                     }
-                }
-                // now we will get a few random spawn 
-                if (enemiesSpawn.Count > 0)
-                {
-                    int lenght = enemiesSpawn.Count/Mathf.CeilToInt((4f - difficulty) * 0.5f);
-                    for (int i = 0; i < lenght; i++)
+                    // now we will get a few random spawn 
+                    if (enemiesSpawn.Count > 0)
                     {
-                        GameObject spawn = GetRandomSpawn();
-                        SpawnEnemies(ringIndex,spawn);
-                        enemiesSpawn.Remove(spawn);
+                        int lenght = enemiesSpawn.Count/Mathf.CeilToInt((4f - difficulty) * 0.5f);
+                        for (int i = 0; i < lenght; i++)
+                        {
+                            GameObject spawn = GetRandomSpawn();
+                            SpawnEnemies(ringIndex,spawn, floor);
+                            enemiesSpawn.Remove(spawn);
+                        }
                     }
+                    ringIndex++;
                 }
-                ringIndex++;
             }
             SetPlayerOnRing(currentFloor.rings[0]);
         }
@@ -194,10 +198,12 @@ namespace Orpheus.Core
             RingVariantData variant = ring.RingData.Avatar[random];
             return variant.GetVariant(currentBiomeName);
         }
-        private void SpawnEnemies(int ringIndex, GameObject spawn)
+        private void SpawnEnemies(int ringIndex, GameObject spawn, Floor floor)
         {
             GameObject enemyObject = Instantiate(GetRandomEnemie(), spawn.transform);
-            enemyObject.GetComponent<AI_Entities>().SetRing(currentFloor.rings[ringIndex]);
+            enemyObject.GetComponent<AI_Entities>().SetRing(floor.rings[ringIndex]);
+            enemyObject.transform.localPosition = Vector3.zero;
+            enemyObject.transform.localRotation = Quaternion.identity;
             enemiesToKill.Add(enemyObject.GetComponent<AI_Entities>());
         }
 
@@ -223,6 +229,28 @@ namespace Orpheus.Core
             }
         }
 
+        public void SwapFloor(Floor floor)
+        {
+            if (floors.Contains(floor))
+            {
+                currentFloor = floor;
+                SetPlayerOnRing(GetRingOfSameSize(floor, player.CurrentRing));
+                Debug.Log("new floor");
+            }
+        }
+
+        private Ring GetRingOfSameSize(Floor floor, Ring currentring)
+        {
+            foreach (var ring in floor.rings)
+            {
+                if (currentring.RingData.Size == ring.RingData.Size)
+                {
+                    return ring;
+                }
+            }
+            return floor.rings[0];
+        }
+
         public void SwapWeapon(int index)
         {
             if (0 <= index && index < weapons.Count)
@@ -244,7 +272,7 @@ namespace Orpheus.Core
         {
             Vector3 ringPosition = ring.transform.position;
             //player.transform.Translate(new Vector3(ringPosition.x + ring.RingData.Radius, ringPosition.y+1, ringPosition.z));
-            player.transform.position = new Vector3(ringPosition.x + ring.RingData.Radius, ringPosition.y+1, ringPosition.z);
+            //player.transform.position = new Vector3(ringPosition.x + ring.RingData.Radius, ringPosition.y+1, ringPosition.z);
             player.SetRing(ring);
         }
 

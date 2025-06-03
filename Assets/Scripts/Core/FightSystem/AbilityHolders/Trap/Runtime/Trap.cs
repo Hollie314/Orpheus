@@ -24,6 +24,7 @@ namespace Orpheus.Core.FightSystem.Trap
         public float Direction { get;private set; }
         public TargetTeam Team { get; private set; } = TargetTeam.Trap;
         public event Action<bool> Chase;
+        public event Action<bool, int> Attaque;
         public Ring CurrentRing { get; private set; }
         
 
@@ -54,7 +55,7 @@ namespace Orpheus.Core.FightSystem.Trap
         {
             for (int i = 0; i < skillDatas.Length; i++)
             {
-                AddSkill(skillDatas[i].GenerateAbility(this));
+                AddSkill(skillDatas[i].GenerateAbility(this),i);
             }
             
             rangeTrigger.OnEnterRange += OnEnter;
@@ -80,10 +81,10 @@ namespace Orpheus.Core.FightSystem.Trap
             CastDirection = transform.forward;
         }
 
-        public void AddSkill(Skill skill)
+        public void AddSkill(Skill skill, int index)
         {
             skills.Add(skill);
-            skill.Initialize();
+            skill.Initialize(index);
         }
 
         public void RemoveSkill(Skill skill)
@@ -105,7 +106,9 @@ namespace Orpheus.Core.FightSystem.Trap
         {
             return this.transform;
         }
-        
+
+        public int AttaqueIndex { get; }
+
         public void OnConditionReached()
         {
             

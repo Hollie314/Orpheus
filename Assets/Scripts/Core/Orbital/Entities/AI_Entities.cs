@@ -32,13 +32,13 @@ namespace Orpheus.Core.Orbital.Entities
         public PlayerOrbitalController player { get;private set; }
         [field:SerializeField, BoxGroup("Enemy")]
         public Animator Animator { get; set; }
+        public int AttaqueIndex { get;private set; }
         
         //Condition
-        public event Action<bool> Skill1;
-        public event Action<bool> Skill2;
         public event Action<bool> Death;
         public event Action<bool> Chase;
-        
+        public event Action<bool, int> Attaque;
+
 
         private bool IsDead;
 
@@ -59,7 +59,7 @@ namespace Orpheus.Core.Orbital.Entities
             }
             for (int i = 0; i < skillDatas.Length; i++)
             {
-                AddSkill(skillDatas[i].GenerateAbility(this));
+                AddSkill(skillDatas[i].GenerateAbility(this),i);
             }
         }
 
@@ -132,10 +132,10 @@ namespace Orpheus.Core.Orbital.Entities
             Animator.SetBool("IsGrounded",IsGrounded); 
         }
         
-        public void AddSkill(Skill skill)
+        public void AddSkill(Skill skill, int index)
         {
             skills.Add(skill);
-            skill.Initialize();
+            skill.Initialize(index);
         }
 
         public void RemoveSkill(Skill skill)
@@ -250,7 +250,9 @@ namespace Orpheus.Core.Orbital.Entities
         {
             return this.transform;
         }
-       
+
+        
+
         public void OnConditionReached()
         {
            

@@ -18,7 +18,7 @@ namespace Orpheus.Core.FightSystem
         public List<Skill> skills { get; }
         public Animator Animator { get; }
 
-        public void AddSkill(Skill skill);
+        public void AddSkill(Skill skill, int index);
         public void RemoveSkill(Skill skill);
         public Vector3 GetAim();
         public IAbilityTarget GetTarget();
