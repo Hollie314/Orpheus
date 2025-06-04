@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1d7a58ff8284b9f86771560df74b44d, type: 3}
+  m_Name: Harpi_Skill_1_AbilityDash
+  m_EditorClassIdentifier: 
+  <CastDuration>k__BackingField: 0
+  <FireCount>k__BackingField: 1
+  <FireDuration>k__BackingField: 0.5
+  <HitInterval>k__BackingField: 0.2
+  <RecoilDuration>k__BackingField: 0
+  <DamageOtherTeam>k__BackingField: 1
+  <DamageSameTeam>k__BackingField: 0
+  <FlatDamage>k__BackingField: 0
+  <PercentDamage>k__BackingField: 0
+  <DamageStat>k__BackingField: 0
+  <DamageType>k__BackingField: 0
+  <HealOtherTeam>k__BackingField: 0
+  <HealSameTeam>k__BackingField: 1
+  <FlatHeal>k__BackingField: 0
+  <PercentHealCurrentHp>k__BackingField: 20
+  <PercentHealMaxHp>k__BackingField: 0
+  Cast_VFX: []
+  Fire_VFX: []
+  Recoil_VFX: []
+  Castmovement: {fileID: 0}
+  Firemovement: {fileID: 11400000, guid: 3da727d7b5db8204490075f1b6326356, type: 2}
+  FiremovementDuration: 5
+  xoffset: 0
+  yoffset: 0
+  zoffset: 0
+  projectile: {fileID: 0}
